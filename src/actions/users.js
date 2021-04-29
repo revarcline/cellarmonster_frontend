@@ -9,7 +9,7 @@ export const getUsers = () => {
       headers: {},
     }).then((res) => {
       if (res.ok) {
-        return res.json().then((users) => dispatch({ type: ADD_USERS, users: users }));
+        return res.json().then((json) => dispatch({ type: ADD_USERS, users: json.data }));
       } else {
         return res.json().then((errors) => {
           return Promise.reject(errors);
