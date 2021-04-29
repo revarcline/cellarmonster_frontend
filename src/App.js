@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
-import NewUser from './components/auth/NewUser.js';
+import NewUser from './components/auth/NewUser';
+import LoginMenu from './components/auth/LoginMenu';
 import './App.css';
 
 function App() {
@@ -13,7 +14,7 @@ function App() {
           </Col>
           <Col>
             <Card>
-              <h1>Two columns!</h1>
+              <LoginMenu />
             </Card>
           </Col>
         </Row>

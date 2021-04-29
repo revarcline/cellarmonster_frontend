@@ -28,8 +28,8 @@ class LoginCard extends React.Component {
   render() {
     return (
       <Card body>
-        <Card.Title></Card.Title>
-        <Card.Subtitle></Card.Subtitle>
+        <Card.Title>{this.props.name}</Card.Title>
+        <Card.Subtitle>{this.props.role}</Card.Subtitle>
         <Form>
           <Form.Group>
             <Form.Label>Passcode</Form.Label>
@@ -40,7 +40,9 @@ class LoginCard extends React.Component {
               onChange={this.handleChange}
             />
           </Form.Group>
-          <Button type="submit">Log In</Button>
+          <Button type="submit" onSubmit={this.handleSubmit}>
+            Log In
+          </Button>
         </Form>
       </Card>
     );

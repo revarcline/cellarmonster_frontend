@@ -4,5 +4,5 @@ import usersReducer from './users';
 
 export default combineReducers({
   auth: authReducer,
-  users: usersReducer,
+  usersList: usersReducer,
 });
