@@ -3,7 +3,7 @@ import NewUser from './components/auth/NewUser.js';
 import './App.css';
 
 function App() {
-  return <NewUser />;
+  return <div>app!</div>;
 }
 
 export default App;
