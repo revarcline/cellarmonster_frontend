@@ -9,13 +9,14 @@ module.exports = {
     node: true,
     browser: true,
   },
+  parser: '@babel/eslint-parser',
   parserOptions: {
-    ecmaVersion: 8,
+    ecmaVersion: 12,
     sourceType: 'module',
     allowImportExportEverywhere: true,
     ecmaFeatures: {
       jsx: true,
-      modules: true
+      modules: true,
     },
   },
   ignorePatterns: ['/node_modules/**', '/build/**'],
@@ -25,8 +26,9 @@ module.exports = {
     'react/prop-types': 'off',
     'no-console': 'warn',
     'no-debugger': 'warn',
-    'quotes': [2, 'single']
-  },  settings: {
+    quotes: [2, 'single'],
+  },
+  settings: {
     react: {
       version: 'detect',
     },
