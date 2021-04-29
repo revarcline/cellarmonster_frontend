@@ -15,6 +15,25 @@ const getToken = (token) => {
   }
 };
 
+// get user list for login splash and admin user edit
+export const getUsers = () => {
+  return (dispatch) => {
+    return fetch(`${apiRoot}/users`, {
+      method: 'GET',
+      headers: {},
+    }).then((res) => {
+      if (res.ok) {
+        return res.json().then((users) => dispatch({ type: 'USERS', payload: users }));
+      } else {
+        return res.json().then((errors) => {
+          dispatch({ type: 'ERROR' });
+          return Promise.reject(errors);
+        });
+      }
+    });
+  };
+};
+
 export const signupUser = (credentials) => {
   return (dispatch) => {
     return fetch(`${apiRoot}/signup`, {
