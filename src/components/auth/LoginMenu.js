@@ -10,15 +10,9 @@ class LoginMenu extends React.Component {
   }
 
   generateCards = () => {
-    return this.props.users.map((user) => {
-      return (
-        <LoginCard
-          email={user.attributes.email}
-          name={user.attributes.name}
-          role={user.attributes.role}
-          key={user.id}
-        />
-      );
+    return this.props.users.map(({ attributes: { email, name, role, id } }) => {
+      const capsRole = role.charAt(0).toUpperCase() + role.slice(1);
+      return <LoginCard email={email} name={name} role={capsRole} key={id} />;
     });
   };
 
