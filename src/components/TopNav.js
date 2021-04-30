@@ -4,7 +4,7 @@ import { Navbar, Nav, Container } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import Logout from './auth/Logout';
 
-const Topnav = ({ authChecked, loggedIn, currentUser }) => {
+const TopNav = ({ authChecked, loggedIn, currentUser }) => {
   return (
     <Navbar variant="dark" bg="dark">
       <Container fluid>
@@ -18,12 +18,7 @@ const Topnav = ({ authChecked, loggedIn, currentUser }) => {
               </LinkContainer>
             </Nav.Item>
             <Nav.Item>
-              <LinkContainer exact to="/protected-route">
-                <Nav.Link>Protected</Nav.Link>
-              </LinkContainer>
-            </Nav.Item>
-            <Nav.Item>
-              <LinkContainer exact to="/protected-route">
+              <LinkContainer to="/protected-route">
                 <Nav.Link>Protected</Nav.Link>
               </LinkContainer>
             </Nav.Item>
@@ -39,4 +34,4 @@ const mapStateToProps = ({ auth: { authChecked, loggedIn, currentUser } }) => {
   return { authChecked, loggedIn, currentUser };
 };
 
-export default connect(mapStateToProps)(Topnav);
+export default connect(mapStateToProps)(TopNav);
