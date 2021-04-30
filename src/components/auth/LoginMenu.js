@@ -37,8 +37,10 @@ class LoginMenu extends React.Component {
   render() {
     return (
       <Container fluid className="pt-3">
-        <Row>
-          <Col>{this.handleLoading()}</Col>
+        <Row className="justify-content-md-center">
+          <Col xs md="8" sm="10" lg="6">
+            {this.handleLoading()}
+          </Col>
         </Row>
       </Container>
     );

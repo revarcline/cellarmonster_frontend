@@ -22,6 +22,11 @@ const TopNav = ({ authChecked, loggedIn, currentUser }) => {
                 <Nav.Link>Protected</Nav.Link>
               </LinkContainer>
             </Nav.Item>
+            <Nav.Item>
+              <LinkContainer to="/users/new">
+                <Nav.Link>New User</Nav.Link>
+              </LinkContainer>
+            </Nav.Item>
           </Nav>
           <Logout />
         </Navbar.Collapse>

@@ -25,6 +25,7 @@ export const signupUser = (credentials) => {
       },
       body: JSON.stringify({ user: credentials }),
     }).then((res) => {
+      console.log(res);
       if (res.ok) {
         setToken(res.headers.get('Authorization'));
         return res.json().then((userJson) => dispatch({ type: AUTHENTICATED, payload: userJson }));
@@ -76,8 +77,26 @@ export const logoutUser = () => {
       } else {
         return res.json().then((errors) => {
           dispatch({ type: NOT_AUTHENTICATED });
-          return Promise.reject(error);
+          return Promise.reject(errors);
         });
+      }
+    });
+  };
+};
+
+export const checkAuth = () => {
+  return (dispatch) => {
+    return fetch(`${apiRoot}/current_user`, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: getToken(),
+      },
+    }).then((res) => {
+      if (res.ok) {
+        return res.json().then((user) => dispatch({ type: AUTHENTICATED, payload: user }));
+      } else {
+        return Promise.reject(dispatch({ type: NOT_AUTHENTICATED }));
       }
     });
   };

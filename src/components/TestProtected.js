@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Container, Row, Col } from 'react-bootstrap';
 
 const TestProtected = (props) => {
@@ -13,4 +14,4 @@ const TestProtected = (props) => {
   );
 };
 
-export default TestProtected;
+export default connect()(TestProtected);
