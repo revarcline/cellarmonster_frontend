@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions/auth';
-import { Card, Form, Button, Collapse } from 'react-bootstrap';
+import { Card, Form, Button, Collapse, Container } from 'react-bootstrap';
 
 class LoginCard extends React.Component {
   state = {
@@ -32,30 +32,32 @@ class LoginCard extends React.Component {
 
   render() {
     return (
-      <Card body>
-        <div onClick={this.setOpen} aria-controls="collapse-form">
-          <Card.Title>{this.props.name}</Card.Title>
-          <Card.Subtitle>{this.props.role}</Card.Subtitle>
-        </div>
-        <Collapse in={this.state.open}>
-          <Form onSubmit={this.handleSubmit} id="collapse-form" inline>
-            <Form.Label htmlFor="password" sronly="true">
-              Passcode
-            </Form.Label>
-            <Form.Control
-              className="mb-2 mr-sm-2"
-              id="password"
-              type="password"
-              placeholder="Passcode"
-              name="password"
-              onChange={this.handleChange}
-            />
-            <Button type="submit" className="mb-2">
-              Log In
-            </Button>
-          </Form>
-        </Collapse>
-      </Card>
+      <Container fluid className="pt-3">
+        <Card body>
+          <div onClick={this.setOpen} aria-controls="collapse-form">
+            <Card.Title>{this.props.name}</Card.Title>
+            <Card.Subtitle>{this.props.role}</Card.Subtitle>
+          </div>
+          <Collapse in={this.state.open}>
+            <Form onSubmit={this.handleSubmit} id="collapse-form" inline>
+              <Form.Label htmlFor="password" sronly="true">
+                Passcode
+              </Form.Label>
+              <Form.Control
+                className="mb-2 mr-sm-2"
+                id="password"
+                type="password"
+                placeholder="Passcode"
+                name="password"
+                onChange={this.handleChange}
+              />
+              <Button type="submit" className="mb-2">
+                Log In
+              </Button>
+            </Form>
+          </Collapse>
+        </Card>
+      </Container>
     );
   }
 }

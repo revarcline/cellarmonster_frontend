@@ -29,7 +29,7 @@ class NewUser extends React.Component {
 
   render() {
     return (
-      <Container fluid>
+      <Container className="pt-3" fluid>
         <Form onSubmit={this.handleSubmit}>
           <h1>Sign Up</h1>
           <Form.Group>

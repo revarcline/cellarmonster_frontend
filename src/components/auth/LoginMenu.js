@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getUsers } from '../../actions/users';
 import LoginCard from './LoginCard';
-import { Spinner } from 'react-bootstrap';
+import { Spinner, Container, Row, Col } from 'react-bootstrap';
 
 class LoginMenu extends React.Component {
   componentDidMount() {
@@ -35,7 +35,13 @@ class LoginMenu extends React.Component {
   };
 
   render() {
-    return <div>{this.handleLoading()}</div>;
+    return (
+      <Container fluid className="pt-3">
+        <Row>
+          <Col>{this.handleLoading()}</Col>
+        </Row>
+      </Container>
+    );
   }
 }
 

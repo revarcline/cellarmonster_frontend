@@ -8,7 +8,7 @@ const Logout = ({ dispatchLogoutUser }) => {
   const history = useHistory();
 
   const handleClick = () => {
-    dispatchLogoutUser.then(() => history.push('/'));
+    dispatchLogoutUser().then(() => history.push('/'));
   };
 
   return <Button onClick={handleClick}>Logout</Button>;
