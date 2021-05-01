@@ -4,6 +4,8 @@ import { LOADING_BOTTLES, GET_BOTTLES } from '.';
 export const getBottles = (by = 'bottles', query) => {
   return (dispatch) => {
     dispatch({ type: LOADING_BOTTLES });
+    // default: /bottles
+    // example: /producers/jadot
     return fetch(`${apiRoot}/${by}${query ? '/' + query : ''}`, {
       method: 'GET',
       headers: {},

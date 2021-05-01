@@ -16,6 +16,7 @@ function App() {
           <Route exact path="/" component={LoginMenu} />
           <Route path="/protected-route" component={withAuth(TestProtected)} />
           <Route path="/users/new" component={NewUser} />
+          <Route path="/bottles" component={BottleList} />
         </Switch>
       </Router>
     </div>
