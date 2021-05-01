@@ -1,4 +1,6 @@
 export const AUTHENTICATED = 'AUTHENTICATED';
 export const NOT_AUTHENTICATED = 'NOT_AUTHENTICATED';
 export const LOADING_USERS = 'LOADING_USERS';
-export const ADD_USERS = 'ADD_USERS';
+export const GET_USERS = 'GET_USERS';
+export const LOADING_BOTTLES = 'LOADING_BOTTLES';
+export const GET_BOTTLES = 'GET_BOTTLES';

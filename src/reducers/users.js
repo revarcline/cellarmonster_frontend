@@ -1,4 +1,4 @@
-import { LOADING_USERS, ADD_USERS } from '../actions/';
+import { LOADING_USERS, GET_USERS } from '../actions/';
 
 const usersReducer = (state = { users: [], loading: false }, action) => {
   switch (action.type) {
@@ -8,7 +8,7 @@ const usersReducer = (state = { users: [], loading: false }, action) => {
         users: [...state.users],
         loading: true,
       };
-    case ADD_USERS:
+    case GET_USERS:
       return {
         ...state,
         users: action.users,

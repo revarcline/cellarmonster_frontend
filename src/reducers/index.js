@@ -5,4 +5,5 @@ import usersReducer from './users';
 export default combineReducers({
   auth: authReducer,
   usersList: usersReducer,
+  bottles: bottlesReducer,
 });
