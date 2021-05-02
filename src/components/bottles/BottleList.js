@@ -39,6 +39,7 @@ class BottleList extends React.Component {
         return (
           <BottleCard
             key={id}
+            id={id}
             country={country}
             color={color}
             sparkling={sparkling}
