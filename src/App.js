@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import LoginMenu from './components/auth/LoginMenu';
 import NewUser from './components/auth/NewUser';
+import BottleList from './components/bottles/BottleList';
 import TopNav from './components/TopNav';
 import TestProtected from './components/TestProtected';
 import withAuth from './components/auth/withAuth';

@@ -6,28 +6,34 @@ import { Container, Row, Col, Spinner } from 'react-bootstrap';
 
 class BottleList extends React.Component {
   componentDidMount() {
-    this.props.getBottles(props.by, props.query);
+    /*const by = this.props.by ? this.props.by : null;*/
+    /*const query = this.props.query ? this.props.by : null;*/
+    /*need to figure out how to send params to action*/
+    this.props.getBottles();
   }
 
   generateCards = () => {
-    return this.props.bottles.map(
+    return this.props.bottles.bottles.map(
       ({
         id,
-        country,
-        color,
-        sparkling,
-        price,
-        vintage,
-        appellation,
-        producer,
-        name,
-        notes,
-        sku,
-        inventory,
-        total_sold,
-        format,
-        region,
-        varietals,
+        attributes: {
+          country,
+          color,
+          sparkling,
+          price,
+          vintage,
+          appellation,
+          producer,
+          name,
+          notes,
+          sku,
+          inventory,
+          total_sold,
+          format,
+          bins,
+          region,
+          varietals,
+        },
       }) => {
         // any other data handling i need
         return (
@@ -46,6 +52,7 @@ class BottleList extends React.Component {
             inventory={inventory}
             total_sold={total_sold}
             format={format}
+            bins={bins}
             region={region}
             varietals={varietals}
           />
@@ -66,12 +73,6 @@ class BottleList extends React.Component {
     }
   };
 
-  generateCards = () => {
-    return this.props.bottles.map(() => {
-      return <BottleCard key={bottle.id} />;
-    });
-  };
-
   render() {
     return (
       <Container fluid className="pt-3">
@@ -87,7 +88,7 @@ class BottleList extends React.Component {
 
 const mapDispatchToProps = (state) => {
   return {
-    bottles: state.bottles.bottles,
+    bottles: state.bottles,
     loading: state.loading,
   };
 };

@@ -1,6 +1,6 @@
-import { LOADING_BOTTLES, GET_BOTTLES } from '.';
+import { LOADING_BOTTLES, GET_BOTTLES } from '../actions/';
 
-const bottlesReducer = (state = { users: [], loading: false }, action) => {
+const bottlesReducer = (state = { bottles: [], loading: false }, action) => {
   switch (action.type) {
     case LOADING_BOTTLES:
       return {

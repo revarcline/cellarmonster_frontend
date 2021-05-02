@@ -6,7 +6,7 @@ import Logout from './auth/Logout';
 
 const TopNav = ({ authChecked, loggedIn, currentUser }) => {
   return (
-    <Navbar variant="dark" bg="dark">
+    <Navbar variant="dark" bg="dark" sticky="top">
       <Container fluid>
         <Navbar.Brand>cellarmonster</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbar-nav" />
