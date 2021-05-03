@@ -6,8 +6,8 @@ const setToken = (token) => {
   localStorage.setItem('lastLoginTime', new Date(Date.now()).getTime());
 };
 
-const getToken = (token) => {
-  const now = new Date(Date.now()).getTime;
+const getToken = () => {
+  const now = new Date(Date.now()).getTime();
   const thirtyMinutes = 1000 * 60 * 30;
   const timeSinceLastLogin = now - localStorage.getItem('lastLoginTime');
   if (timeSinceLastLogin < thirtyMinutes) {
@@ -85,6 +85,7 @@ export const logoutUser = () => {
 
 export const checkAuth = () => {
   return (dispatch) => {
+    console.log(getToken());
     return fetch(`${apiRoot}/current_user`, {
       headers: {
         Accept: 'application/json',
@@ -93,6 +94,7 @@ export const checkAuth = () => {
       },
     }).then((res) => {
       if (res.ok) {
+        console.log(res);
         return res.json().then((user) => dispatch({ type: AUTHENTICATED, payload: user }));
       } else {
         return Promise.reject(dispatch({ type: NOT_AUTHENTICATED }));

@@ -4,3 +4,4 @@ export const LOADING_USERS = 'LOADING_USERS';
 export const GET_USERS = 'GET_USERS';
 export const LOADING_BOTTLES = 'LOADING_BOTTLES';
 export const GET_BOTTLES = 'GET_BOTTLES';
+export const CHANGE_BOTTLES = 'CHANGE_BOTTLES';

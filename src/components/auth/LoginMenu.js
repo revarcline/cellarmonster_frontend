@@ -18,11 +18,7 @@ class LoginMenu extends React.Component {
 
   handleLoading = () => {
     if (this.props.loading) {
-      return (
-        <Spinner animation="border" role="status">
-          <span className="sr-only">Loading...</span>
-        </Spinner>
-      );
+      return <Spinner animation="border" role="status" />;
     } else {
       return this.generateCards();
     }

@@ -1,7 +1,16 @@
-import { LOADING_BOTTLES, GET_BOTTLES } from '../actions/';
+import { LOADING_BOTTLES, GET_BOTTLES, CHANGE_BOTTLES } from '../actions/';
 
-const bottlesReducer = (state = { bottles: [], loading: false }, action) => {
+const bottlesReducer = (
+  state = { bottles: [], loading: false, resource: '', by: 'bottles', query: '' },
+  action,
+) => {
   switch (action.type) {
+    case CHANGE_BOTTLES:
+      return {
+        ...state,
+        by: action.by,
+        query: action.query,
+      };
     case LOADING_BOTTLES:
       return {
         ...state,
@@ -12,6 +21,7 @@ const bottlesReducer = (state = { bottles: [], loading: false }, action) => {
       return {
         ...state,
         bottles: action.bottles,
+        resource: action.resource,
         loading: false,
       };
     default:

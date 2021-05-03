@@ -19,7 +19,7 @@ const BottleCard = (props) => {
     return props.bins.map((bin) => {
       return (
         <span key={`bin-${bin.id}`}>
-          <Link to={`/bin/${bin.id}`}>{bin.location}</Link>{' '}
+          <Link to={`/bin/${bin.location}`}>{bin.location}</Link>{' '}
         </span>
       );
     });
