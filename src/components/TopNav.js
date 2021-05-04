@@ -27,13 +27,11 @@ const TopNav = ({ authChecked, loggedIn, currentUser }) => {
                 <Nav.Link>New User</Nav.Link>
               </LinkContainer>
             </Nav.Item>
-
             <Nav.Item>
               <LinkContainer to="/bottles">
                 <Nav.Link>bottle</Nav.Link>
               </LinkContainer>
             </Nav.Item>
-
             <Nav.Item>
               <LinkContainer to="/search_chard">
                 <Nav.Link>chardonnay</Nav.Link>

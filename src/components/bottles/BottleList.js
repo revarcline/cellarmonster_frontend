@@ -1,13 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getBottles, changeBottles } from '../../actions/bottles';
+import { getBottles } from '../../actions/bottles';
 import BottleCard from './BottleCard';
 import { Container, Row, Col, Spinner } from 'react-bootstrap';
 
 class BottleList extends React.Component {
   constructor(props) {
     super(props);
-    this.props.changeBottles;
+  }
+
+  componentDidMount() {
     this.props.getBottles;
   }
 
@@ -109,8 +111,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    changeBottles: dispatch(changeBottles(ownProps.by, ownProps.query)),
-    getBottles: dispatch(getBottles()),
+    getBottles: dispatch(getBottles(ownProps.by, ownProps.query)),
   };
 };
 
