@@ -5,15 +5,8 @@ import BottleCard from './BottleCard';
 import { Container, Row, Col, Spinner } from 'react-bootstrap';
 
 class BottleList extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  componentDidMount() {
-    this.props.getBottles;
-  }
-
   generateCards = () => {
+    this.props.getBottles;
     console.log(this.props);
 
     if (this.props.bottles.bottles.length === 0) {

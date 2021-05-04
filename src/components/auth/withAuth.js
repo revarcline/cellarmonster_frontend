@@ -12,11 +12,7 @@ const withAuth = (WrappedComponent) => {
 
     render() {
       if (!this.props.authChecked) {
-        return (
-          <Spinner animation="border" role="status">
-            <span className="sr-only">Loading...</span>
-          </Spinner>
-        );
+        return <Spinner animation="border" role="status" />;
       } else if (!this.props.loggedIn) {
         return (
           <>

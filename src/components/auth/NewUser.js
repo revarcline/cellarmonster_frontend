@@ -33,7 +33,7 @@ class NewUser extends React.Component {
         <Row className="justify-content-md-center">
           <Col xs md="8" sm="10" lg="6">
             <Form onSubmit={this.handleSubmit}>
-              <h1>Sign Up</h1>
+              <h1>Create a New User</h1>
               <Form.Group>
                 <Form.Label htmlFor="email">Email:</Form.Label>
                 <Form.Control

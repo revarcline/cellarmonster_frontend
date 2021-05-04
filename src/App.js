@@ -16,16 +16,8 @@ function App() {
         <Switch>
           <Route exact path="/" component={LoginMenu} />
           <Route path="/protected-route" component={withAuth(TestProtected)} />
-          <Route path="/users/new" component={NewUser} />
-          <Route path="/bottles">
-            <BottleList by="bottles" query="" />
-          </Route>
-          <Route path="/search_chard">
-            <BottleList by="search" query="chardonnay" />
-          </Route>
-          <Route path="/search_pinot">
-            <BottleList by="search" query="pinot noir" />
-          </Route>
+          <Route path="/users/new" component={withAuth(NewUser)} />
+          <Route path="/bottles" component={withAuth(BottleList)} />
         </Switch>
       </Router>
     </div>

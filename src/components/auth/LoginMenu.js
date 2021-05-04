@@ -7,9 +7,11 @@ import { Spinner, Container, Row, Col } from 'react-bootstrap';
 class LoginMenu extends React.Component {
   componentDidMount() {
     this.props.getUsers();
+    console.log(this.props);
   }
 
   generateCards = () => {
+    console.log(this.props);
     return this.props.users.map(({ attributes: { email, name, role, id } }) => {
       const capsRole = role.charAt(0).toUpperCase() + role.slice(1);
       return <LoginCard email={email} name={name} role={capsRole} key={id} />;
@@ -37,11 +39,15 @@ class LoginMenu extends React.Component {
   }
 }
 
-const mapDispatchToProps = (state) => {
+const mapStateToProps = (state) => {
   return {
-    users: state.usersList.users,
+    users: state.usersList.data.data,
     loading: state.loading,
   };
 };
 
-export default connect(mapDispatchToProps, { getUsers })(LoginMenu);
+const mapDispatchToProps = {
+  getUsers,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginMenu);

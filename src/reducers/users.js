@@ -1,18 +1,22 @@
-import { LOADING_USERS, GET_USERS } from '../actions/';
+import { LOADING_USERS, GET_USERS_SUCCESS, GET_USERS_FAILURE } from '../actions/';
 
-const usersReducer = (state = { users: [], loading: false }, action) => {
+const usersReducer = (state = { data: {}, error: '', loading: false }, action) => {
   switch (action.type) {
     case LOADING_USERS:
       return {
         ...state,
-        users: [...state.users],
         loading: true,
       };
-    case GET_USERS:
+    case GET_USERS_SUCCESS:
       return {
         ...state,
-        users: action.users,
+        data: action.payload.data,
         loading: false,
+      };
+    case GET_USERS_FAILURE:
+      return {
+        ...state,
+        error: action.payload.error,
       };
     default:
       return state;

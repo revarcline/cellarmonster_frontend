@@ -1,7 +1,7 @@
 import apiRoot from '../apiConfig';
 import { LOADING_BOTTLES, GET_BOTTLES } from '.';
 
-export const getBottles = (by, query) => {
+export const getBottles = (by = 'bottles', query = '') => {
   return async (dispatch) => {
     dispatch({ type: LOADING_BOTTLES });
     // default: /bottles

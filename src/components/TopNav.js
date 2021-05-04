@@ -12,11 +12,7 @@ const TopNav = ({ authChecked, loggedIn, currentUser }) => {
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse>
           <Nav>
-            <Nav.Item>
-              <LinkContainer exact to="/">
-                <Nav.Link>Log In</Nav.Link>
-              </LinkContainer>
-            </Nav.Item>
+            <Nav.Item></Nav.Item>
             <Nav.Item>
               <LinkContainer to="/protected-route">
                 <Nav.Link>Protected</Nav.Link>
@@ -45,8 +41,24 @@ const TopNav = ({ authChecked, loggedIn, currentUser }) => {
             </Nav.Item>
           </Nav>
         </Navbar.Collapse>
-
-        <Logout />
+        <Nav>
+          {loggedIn ? (
+            <>
+              <Nav.Item>
+                <LinkContainer to="/orders">
+                  <Nav.Link>{currentUser.name}</Nav.Link>
+                </LinkContainer>
+              </Nav.Item>
+              <Logout />
+            </>
+          ) : (
+            <>
+              <LinkContainer exact to="/">
+                <Nav.Link>Log In</Nav.Link>
+              </LinkContainer>
+            </>
+          )}
+        </Nav>
       </Container>
     </Navbar>
   );
