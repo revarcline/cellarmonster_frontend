@@ -8,31 +8,27 @@ export const loadingUsers = () => {
 export const getUsersSuccess = (data) => {
   return {
     type: GET_USERS_SUCCESS,
-    payload: {
-      data,
-    },
+    payload: data,
   };
 };
 
 export const getUsersFailure = (error) => {
   return {
     type: GET_USERS_FAILURE,
-    payload: {
-      error,
-    },
+    payload: error,
   };
 };
 
 // get user list for login splash and admin user edit
 export const getUsers = () => {
-  return async (dispatch) => {
+  return (dispatch) => {
     dispatch(loadingUsers());
-    //try {
-    const res = await fetch(`${apiRoot}/users`);
-    const data = await res.json();
-    dispatch(getUsersSuccess(data));
-    //} catch (err) {
-    //dispatch(getUsersFailure(err.message));
-    //}
+    return fetch(`${apiRoot}/users`).then((res) => {
+      if (res.ok) {
+        return res.json().then((json) => dispatch(getUsersSuccess(json)));
+      } else {
+        return res.json().then((errors) => dispatch(getUsersFailure(errors)));
+      }
+    });
   };
 };

@@ -17,7 +17,13 @@ function App() {
           <Route exact path="/" component={LoginMenu} />
           <Route path="/protected-route" component={withAuth(TestProtected)} />
           <Route path="/users/new" component={withAuth(NewUser)} />
+          <Route path="/orders" component={withAuth(OrderList)} />
           <Route path="/bottles" component={withAuth(BottleList)} />
+          <Route path="/bottle/:query" component={(withAuth(BottleList), { by: 'bottles' })} />
+          <Route path="/producer/:query" component={withAuth(BottleList, { by: 'producers' })} />
+          <Route path="/country/:query" component={(withAuth(BottleList), { by: 'countries' })} />
+          <Route path="/varietal/:query" component={withAuth(BottleList, { by: 'varietals' })} />
+          <Route path="/search/:query" component={withAuth(BottleList, { by: 'search' })} />
         </Switch>
       </Router>
     </div>

@@ -97,7 +97,10 @@ export const checkAuth = () => {
         console.log(res);
         return res.json().then((user) => dispatch({ type: AUTHENTICATED, payload: user }));
       } else {
-        return Promise.reject(dispatch({ type: NOT_AUTHENTICATED }));
+        return res.json().then((errors) => {
+          dispatch({ type: NOT_AUTHENTICATED });
+          return Promise.reject();
+        });
       }
     });
   };

@@ -1,8 +1,20 @@
 import apiRoot from '../apiConfig';
-import { LOADING_BOTTLES, GET_BOTTLES } from '.';
+import { LOADING_BOTTLES, GET_BOTTLES_SUCCESS, GET_BOTTLES_FAILURE } from '.';
+
+export const loadingBottles = () => {
+  return { type: LOADING_BOTTLES };
+};
+
+export const getBottlesSuccess = (data) => {
+  return { type: GET_BOTTLES_SUCCESS, payload: data };
+};
+
+export const getBottlesFailure = (error) => {
+  return { type: GET_BOTTLES_FAILURE, payload: error };
+};
 
 export const getBottles = (by = 'bottles', query = '') => {
-  return async (dispatch) => {
+  return (dispatch) => {
     dispatch({ type: LOADING_BOTTLES });
     // default: /bottles
     // example: /producers/jadot
@@ -11,19 +23,9 @@ export const getBottles = (by = 'bottles', query = '') => {
       headers: {},
     }).then((res) => {
       if (res.ok) {
-        return res.json().then((json) =>
-          dispatch({
-            type: GET_BOTTLES,
-            payload: {
-              bottles: json.data,
-              resource: json.resource_name,
-            },
-          }),
-        );
+        return res.json().then((json) => dispatch(getBottlesSuccess(json)));
       } else {
-        return res.json().then((errors) => {
-          return Promise.reject(errors);
-        });
+        return res.json().then((errors) => dispatch(getBottlesFailure(errors)));
       }
     });
   };

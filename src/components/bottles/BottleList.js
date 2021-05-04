@@ -71,9 +71,13 @@ class BottleList extends React.Component {
   };
 
   resourceName = () => {
-    return this.props.bottles.resource
-      ? `Bottles matching "${this.props.bottles.resource}"`
-      : 'All Bottles';
+    if (this.props.bottles.resource) {
+      return `Bottles matching "${this.props.bottles.resource}"`;
+    } else if (this.props.by === 'search') {
+      return `Search results for "${this.props.match.params.query}"`;
+    } else {
+      return 'All Bottles';
+    }
   };
   render() {
     return (
@@ -104,7 +108,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    getBottles: dispatch(getBottles(ownProps.by, ownProps.query)),
+    getBottles: dispatch(getBottles(ownProps.by, ownProps.match.params.query)),
   };
 };
 
