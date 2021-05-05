@@ -13,12 +13,6 @@ const TopNav = ({ authChecked, loggedIn, currentUser }) => {
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse>
           <Nav>
-            <Nav.Item></Nav.Item>
-            <Nav.Item>
-              <LinkContainer to="/protected-route">
-                <Nav.Link>Protected</Nav.Link>
-              </LinkContainer>
-            </Nav.Item>
             <Nav.Item>
               <LinkContainer to="/users/new">
                 <Nav.Link>New User</Nav.Link>

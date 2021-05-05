@@ -7,4 +7,5 @@ export default combineReducers({
   auth: authReducer,
   usersList: usersReducer,
   bottles: bottlesReducer,
+  //orders: ordersReducer,
 });

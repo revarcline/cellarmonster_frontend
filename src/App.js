@@ -7,7 +7,6 @@ import LoginMenu from './components/auth/LoginMenu';
 import NewUser from './components/auth/NewUser';
 import BottleList from './components/bottles/BottleList';
 import TopNav from './components/TopNav';
-import TestProtected from './components/TestProtected';
 import withAuth from './components/auth/withAuth';
 import './App.css';
 
@@ -28,7 +27,6 @@ function App({ loggedIn }) {
             <Col>
               <Switch>
                 <Route exact path="/" component={LoginMenu} />
-                <Route path="/protected-route" component={withAuth(TestProtected)} />
                 <Route path="/users/new" component={withAuth(NewUser)} />
                 {/* <Route path="/orders" component={withAuth(OrderList)} /> */}
                 <Route path="/bottles" component={withAuth(BottleList)} />

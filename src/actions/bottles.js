@@ -15,7 +15,7 @@ export const getBottlesFailure = (error) => {
 
 export const getBottles = (by = 'bottles', query = '') => {
   return (dispatch) => {
-    dispatch({ type: LOADING_BOTTLES });
+    dispatch(loadingBottles());
     // default: /bottles
     // example: /producers/jadot
     return fetch(`${apiRoot}/${by}${query !== '' ? '/' + query : ''}`, {
