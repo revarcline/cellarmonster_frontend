@@ -10,7 +10,6 @@ class BottleList extends React.Component {
   }
 
   generateCards = () => {
-    console.log(this.props);
     if (this.props.bottles.bottles.length === 0) {
       return <h1>No Results</h1>;
     } else {

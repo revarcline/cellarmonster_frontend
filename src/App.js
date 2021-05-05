@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Container, Row, Col } from 'react-bootstrap';
 import StickyBox from 'react-sticky-box';
 import LoginMenu from './components/auth/LoginMenu';
+import OrderList from './components/orders/OrderList';
 import NewUser from './components/auth/NewUser';
 import BottleList from './components/bottles/BottleList';
 import TopNav from './components/TopNav';
@@ -46,10 +47,7 @@ function App({ loggedIn }) {
               <Col xs="3">
                 <StickyBox offsetTop={60} offsetBottom={20}>
                   <Container className="pt-3">
-                    <h1>orders</h1>
-                    <h1>will</h1>
-                    <h1>go</h1>
-                    <h1>here</h1>
+                    <OrderList />
                   </Container>
                 </StickyBox>
               </Col>

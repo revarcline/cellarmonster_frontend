@@ -85,7 +85,6 @@ export const logoutUser = () => {
 
 export const checkAuth = () => {
   return (dispatch) => {
-    console.log(getToken());
     return fetch(`${apiRoot}/current_user`, {
       headers: {
         Accept: 'application/json',
@@ -94,7 +93,6 @@ export const checkAuth = () => {
       },
     }).then((res) => {
       if (res.ok) {
-        console.log(res);
         return res.json().then((user) => dispatch({ type: AUTHENTICATED, payload: user }));
       } else {
         return res.json().then((errors) => {
