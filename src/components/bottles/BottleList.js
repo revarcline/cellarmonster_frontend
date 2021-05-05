@@ -5,10 +5,12 @@ import BottleCard from './BottleCard';
 import { Container, Row, Col, Spinner } from 'react-bootstrap';
 
 class BottleList extends React.Component {
-  generateCards = () => {
+  componentDidMount() {
     this.props.getBottles;
-    console.log(this.props);
+  }
 
+  generateCards = () => {
+    console.log(this.props);
     if (this.props.bottles.bottles.length === 0) {
       return <h1>No Results</h1>;
     } else {
@@ -63,7 +65,7 @@ class BottleList extends React.Component {
   };
 
   handleLoading = () => {
-    if (this.props.loading) {
+    if (this.props.loading == 'loading') {
       return <Spinner animation="border" role="status" />;
     } else {
       return this.generateCards();

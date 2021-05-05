@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { postOrder } from '../../actions/orders.js';
 import { Card, Container, Row, Col, Button, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
@@ -19,7 +21,7 @@ const BottleCard = (props) => {
     return props.bins.map((bin) => {
       return (
         <span key={`bin-${bin.id}`}>
-          <Link to={`/bin/${bin.location}`}>{bin.location}</Link>{' '}
+          <Link to={`/bin/${bin.id}`}>{bin.name}</Link>{' '}
         </span>
       );
     });
@@ -31,7 +33,10 @@ const BottleCard = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(`ordering ${orderQty} bottles of bottle ${props.id}`);
+    const order = { quantity: orderQty, bottle_id: props.id, user_id: props.currentUser.id };
+    console.log(
+      `${props.currentUser.name} (id: ${order.user_id}) ordering ${order.quantity} bottles of bottle ${order.bottle_id}`,
+    );
   };
 
   return (
@@ -93,4 +98,16 @@ const BottleCard = (props) => {
   );
 };
 
-export default BottleCard;
+const mapStateToProps = ({ auth: { currentUser } }) => {
+  return {
+    currentUser,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatchNewOrder: (order) => dispatch(postOrder(order)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(BottleCard);
