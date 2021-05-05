@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions/auth';
-import { Card, Form, Button, Collapse, Container } from 'react-bootstrap';
+import { Card, Form, Button, Collapse, Container, InputGroup } from 'react-bootstrap';
 
 class LoginCard extends React.Component {
   state = {
@@ -40,20 +40,21 @@ class LoginCard extends React.Component {
           </div>
           <Collapse in={this.state.open}>
             <Form onSubmit={this.handleSubmit} id="collapse-form" inline>
-              <Form.Label htmlFor="password" sronly="true">
-                Passcode
-              </Form.Label>
-              <Form.Control
-                className="mb-2 mr-sm-2"
-                id="password"
-                type="password"
-                placeholder="Passcode"
-                name="password"
-                onChange={this.handleChange}
-              />
-              <Button type="submit" className="mb-2">
-                Log In
-              </Button>
+              <InputGroup>
+                <Form.Control
+                  className="mb-2 mr-sm-2"
+                  id="password"
+                  type="password"
+                  placeholder="Passcode"
+                  name="password"
+                  onChange={this.handleChange}
+                />
+                <InputGroup.Append>
+                  <Button type="submit" className="mb-2">
+                    Log In
+                  </Button>
+                </InputGroup.Append>
+              </InputGroup>
             </Form>
           </Collapse>
         </Card>

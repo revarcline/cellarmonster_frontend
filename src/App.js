@@ -17,13 +17,6 @@ function App({ loggedIn }) {
         <TopNav />
         <Container>
           <Row>
-            {loggedIn ? (
-              <Col xs="3">
-                <StickyBox>
-                  <div>Order List</div>
-                </StickyBox>
-              </Col>
-            ) : null}
             <Col>
               <Switch>
                 <Route exact path="/" component={LoginMenu} />
@@ -49,6 +42,18 @@ function App({ loggedIn }) {
                 <Route path="/search/:query" component={withAuth(BottleList, { by: 'search' })} />
               </Switch>
             </Col>
+            {loggedIn ? (
+              <Col xs="3">
+                <StickyBox offsetTop={60} offsetBottom={20}>
+                  <Container className="pt-3">
+                    <h1>orders</h1>
+                    <h1>will</h1>
+                    <h1>go</h1>
+                    <h1>here</h1>
+                  </Container>
+                </StickyBox>
+              </Col>
+            ) : null}
           </Row>
         </Container>
       </Router>

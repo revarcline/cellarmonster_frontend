@@ -32,3 +32,35 @@ export const getOrders = (id = '') => {
     });
   };
 };
+
+export const postingOrder = () => {
+  return { type: POSTING_ORDER };
+};
+
+export const postOrderSuccess = (data) => {
+  return { type: POST_ORDER_SUCCESS, payload: data };
+};
+
+export const postOrderFailure = (error) => {
+  return { type: POST_ORDER_FAILURE, payload: error };
+};
+
+export const postOrder = (order) => {
+  return (dispatch) => {
+    dispatch(loadingOrders());
+    return fetch(`${apiRoot}/orders`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(order),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json().then((json) => dispatch(postOrderSuccess(json)));
+      } else {
+        return res.json().then((error) => dispatch(postOrderFailure(error)));
+      }
+    });
+  };
+};
