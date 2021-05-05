@@ -89,9 +89,7 @@ class BottleList extends React.Component {
         </Row>
 
         <Row className="justify-content-md-center">
-          <Col lg="6" md="8" sm="10" xs>
-            {this.handleLoading()}
-          </Col>
+          <Col xs="auto">{this.handleLoading()}</Col>
         </Row>
       </Container>
     );
