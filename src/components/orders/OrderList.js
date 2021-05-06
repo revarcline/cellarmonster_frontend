@@ -14,11 +14,12 @@ class OrderList extends React.Component {
       const user = order.attributes.user;
       const bottle = order.attributes.bottle;
       const quantity = order.attributes.quantity;
+      const producer = order.attributes.bottle_producer;
       return (
         <div key={order.id}>
           <h3>{user.name}</h3>
           <p>
-            {quantity} {bottle.producer} {bottle.name}
+            {producer} - <i>{bottle.name}</i>
           </p>
         </div>
       );
@@ -37,7 +38,7 @@ class OrderList extends React.Component {
     return (
       <Container fluid className="pt-3">
         <Row>
-          <Container fluid ClassName="pt-3">
+          <Container fluid className="pt-3">
             <h2>Orders:</h2>
           </Container>
         </Row>

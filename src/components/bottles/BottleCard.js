@@ -46,9 +46,9 @@ const BottleCard = (props) => {
           <Row>
             <Col md="8">
               <Card.Title>
-                <i>{props.name}</i>
-                {' - '}
                 <Link to={`/producer/${props.producer.id}`}>{props.producer.name}</Link>
+                {' - '}
+                <i>{props.name}</i>
               </Card.Title>
               <Card.Subtitle>
                 <div>
