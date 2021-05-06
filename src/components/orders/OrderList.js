@@ -1,16 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getOrders } from '../../actions/orders';
-import { Container, Row, Col, Spinner } from 'react-bootstrap';
+import { getAllOrders, getUserOrders } from '../../actions/orders';
+import { Row, Col, Spinner } from 'react-bootstrap';
 import OrderCard from './OrderCard';
 
 class OrderList extends React.Component {
   componentDidMount() {
-    this.props.getOrders;
+    console.log('orderlist getting');
+    console.log(this.props.currentUser);
+    if (this.props.currentUser.role === 'server') {
+      this.props.getUserOrders;
+    } else {
+      this.props.getAllOrders;
+    }
   }
 
   generateCards = () => {
-    console.log(this.props.orders);
     return this.props.orders.map(({ id, attributes }) => {
       return (
         <OrderCard
@@ -29,7 +34,7 @@ class OrderList extends React.Component {
   handleLoading = () => {
     if (this.props.loading === 'loading') {
       return <Spinner animation="border" role="status" />;
-    } else {
+    } else if (this.props.loading === 'finished') {
       return this.generateCards();
     }
   };
@@ -51,13 +56,15 @@ class OrderList extends React.Component {
 const mapStateToProps = (state) => {
   return {
     orders: state.orders.orders,
+    currentUser: state.auth.currentUser.data,
     loading: state.orders.orderLoading,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    getOrders: dispatch(getOrders()),
+    getAllOrders: dispatch(getAllOrders()),
+    getUserOrders: dispatch(getUserOrders()),
   };
 };
 

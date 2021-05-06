@@ -64,22 +64,26 @@ class BottleList extends React.Component {
   };
 
   handleLoading = () => {
-    if (this.props.loading == 'loading') {
+    if (this.props.loading === 'loading') {
       return <Spinner animation="border" role="status" />;
-    } else {
+    } else if (this.props.loading === 'finished') {
       return this.generateCards();
     }
   };
 
   resourceName = () => {
-    if (this.props.bottles.resource) {
-      return `Bottles matching "${this.props.bottles.resource}"`;
-    } else if (this.props.by === 'search') {
+    if (this.props.by === 'search') {
       return `Search results for "${this.props.match.params.query}"`;
+    } else if (this.props.by === 'search') {
+      return `Bottles matching "${this.props.bottles.resource}"`;
+    } else if (this.props.match.path === '/bottle/:query') {
+      return null;
     } else {
       return 'All Bottles';
     }
   };
+
+
   render() {
     return (
       <Container fluid className="pt-3">
@@ -101,7 +105,7 @@ const mapStateToProps = (state) => {
   return {
     bottles: state.bottles,
     resource: state.resource,
-    loading: state.loading,
+    loading: state.bottles.loading,
   };
 };
 

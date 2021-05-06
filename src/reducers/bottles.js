@@ -15,7 +15,7 @@ const bottlesReducer = (
       return {
         ...state,
         bottles: action.payload.data,
-        resource: action.payload.resource,
+        resource: action.payload.resource_name,
         loading: 'finished',
       };
     case GET_BOTTLES_FAILURE:

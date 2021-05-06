@@ -37,7 +37,7 @@ const ordersReducer = (
     case POST_ORDER_SUCCESS:
       return {
         ...state,
-        orders: [...state.orders, action.payload.data],
+        orders: [action.payload.data, ...state.orders],
         orderPosting: 'finished',
       };
     case POST_ORDER_FAILURE:

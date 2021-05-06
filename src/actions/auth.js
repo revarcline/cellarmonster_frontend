@@ -71,14 +71,7 @@ export const logoutUser = () => {
         Authorization: getToken(),
       },
     }).then((res) => {
-      if (res.ok) {
-        return dispatch({ type: NOT_AUTHENTICATED });
-      } else {
-        return res.json().then((errors) => {
-          dispatch({ type: NOT_AUTHENTICATED });
-          return Promise.reject(errors);
-        });
-      }
+      return dispatch({ type: NOT_AUTHENTICATED });
     });
   };
 };

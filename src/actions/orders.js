@@ -20,10 +20,18 @@ export const getOrdersFailure = (error) => {
   return { type: GET_ORDERS_FAILURE, payload: error };
 };
 
-export const getOrders = (id = '') => {
+export const getAllOrders = () => {
+  return getOrders(`${apiRoot}/orders`);
+};
+
+export const getUserOrders = (id) => {
+  return getOrders(`${apiRoot}/user_orders/${id}`);
+};
+
+export const getOrders = (url) => {
   return (dispatch) => {
     dispatch(loadingOrders());
-    return fetch(`${apiRoot}/orders${id !== '' ? '/' : ''}${id}`).then((res) => {
+    return fetch(url).then((res) => {
       if (res.ok) {
         return res.json().then((json) => dispatch(getOrdersSuccess(json)));
       } else {
@@ -47,7 +55,6 @@ export const postOrderFailure = (error) => {
 
 export const postOrder = (order) => {
   return (dispatch) => {
-    dispatch(postingOrder());
     return fetch(`${apiRoot}/orders`, {
       method: 'POST',
       body: JSON.stringify(order),
@@ -57,7 +64,10 @@ export const postOrder = (order) => {
       },
     }).then((res) => {
       if (res.ok) {
-        return res.json().then((json) => dispatch(postOrderSuccess(json)));
+        return res
+          .json()
+          .then((json) => dispatch(postOrderSuccess(json)))
+          .then(() => getOrders());
       } else {
         return res.json().then((error) => dispatch(postOrderFailure(error)));
       }

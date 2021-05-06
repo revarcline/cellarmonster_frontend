@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions/auth';
+import { withRouter } from 'react-router-dom';
 import { Card, Form, Button, Collapse, Container, InputGroup } from 'react-bootstrap';
 
 class LoginCard extends React.Component {
@@ -63,9 +64,15 @@ class LoginCard extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    loggedIn: state.auth.loggedIn,
+  };
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     dispatchLoginUser: (credentials) => dispatch(loginUser(credentials)),
   };
 };
-export default connect(null, mapDispatchToProps)(LoginCard);
+export default withRouter(connect(null, mapDispatchToProps)(LoginCard));

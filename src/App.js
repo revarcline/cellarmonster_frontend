@@ -24,17 +24,15 @@ function App({ loggedIn }) {
                 <Route path="/users/new" component={withAuth(NewUser)} />
                 {/* <Route path="/orders" component={withAuth(OrderList)} /> */}
                 <Route path="/bottles" component={withAuth(BottleList)} />
-                <Route
-                  path="/bottle/:query"
-                  component={(withAuth(BottleList), { by: 'bottles' })}
-                />
+                <Route path="/bottle/:query" component={withAuth(BottleList, { by: 'bottles' })} />
                 <Route
                   path="/producer/:query"
                   component={withAuth(BottleList, { by: 'producers' })}
                 />
+                <Route path="/bin/:query" component={withAuth(BottleList, { by: 'bins' })} />
                 <Route
                   path="/country/:query"
-                  component={(withAuth(BottleList), { by: 'countries' })}
+                  component={withAuth(BottleList, { by: 'countries' })}
                 />
                 <Route
                   path="/varietal/:query"
