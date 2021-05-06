@@ -3,28 +3,29 @@ import { Container, Row, Col, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const OrderCard = (props) => {
-  const binLinks = (bins) => {
-    return bins.map((bin) => {
-      return (
-        <span key={`bin-${bin.id}`}>
-          <Link to={`/bin/${bin.id}`}>{bin.name}</Link>{' '}
-        </span>
-      );
-    });
-  };
-
   return (
-    <Container fluid className="pt-3">
+    <div>
       <Card>
         <Card.Header>
-          <h3>
-            {props.bottle.name} - {props.bottle.sku}
-          </h3>
+          {props.producer} - {props.bottle.name}
         </Card.Header>
         <Card.Body>
-          <h3></h3>
+          <Row>
+            <Col>
+              <p>SKU: {props.bottle.sku}</p>
+              <p>Bin(s): {props.bins}</p>
+            </Col>
+            <Col>
+              <p>Quantity: {props.quantity}</p>
+              <p>For: {props.user.name}</p>
+            </Col>
+          </Row>
         </Card.Body>
+        <Card.Footer>{props.created}</Card.Footer>
       </Card>
-    </Container>
+      <br />
+    </div>
   );
 };
+
+export default OrderCard;

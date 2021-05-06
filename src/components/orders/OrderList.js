@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getOrders } from '../../actions/orders';
 import { Container, Row, Col, Spinner } from 'react-bootstrap';
+import OrderCard from './OrderCard';
 
 class OrderList extends React.Component {
   componentDidMount() {
@@ -10,18 +11,17 @@ class OrderList extends React.Component {
 
   generateCards = () => {
     console.log(this.props.orders);
-    return this.props.orders.map((order) => {
-      const user = order.attributes.user;
-      const bottle = order.attributes.bottle;
-      const quantity = order.attributes.quantity;
-      const producer = order.attributes.bottle_producer;
+    return this.props.orders.map(({ id, attributes }) => {
       return (
-        <div key={order.id}>
-          <h3>{user.name}</h3>
-          <p>
-            {producer} - <i>{bottle.name}</i>
-          </p>
-        </div>
+        <OrderCard
+          key={id}
+          user={attributes.user}
+          bottle={attributes.bottle}
+          producer={attributes.bottle_producer}
+          quantity={attributes.quantity}
+          bins={attributes.bins}
+          created={attributes.created}
+        />
       );
     });
   };
@@ -36,16 +36,14 @@ class OrderList extends React.Component {
 
   render() {
     return (
-      <Container fluid className="pt-3">
+      <div>
         <Row>
-          <Container fluid className="pt-3">
-            <h2>Orders:</h2>
-          </Container>
+          <h2>Orders:</h2>
         </Row>
         <Row className="justify-content-md-center">
           <Col xs="auto">{this.handleLoading()}</Col>
         </Row>
-      </Container>
+      </div>
     );
   }
 }
