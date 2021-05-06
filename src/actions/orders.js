@@ -47,14 +47,14 @@ export const postOrderFailure = (error) => {
 
 export const postOrder = (order) => {
   return (dispatch) => {
-    dispatch(loadingOrders());
+    dispatch(postingOrder());
     return fetch(`${apiRoot}/orders`, {
-      method: 'GET',
+      method: 'POST',
+      body: JSON.stringify(order),
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
       },
-      body: JSON.stringify(order),
     }).then((res) => {
       if (res.ok) {
         return res.json().then((json) => dispatch(postOrderSuccess(json)));

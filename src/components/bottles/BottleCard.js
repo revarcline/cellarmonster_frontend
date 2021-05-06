@@ -34,6 +34,7 @@ const BottleCard = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const order = { quantity: orderQty, bottle_id: props.id, user_id: props.currentUser.id };
+    props.dispatchNewOrder(order);
     console.log(
       `${props.currentUser.name} (id: ${order.user_id}) ordering ${order.quantity} bottles of bottle ${order.bottle_id}`,
     );
