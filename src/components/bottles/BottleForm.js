@@ -193,6 +193,19 @@ const BottleForm = (props) => {
               </Field>
             </Col>
           </Row>
+          <Field name="inventory">
+            {({ field, formProps }) => (
+              <FormGroup style={{ paddingBottom: '1em' }}>
+                <FormLabel>Inventory: </FormLabel>
+                <FormControl
+                  name="inventory"
+                  type="number"
+                  value={field.value}
+                  onChange={field.onChange}
+                />
+              </FormGroup>
+            )}
+          </Field>
         </Form>
       </Formik>
     </div>
