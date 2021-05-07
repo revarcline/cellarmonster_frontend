@@ -24,6 +24,11 @@ const TopNav = ({ authChecked, loggedIn, currentUser }) => {
               </LinkContainer>
             </Nav.Item>
             <Nav.Item>
+              <LinkContainer to="/bottle/new">
+                <Nav.Link>New Bottle</Nav.Link>
+              </LinkContainer>
+            </Nav.Item>
+            <Nav.Item>
               <Search />
             </Nav.Item>
           </Nav>

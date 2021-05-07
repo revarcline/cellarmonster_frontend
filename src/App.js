@@ -7,6 +7,7 @@ import LoginMenu from './components/auth/LoginMenu';
 import OrderList from './components/orders/OrderList';
 import NewUser from './components/auth/NewUser';
 import BottleList from './components/bottles/BottleList';
+import BottleForm from './components/bottles/BottleForm';
 import TopNav from './components/TopNav';
 import withAuth from './components/auth/withAuth';
 import './App.css';
@@ -24,6 +25,7 @@ function App({ loggedIn }) {
                 <Route path="/users/new" component={withAuth(NewUser)} />
                 {/* <Route path="/orders" component={withAuth(OrderList)} /> */}
                 <Route path="/bottles" component={withAuth(BottleList)} />
+                <Route path="/bottle/new" exact component={withAuth(BottleForm, { mode: 'new' })} />
                 <Route path="/bottle/:query" component={withAuth(BottleList, { by: 'bottles' })} />
                 <Route
                   path="/producer/:query"
@@ -43,7 +45,7 @@ function App({ loggedIn }) {
             </Col>
             {loggedIn ? (
               <Col xs="3">
-                <StickyBox offsetTop={60} offsetBottom={20}>
+                <StickyBox offsetTop={60} style={{ overflow: 'scroll', height: '93.5vh' }}>
                   <Container className="pt-3">
                     <OrderList />
                   </Container>

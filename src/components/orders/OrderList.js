@@ -8,11 +8,11 @@ class OrderList extends React.Component {
   componentDidMount() {
     console.log('orderlist getting');
     console.log(this.props.currentUser);
-    if (this.props.currentUser.role === 'server') {
-      this.props.getUserOrders;
-    } else {
-      this.props.getAllOrders;
-    }
+    /*if (this.props.currentUser.role === 'server') {*/
+    /*this.props.getUserOrders(this.props.currentUser.id);*/
+    /*} else {*/
+    this.props.getAllOrders;
+    /*}*/
   }
 
   generateCards = () => {
@@ -56,7 +56,7 @@ class OrderList extends React.Component {
 const mapStateToProps = (state) => {
   return {
     orders: state.orders.orders,
-    currentUser: state.auth.currentUser.data,
+    currentUser: state.auth.currentUser,
     loading: state.orders.orderLoading,
   };
 };
@@ -64,7 +64,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     getAllOrders: dispatch(getAllOrders()),
-    getUserOrders: dispatch(getUserOrders()),
+    getUserOrders: (id) => dispatch(getUserOrders(id)),
   };
 };
 
