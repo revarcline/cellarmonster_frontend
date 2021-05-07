@@ -1,15 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { getAttributes } from '../actions/attributes';
 import Logout from './auth/Logout';
 import Search from './Search';
 
 const TopNav = (props) => {
-  const renderAttributesDropdown = () => {
+  useEffect(() => {
     props.getAttributes;
+  });
+
+  const renderBottlesDropdown = () => {
     console.log(props);
+    return (
+      <NavDropdown title="Bottles">
+        <NavDropdown.Item>
+          <LinkContainer to="/bottles">
+            <Nav.Link>All Bottles</Nav.Link>
+          </LinkContainer>
+        </NavDropdown.Item>
+      </NavDropdown>
+    );
   };
 
   return (
@@ -26,11 +38,7 @@ const TopNav = (props) => {
                     <Nav.Link>New User</Nav.Link>
                   </LinkContainer>
                 </Nav.Item>
-                <Nav.Item>
-                  <LinkContainer to="/bottles">
-                    <Nav.Link>All Bottles</Nav.Link>
-                  </LinkContainer>
-                </Nav.Item>
+                {renderBottlesDropdown()}
                 <Nav.Item>
                   <LinkContainer to="/bottle/new">
                     <Nav.Link>New Bottle</Nav.Link>
@@ -66,8 +74,16 @@ const TopNav = (props) => {
   );
 };
 
-const mapStateToProps = ({ auth: { authChecked, loggedIn, currentUser } }) => {
-  return { authChecked, loggedIn, currentUser };
+const mapStateToProps = (state) => {
+  return {
+    authChecked: state.auth.authChecked,
+    loggedIn: state.auth.loggedIn,
+    currentUser: state.auth.loggedIn,
+    varietals: state.attributes.varietals,
+    countries: state.attributes.countries,
+    bins: state.attributes.bins,
+    producers: state.attributes.producers,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
