@@ -28,16 +28,16 @@ function App({ loggedIn }) {
                 <Route path="/bottle/new" exact component={withAuth(BottleForm, { mode: 'new' })} />
                 <Route path="/bottle/:query" component={withAuth(BottleList, { by: 'bottles' })} />
                 <Route
-                  path="/producer/:query"
+                  path="/producers/:query"
                   component={withAuth(BottleList, { by: 'producers' })}
                 />
-                <Route path="/bin/:query" component={withAuth(BottleList, { by: 'bins' })} />
+                <Route path="/bins/:query" component={withAuth(BottleList, { by: 'bins' })} />
                 <Route
-                  path="/country/:query"
+                  path="/countries/:query"
                   component={withAuth(BottleList, { by: 'countries' })}
                 />
                 <Route
-                  path="/varietal/:query"
+                  path="/varietals/:query"
                   component={withAuth(BottleList, { by: 'varietals' })}
                 />
                 <Route path="/search/:query" component={withAuth(BottleList, { by: 'search' })} />

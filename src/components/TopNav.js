@@ -14,31 +14,37 @@ const TopNav = (props) => {
   const renderBottlesDropdown = () => {
     console.log(props);
     return (
-      <NavDropdown title="Bottles">
-        <NavDropdown.Item>
+      <>
+        <Nav.Item>
           <LinkContainer to="/bottles">
             <Nav.Link>All Bottles</Nav.Link>
           </LinkContainer>
-        </NavDropdown.Item>
-        <NavDropdown.Divider />
+        </Nav.Item>
         {Object.keys(props.attributes).map((category) => {
           return (
-            <NavDropdown.Item key={category}>
-              <NavDropdown title={category.replace(/^\w/, (c) => c.toUpperCase())}>
+            <Nav.Item key={category}>
+              <NavDropdown drop="right" title={category.replace(/^\w/, (c) => c.toUpperCase())}>
                 {props.attributes[category].map((item) => {
-                  <NavDropdown.Item>{item.name}</NavDropdown.Item>;
+                  return (
+                    <Nav.Item key={item.attributes.id}>
+                      <NavDropdown.Item>
+                        <LinkContainer to={`/${category}/${item.attributes.id}`}>
+                          <Nav.Link>{item.attributes.name}</Nav.Link>
+                        </LinkContainer>
+                      </NavDropdown.Item>
+                    </Nav.Item>
+                  );
                 })}
               </NavDropdown>
-            </NavDropdown.Item>
+            </Nav.Item>
           );
         })}
-        <NavDropdown.Divider />
-        <NavDropdown.Item>
+        <Nav.Item>
           <LinkContainer to="/bottle/new">
             <Nav.Link>New Bottle</Nav.Link>
           </LinkContainer>
-        </NavDropdown.Item>
-      </NavDropdown>
+        </Nav.Item>
+      </>
     );
   };
 
@@ -114,7 +120,6 @@ const mapStateToProps = (state) => {
     attributes: {
       varietals: state.attributes.varietals,
       countries: state.attributes.countries,
-      bins: state.attributes.bins,
       producers: state.attributes.producers,
     },
   };

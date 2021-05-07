@@ -74,7 +74,7 @@ class BottleList extends React.Component {
   resourceName = () => {
     if (this.props.by === 'search') {
       return `Search results for "${this.props.match.params.query}"`;
-    } else if (this.props.by === 'search') {
+    } else if (this.props.by) {
       return `Bottles matching "${this.props.bottles.resource}"`;
     } else if (this.props.match.path === '/bottle/:query') {
       return null;
@@ -82,7 +82,6 @@ class BottleList extends React.Component {
       return 'All Bottles';
     }
   };
-
 
   render() {
     return (
