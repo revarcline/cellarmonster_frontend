@@ -2,10 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import { getAttributes } from '../actions/attributes';
 import Logout from './auth/Logout';
 import Search from './Search';
 
-const TopNav = ({ authChecked, loggedIn, currentUser }) => {
+const TopNav = (props) => {
+  const renderAttributesDropdown = () => {
+    props.getAttributes;
+    console.log(props);
+  };
+
   return (
     <Navbar variant="dark" bg="dark" sticky="top">
       <Container fluid>
@@ -13,32 +19,36 @@ const TopNav = ({ authChecked, loggedIn, currentUser }) => {
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse>
           <Nav>
-            <Nav.Item>
-              <LinkContainer to="/users/new">
-                <Nav.Link>New User</Nav.Link>
-              </LinkContainer>
-            </Nav.Item>
-            <Nav.Item>
-              <LinkContainer to="/bottles">
-                <Nav.Link>All Bottles</Nav.Link>
-              </LinkContainer>
-            </Nav.Item>
-            <Nav.Item>
-              <LinkContainer to="/bottle/new">
-                <Nav.Link>New Bottle</Nav.Link>
-              </LinkContainer>
-            </Nav.Item>
-            <Nav.Item>
-              <Search />
-            </Nav.Item>
+            {props.loggedIn ? (
+              <>
+                <Nav.Item>
+                  <LinkContainer to="/users/new">
+                    <Nav.Link>New User</Nav.Link>
+                  </LinkContainer>
+                </Nav.Item>
+                <Nav.Item>
+                  <LinkContainer to="/bottles">
+                    <Nav.Link>All Bottles</Nav.Link>
+                  </LinkContainer>
+                </Nav.Item>
+                <Nav.Item>
+                  <LinkContainer to="/bottle/new">
+                    <Nav.Link>New Bottle</Nav.Link>
+                  </LinkContainer>
+                </Nav.Item>
+                <Nav.Item>
+                  <Search />
+                </Nav.Item>
+              </>
+            ) : null}
           </Nav>
         </Navbar.Collapse>
         <Nav>
-          {loggedIn ? (
+          {props.loggedIn ? (
             <>
               <Nav.Item>
                 <LinkContainer to="/orders">
-                  <Nav.Link>{currentUser.name}</Nav.Link>
+                  <Nav.Link>{props.currentUser.name}</Nav.Link>
                 </LinkContainer>
               </Nav.Item>
               <Logout />
@@ -60,4 +70,10 @@ const mapStateToProps = ({ auth: { authChecked, loggedIn, currentUser } }) => {
   return { authChecked, loggedIn, currentUser };
 };
 
-export default connect(mapStateToProps)(TopNav);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getAttributes: dispatch(getAttributes()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TopNav);

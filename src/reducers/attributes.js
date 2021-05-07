@@ -11,7 +11,7 @@ import {
   LOADING_VARIETALS,
   GET_VARIETALS_SUCCESS,
   GET_VARIETALS_FAILURE,
-} from '.';
+} from '../actions';
 
 const attributesReducer = (
   state = {
@@ -28,6 +28,7 @@ const attributesReducer = (
     producersError: '',
     varietalsError: '',
   },
+  action,
 ) => {
   switch (action.type) {
     case LOADING_COUNTRIES:
@@ -47,7 +48,6 @@ const attributesReducer = (
         ...state,
         countriesError: action.payload,
       };
-
     case LOADING_BINS:
       return {
         ...state,
@@ -65,7 +65,6 @@ const attributesReducer = (
         ...state,
         binsError: action.payload,
       };
-
     case LOADING_PRODUCERS:
       return {
         ...state,
@@ -83,7 +82,6 @@ const attributesReducer = (
         ...state,
         producersError: action.payload,
       };
-
     case LOADING_VARIETALS:
       return {
         ...state,
@@ -101,10 +99,11 @@ const attributesReducer = (
         ...state,
         varietalsError: action.payload,
       };
-
     default:
       state;
   }
+
+  return state;
 };
 
 export default attributesReducer;

@@ -14,6 +14,15 @@ import {
   GET_VARIETALS_FAILURE,
 } from '.';
 
+export const getAttributes = () => {
+  return (dispatch) => {
+    dispatch(getCountries());
+    dispatch(getBins());
+    dispatch(getProducers());
+    dispatch(getVarietals());
+  };
+};
+
 export const loadingCountries = () => {
   return { type: LOADING_COUNTRIES };
 };
