@@ -20,6 +20,45 @@ const TopNav = (props) => {
             <Nav.Link>All Bottles</Nav.Link>
           </LinkContainer>
         </NavDropdown.Item>
+        <NavDropdown.Divider />
+        {Object.keys(props.attributes).map((category) => {
+          return (
+            <NavDropdown.Item key={category}>
+              <NavDropdown title={category.replace(/^\w/, (c) => c.toUpperCase())}>
+                {props.attributes[category].map((item) => {
+                  <NavDropdown.Item>{item.name}</NavDropdown.Item>;
+                })}
+              </NavDropdown>
+            </NavDropdown.Item>
+          );
+        })}
+        <NavDropdown.Divider />
+        <NavDropdown.Item>
+          <LinkContainer to="/bottle/new">
+            <Nav.Link>New Bottle</Nav.Link>
+          </LinkContainer>
+        </NavDropdown.Item>
+      </NavDropdown>
+    );
+  };
+
+  const renderUsersDropdown = () => {
+    console.log('rendering user dropdown');
+    return (
+      <NavDropdown title="Users">
+        <NavDropdown.Item>
+          <LinkContainer to="/bottles">
+            <Nav.Link>All Users</Nav.Link>
+          </LinkContainer>
+        </NavDropdown.Item>
+        <NavDropdown.Divider />
+        <NavDropdown.Item>Other Users</NavDropdown.Item>
+        <NavDropdown.Divider />
+        <NavDropdown.Item>
+          <LinkContainer to="/users/new">
+            <Nav.Link>New User</Nav.Link>
+          </LinkContainer>
+        </NavDropdown.Item>
       </NavDropdown>
     );
   };
@@ -33,17 +72,7 @@ const TopNav = (props) => {
           <Nav>
             {props.loggedIn ? (
               <>
-                <Nav.Item>
-                  <LinkContainer to="/users/new">
-                    <Nav.Link>New User</Nav.Link>
-                  </LinkContainer>
-                </Nav.Item>
                 {renderBottlesDropdown()}
-                <Nav.Item>
-                  <LinkContainer to="/bottle/new">
-                    <Nav.Link>New Bottle</Nav.Link>
-                  </LinkContainer>
-                </Nav.Item>
                 <Nav.Item>
                   <Search />
                 </Nav.Item>
@@ -52,6 +81,9 @@ const TopNav = (props) => {
           </Nav>
         </Navbar.Collapse>
         <Nav>
+          {props.loggedIn && props.currentUser.role === 'admin' ? (
+            <>{renderUsersDropdown()}</>
+          ) : null}
           {props.loggedIn ? (
             <>
               <Nav.Item>
@@ -78,11 +110,13 @@ const mapStateToProps = (state) => {
   return {
     authChecked: state.auth.authChecked,
     loggedIn: state.auth.loggedIn,
-    currentUser: state.auth.loggedIn,
-    varietals: state.attributes.varietals,
-    countries: state.attributes.countries,
-    bins: state.attributes.bins,
-    producers: state.attributes.producers,
+    currentUser: state.auth.currentUser,
+    attributes: {
+      varietals: state.attributes.varietals,
+      countries: state.attributes.countries,
+      bins: state.attributes.bins,
+      producers: state.attributes.producers,
+    },
   };
 };
 
