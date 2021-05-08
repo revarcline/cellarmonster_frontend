@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { FormControl, FormGroup, FormLabel, InputGroup, Row, Col } from 'react-bootstrap';
 
@@ -29,7 +30,9 @@ const BottleForm = (props) => {
       ? {
           name: '',
           country: '',
+          newCountry: '',
           producer: '',
+          newProducer: '',
           appellation: '',
           region: '',
           varietals: [],
@@ -45,8 +48,10 @@ const BottleForm = (props) => {
         }
       : {
           name: props.name,
-          country: props.country.name,
-          producer: props.producer.name,
+          country: props.country.id,
+          newCountry: '',
+          producer: props.producer.id,
+          newProducer: '',
           appellation: props.appellation,
           region: props.region,
           varietals: props.varietals.map((varietal) => varietal.id),
@@ -60,8 +65,29 @@ const BottleForm = (props) => {
           inventory: props.inventory,
           format: props.format,
         };
-  const handleSubmit = (event) => {
-    event;
+
+  const countryOptions = () => {
+    const otherCountry = { attributes: { id: 0, name: 'Other (fill in text field)' } };
+    const countriesList = [...props.countries, otherCountry];
+    return countriesList.map((country) => {
+      return (
+        <option key={country.attributes.id} value={country.attributes.id}>
+          {country.attributes.name}
+        </option>
+      );
+    });
+  };
+
+  const producerOptions = () => {
+    const otherProducer = { attributes: { id: 0, name: 'Other (fill in text field)' } };
+    const producersList = [...props.producers, otherProducer];
+    return producersList.map((producer) => {
+      return (
+        <option key={producer.attributes.id} value={producer.attributes.id}>
+          {producer.attributes.name}
+        </option>
+      );
+    });
   };
 
   return (
@@ -83,34 +109,81 @@ const BottleForm = (props) => {
               </FormGroup>
             )}
           </Field>
-          <Field name="country">
-            {({ field, formProps }) => (
-              <FormGroup style={{ paddingBottom: '1em' }}>
-                <FormLabel>Country: </FormLabel>
-                <FormControl
-                  name="country"
-                  type="text"
-                  value={field.value}
-                  onChange={field.onChange}
-                  placeholder="Country of origin"
-                />
-              </FormGroup>
-            )}
-          </Field>
-          <Field name="producer">
-            {({ field, formProps }) => (
-              <FormGroup style={{ paddingBottom: '1em' }}>
-                <FormLabel>Producer: </FormLabel>
-                <FormControl
-                  name="producer"
-                  type="text"
-                  value={field.value}
-                  onChange={field.onChange}
-                  placeholder="Wine Producer"
-                />
-              </FormGroup>
-            )}
-          </Field>
+
+          {/* Country */}
+          <Row>
+            <Col>
+              <Field name="country">
+                {({ field, formProps }) => (
+                  <FormGroup style={{ paddingBottom: '1em' }}>
+                    <FormLabel>Country: </FormLabel>
+                    <FormControl
+                      name="country"
+                      as="select"
+                      type="select"
+                      value={field.value}
+                      onChange={field.onChange}
+                    >
+                      {countryOptions()}
+                    </FormControl>
+                  </FormGroup>
+                )}
+              </Field>
+            </Col>
+            <Col>
+              <Field name="newCountry">
+                {({ field, formProps }) => (
+                  <FormGroup style={{ paddingBottom: '1em' }}>
+                    <FormLabel>Other Country (not listed): </FormLabel>
+                    <FormControl
+                      name="newCountry"
+                      type="text"
+                      value={field.value}
+                      onChange={field.onChange}
+                      placeholder="Country of origin"
+                    />
+                  </FormGroup>
+                )}
+              </Field>
+            </Col>
+          </Row>
+          {/* Producer */}
+          <Row>
+            <Col>
+              <Field name="producer">
+                {({ field, formProps }) => (
+                  <FormGroup style={{ paddingBottom: '1em' }}>
+                    <FormLabel>Producer: </FormLabel>
+                    <FormControl
+                      name="country"
+                      as="select"
+                      type="select"
+                      value={field.value}
+                      onChange={field.onChange}
+                    >
+                      {producerOptions()}
+                    </FormControl>
+                  </FormGroup>
+                )}
+              </Field>
+            </Col>
+            <Col>
+              <Field name="newProducer">
+                {({ field, formProps }) => (
+                  <FormGroup style={{ paddingBottom: '1em' }}>
+                    <FormLabel>Other Producer (not listed): </FormLabel>
+                    <FormControl
+                      name="newProducer"
+                      type="text"
+                      value={field.value}
+                      onChange={field.onChange}
+                      placeholder="Wine Producer"
+                    />
+                  </FormGroup>
+                )}
+              </Field>
+            </Col>
+          </Row>
           <Field name="appellation">
             {({ field, formProps }) => (
               <FormGroup style={{ paddingBottom: '1em' }}>
@@ -212,4 +285,13 @@ const BottleForm = (props) => {
   );
 };
 
-export default BottleForm;
+const mapStateToProps = (state) => {
+  return {
+    bins: state.attributes.bins,
+    countries: state.attributes.countries,
+    varietals: state.attributes.varietals,
+    producers: state.attributes.producers,
+  };
+};
+
+export default connect(mapStateToProps)(BottleForm);
