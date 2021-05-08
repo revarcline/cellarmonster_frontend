@@ -6,8 +6,6 @@ import OrderCard from './OrderCard';
 
 class OrderList extends React.Component {
   componentDidMount() {
-    console.log('orderlist getting');
-    console.log(this.props.currentUser);
     /*if (this.props.currentUser.role === 'server') {*/
     /*this.props.getUserOrders(this.props.currentUser.id);*/
     /*} else {*/

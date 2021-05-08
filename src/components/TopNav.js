@@ -12,7 +12,6 @@ const TopNav = (props) => {
   });
 
   const renderBottlesDropdown = () => {
-    console.log(props);
     return (
       <>
         <Nav.Item>
@@ -49,7 +48,6 @@ const TopNav = (props) => {
   };
 
   const renderUsersDropdown = () => {
-    console.log('rendering user dropdown');
     return (
       <NavDropdown title="Users">
         <NavDropdown.Item>
