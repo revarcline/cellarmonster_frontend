@@ -85,7 +85,7 @@ const BottleForm = (props) => {
   const countryOptions = () => {
     const otherCountry = { attributes: { id: 0, name: 'Other (fill in text field)' } };
     const countriesList = [...props.countries, otherCountry];
-    countriesList.map((country) => {
+    return countriesList.map((country) => {
       return (
         <option key={country.attributes.id} value={country.attributes.id}>
           {country.attributes.name}
