@@ -26,6 +26,10 @@ function App({ loggedIn }) {
                 {/* <Route path="/orders" component={withAuth(OrderList)} /> */}
                 <Route path="/bottles" component={withAuth(BottleList)} />
                 <Route path="/bottle/new" exact component={withAuth(BottleForm, { mode: 'new' })} />
+                <Route
+                  path="/bottle/edit/:query"
+                  component={withAuth(BottleForm, { mode: 'edit' })}
+                />
                 <Route path="/bottle/:query" component={withAuth(BottleList, { by: 'bottles' })} />
                 <Route
                   path="/producers/:query"

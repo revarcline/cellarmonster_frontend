@@ -82,7 +82,11 @@ const BottleCard = (props) => {
               <div>Color: {props.color}</div>
               <div>Vintage: {props.vintage}</div>
               <div>Format: {props.format}</div>
-              {props.currentUser.role === 'admin' ? <div>Edit Link - Delete Link</div> : null}
+              {props.currentUser.role === 'admin' ? (
+                <div>
+                  <Link to={`/bottle/edit/${props.id}`}>Edit</Link> - Delete Link
+                </div>
+              ) : null}
             </Col>
           </Row>
         </Card.Body>

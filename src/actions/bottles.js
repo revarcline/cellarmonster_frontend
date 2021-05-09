@@ -55,6 +55,7 @@ export const postBottleFailure = (error) => {
 
 export const postBottle = (bottle) => {
   return (dispatch) => {
+    dispatch(postingBottle());
     return fetch(`${apiRoot}/bottles`, {
       method: 'POST',
       body: JSON.stringify(bottle),
@@ -84,11 +85,12 @@ export const patchBottleFailure = (error) => {
   return { type: PATCH_BOTTLE_FAILURE, payload: error };
 };
 
-export const patchBottle = (bottle) => {
+export const patchBottle = (bottle, id) => {
   return (dispatch) => {
-    return fetch(`${apiRoot}/bottles`, {
+    dispatch(patchingBottle());
+    return fetch(`${apiRoot}/bottles/${id}`, {
       method: 'PATCH',
-      body: JSON.stringify(order),
+      body: JSON.stringify(bottle),
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
