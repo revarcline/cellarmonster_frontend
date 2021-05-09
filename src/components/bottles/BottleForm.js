@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Formik, Field, ErrorMessage } from 'formik';
+import { Formik, Field } from 'formik';
 import { Form as FormikForm } from 'formik';
 import { postBottle, patchBottle, getBottles } from '../../actions/bottles';
 import {
@@ -39,12 +39,10 @@ will find_or_create in the meantime
 const BottleForm = (props) => {
   // probably logic to map props from editable object here
 
-  let initVal;
   useEffect(() => {
     if (props.mode !== 'new') {
       props.getBottles;
     }
-    console.log(props);
   });
   const formRef = useRef();
 
@@ -158,7 +156,6 @@ const BottleForm = (props) => {
       props.dispatchUpdateBottle(outputValues, props.bottle_id);
     }
     formRef.current.setSubmitting(false);
-    console.log(outputValues);
   };
 
   const handleLoading = () => {

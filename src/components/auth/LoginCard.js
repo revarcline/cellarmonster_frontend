@@ -75,4 +75,4 @@ const mapDispatchToProps = (dispatch) => {
     dispatchLoginUser: (credentials) => dispatch(loginUser(credentials)),
   };
 };
-export default withRouter(connect(null, mapDispatchToProps)(LoginCard));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LoginCard));

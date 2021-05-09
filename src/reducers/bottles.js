@@ -51,6 +51,26 @@ const bottlesReducer = (
         ...state,
         bottlePosting: 'finished',
       };
+    case POST_BOTTLE_FAILURE:
+      return {
+        ...state,
+        bottlePosting: 'failed',
+      };
+    case PATCHING_BOTTLE:
+      return {
+        ...state,
+        bottlePatching: 'patching',
+      };
+    case PATCH_BOTTLE_SUCCESS:
+      return {
+        ...state,
+        bottlePatching: 'finished',
+      };
+    case PATCH_BOTTLE_FAILURE:
+      return {
+        ...state,
+        bottlePatching: 'failed',
+      };
     default:
       return state;
   }
