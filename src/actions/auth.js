@@ -90,7 +90,6 @@ export const checkAuth = () => {
       } else {
         return res.json().then((errors) => {
           dispatch({ type: NOT_AUTHENTICATED });
-          return Promise.reject();
         });
       }
     });

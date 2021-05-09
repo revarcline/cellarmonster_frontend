@@ -1,7 +1,24 @@
-import { LOADING_BOTTLES, GET_BOTTLES_SUCCESS, GET_BOTTLES_FAILURE } from '../actions/';
+import {
+  LOADING_BOTTLES,
+  GET_BOTTLES_SUCCESS,
+  GET_BOTTLES_FAILURE,
+  POSTING_BOTTLE,
+  POST_BOTTLE_SUCCESS,
+  POST_BOTTLE_FAILURE,
+  PATCHING_BOTTLE,
+  PATCH_BOTTLE_SUCCESS,
+  PATCH_BOTTLE_FAILURE,
+} from '../actions/';
 
 const bottlesReducer = (
-  state = { bottles: [], loading: 'idle', resource: '', error: '' },
+  state = {
+    bottles: [],
+    bottleLoading: 'idle',
+    bottlePosting: 'idle',
+    bottlePatching: 'idle',
+    resource: '',
+    error: '',
+  },
   action,
 ) => {
   switch (action.type) {
@@ -9,20 +26,30 @@ const bottlesReducer = (
       return {
         ...state,
         bottles: [...state.bottles],
-        loading: 'loading',
+        bottleLoading: 'loading',
       };
     case GET_BOTTLES_SUCCESS:
       return {
         ...state,
         bottles: action.payload.data,
         resource: action.payload.resource_name,
-        loading: 'finished',
+        bottleLoading: 'finished',
       };
     case GET_BOTTLES_FAILURE:
       return {
         ...state,
         error: action.payload,
-        loading: 'failed',
+        bottleLoading: 'failed',
+      };
+    case POSTING_BOTTLE:
+      return {
+        ...state,
+        bottlePosting: 'posting',
+      };
+    case POST_BOTTLE_SUCCESS:
+      return {
+        ...state,
+        bottlePosting: 'finished',
       };
     default:
       return state;

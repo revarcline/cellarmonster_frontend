@@ -104,7 +104,7 @@ const mapStateToProps = (state) => {
   return {
     bottles: state.bottles,
     resource: state.resource,
-    loading: state.bottles.loading,
+    loading: state.bottles.bottleLoading,
   };
 };
 

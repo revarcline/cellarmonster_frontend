@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { connect } from 'react-redux';
 import { Formik, Field, ErrorMessage } from 'formik';
 import { Form as FormikForm } from 'formik';
+import { postBottle, patchBottle } from '../../actions/bottles';
 import {
   FormControl,
   FormGroup,
@@ -41,14 +42,14 @@ const BottleForm = (props) => {
     props.mode === 'new'
       ? {
           name: '',
-          country: '',
-          newCountry: '',
-          producer: '',
-          newProducer: '',
+          country_id: '',
+          new_country: '',
+          producer_id: '',
+          new_producer: '',
           appellation: '',
           region: '',
           varietals: [],
-          newVarietal: '',
+          new_varietal: '',
           color: 'Red',
           sparkling: false,
           price: parseFloat(Number(0)).toFixed(2),
@@ -61,14 +62,14 @@ const BottleForm = (props) => {
         }
       : {
           name: props.name,
-          country: props.country.id,
-          newCountry: '',
-          producer: props.producer.id,
-          newProducer: '',
+          country_id: props.country.id,
+          new_country: '',
+          producer_id: props.producer.id,
+          new_producer: '',
           appellation: props.appellation,
           region: props.region,
           varietals: props.varietals.map((varietal) => varietal.id),
-          newVarietal: '',
+          new_varietal: '',
           color: props.color,
           sparkling: props.sparkling,
           price: props.price,
@@ -83,7 +84,7 @@ const BottleForm = (props) => {
   const formRef = useRef();
 
   const countryOptions = () => {
-    const otherCountry = { attributes: { id: 0, name: 'Other (fill in text field)' } };
+    const otherCountry = { attributes: { id: '', name: 'Other (fill in text field)' } };
     const countriesList = [...props.countries, otherCountry];
     return countriesList.map((country) => {
       return (
@@ -95,7 +96,7 @@ const BottleForm = (props) => {
   };
 
   const producerOptions = () => {
-    const otherProducer = { attributes: { id: 0, name: 'Other (fill in text field)' } };
+    const otherProducer = { attributes: { id: '', name: 'Other (fill in text field)' } };
     const producersList = [...props.producers, otherProducer];
     return producersList.map((producer) => {
       return (
@@ -138,7 +139,10 @@ const BottleForm = (props) => {
     });
   };
   const handleSubmit = (event) => {
-    const outputValues = formRef.current.values;
+    const outputValues = { bottle: formRef.current.values };
+    if (props.mode === 'new') {
+      props.dispatchNewBottle(outputValues);
+    }
     formRef.current.setSubmitting(false);
     console.log(outputValues);
   };
@@ -171,17 +175,17 @@ const BottleForm = (props) => {
 
             {/*
              *
-             ********** Country
+             ********** Country ID
              *
              */}
             <Row>
               <Col>
-                <Field name="country">
+                <Field name="country_id">
                   {({ field, formProps }) => (
                     <FormGroup style={{ paddingBottom: '1em' }}>
                       <FormLabel>Country: </FormLabel>
                       <FormControl
-                        name="country"
+                        name="country_id"
                         as="select"
                         type="select"
                         value={field.value}
@@ -194,12 +198,12 @@ const BottleForm = (props) => {
                 </Field>
               </Col>
               <Col>
-                <Field name="newCountry">
+                <Field name="new_country">
                   {({ field, formProps }) => (
                     <FormGroup style={{ paddingBottom: '1em' }}>
                       <FormLabel>Other Country (not listed): </FormLabel>
                       <FormControl
-                        name="newCountry"
+                        name="new_country"
                         type="text"
                         value={field.value}
                         onChange={field.onChange}
@@ -213,17 +217,17 @@ const BottleForm = (props) => {
 
             {/*
              *
-             ********** Producer
+             ********** Producer ID
              *
              */}
             <Row>
               <Col>
-                <Field name="producer">
+                <Field name="producer_id">
                   {({ field, formProps }) => (
                     <FormGroup style={{ paddingBottom: '1em' }}>
                       <FormLabel>Producer: </FormLabel>
                       <FormControl
-                        name="producer"
+                        name="producer_id"
                         as="select"
                         type="select"
                         value={field.value}
@@ -236,12 +240,12 @@ const BottleForm = (props) => {
                 </Field>
               </Col>
               <Col>
-                <Field name="newProducer">
+                <Field name="new_producer">
                   {({ field, formProps }) => (
                     <FormGroup style={{ paddingBottom: '1em' }}>
                       <FormLabel>Other Producer (not listed): </FormLabel>
                       <FormControl
-                        name="newProducer"
+                        name="new_producer"
                         type="text"
                         value={field.value}
                         onChange={field.onChange}
@@ -320,12 +324,12 @@ const BottleForm = (props) => {
                 </Field>
               </Col>
               <Col>
-                <Field name="newVarietal">
+                <Field name="new_varietal">
                   {({ field, formProps }) => (
                     <FormGroup style={{ paddingBottom: '1em' }}>
                       <FormLabel>Other Varietal(s): </FormLabel>
                       <FormControl
-                        name="newVarietal"
+                        name="new_varietal"
                         type="text"
                         value={field.value}
                         onChange={field.onChange}
@@ -591,4 +595,10 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(BottleForm);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatchNewBottle: (bottle) => dispatch(postBottle(bottle)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(BottleForm);

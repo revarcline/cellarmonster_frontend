@@ -55,6 +55,7 @@ export const postOrderFailure = (error) => {
 
 export const postOrder = (order) => {
   return (dispatch) => {
+    dispatch(postingOrder());
     return fetch(`${apiRoot}/orders`, {
       method: 'POST',
       body: JSON.stringify(order),
@@ -64,10 +65,7 @@ export const postOrder = (order) => {
       },
     }).then((res) => {
       if (res.ok) {
-        return res
-          .json()
-          .then((json) => dispatch(postOrderSuccess(json)))
-          .then(() => getOrders());
+        return res.json().then((json) => dispatch(postOrderSuccess(json)));
       } else {
         return res.json().then((error) => dispatch(postOrderFailure(error)));
       }
