@@ -5,7 +5,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import StickyBox from 'react-sticky-box';
 import LoginMenu from './components/auth/LoginMenu';
 import OrderList from './components/orders/OrderList';
-import NewUser from './components/auth/NewUser';
+import UserForm from './components/auth/NewUser';
 import BottleList from './components/bottles/BottleList';
 import BottleForm from './components/bottles/BottleForm';
 import TopNav from './components/TopNav';
@@ -22,7 +22,7 @@ function App({ loggedIn }) {
             <Col>
               <Switch>
                 <Route exact path="/" component={LoginMenu} />
-                <Route path="/users/new" component={withAuth(NewUser)} />
+                <Route path="/users/new" component={withAuth(UserForm, { mode: 'new' })} />
                 {/* <Route path="/orders" component={withAuth(OrderList)} /> */}
                 <Route path="/bottles" component={withAuth(BottleList)} />
                 <Route path="/bottle/new" exact component={withAuth(BottleForm, { mode: 'new' })} />

@@ -3,14 +3,22 @@ import { connect } from 'react-redux';
 import { signupUser } from '../../actions/auth';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 
-class NewUser extends React.Component {
-  state = {
-    email: '',
-    password: '',
-    name: '',
-    role: 'server',
-    errors: { status: { message: '' } },
-  };
+class UserForm extends React.Component {
+  state =
+    this.props.mode === 'new'
+      ? {
+          email: '',
+          password: '',
+          name: '',
+          role: 'server',
+        }
+      : {
+          email: this.props.editUser.email,
+          password: '',
+          currentPassword: '',
+          name: this.props.editUser.name,
+          role: this.props.editUser.role,
+        };
 
   handleChange = (event) => {
     this.setState({
@@ -20,11 +28,14 @@ class NewUser extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const { email, password, name, role } = this.state;
-    this.props
-      .dispatchSignupUser({ email, password, name, role })
-      .then(() => this.props.history.push('/'))
-      .catch((errors) => this.setState({ errors }));
+    if (this.props.mode === 'new') {
+      const { email, password, name, role } = this.state;
+      this.props
+        .dispatchSignupUser({ email, password, name, role })
+        .then(() => this.props.history.push('/'))
+        .catch((errors) => this.setState({ errors }));
+    } else if (this.props.mode === 'edit') {
+    }
   };
 
   render() {
@@ -33,7 +44,7 @@ class NewUser extends React.Component {
         <Row className="justify-content-md-center">
           <Col xs md="8" sm="10" lg="6">
             <Form onSubmit={this.handleSubmit}>
-              <h1>Create a New User</h1>
+              {this.props.mode === 'new' ? <h1>Create a New User</h1> : <h1>Edit User</h1>}
               <Form.Group>
                 <Form.Label htmlFor="email">Email:</Form.Label>
                 <Form.Control
@@ -98,4 +109,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(NewUser);
+export default connect(null, mapDispatchToProps)(UserForm);
