@@ -11,7 +11,7 @@ const BottleCard = (props) => {
     return props.varietals.map((varietal) => {
       return (
         <span key={`varietal-${varietal.id}`}>
-          <Link to={`/varietal/${varietal.id}`}>{varietal.name}</Link>{' '}
+          <Link to={`/varietals/${varietal.id}`}>{varietal.name}</Link>{' '}
         </span>
       );
     });
@@ -21,7 +21,7 @@ const BottleCard = (props) => {
     return props.bins.map((bin) => {
       return (
         <span key={`bin-${bin.id}`}>
-          <Link to={`/bin/${bin.id}`}>{bin.name}</Link>{' '}
+          <Link to={`/bins/${bin.id}`}>{bin.name}</Link>{' '}
         </span>
       );
     });
@@ -35,9 +35,6 @@ const BottleCard = (props) => {
     event.preventDefault();
     const order = { quantity: orderQty, bottle_id: props.id, user_id: props.currentUser.id };
     props.dispatchNewOrder(order);
-    console.log(
-      `${props.currentUser.name} (id: ${order.user_id}) ordering ${order.quantity} bottles of bottle ${order.bottle_id}`,
-    );
   };
 
   return (
@@ -47,7 +44,7 @@ const BottleCard = (props) => {
           <Row>
             <Col md="8">
               <Card.Title>
-                <Link to={`/producer/${props.producer.id}`}>{props.producer.name}</Link>
+                <Link to={`/producers/${props.producer.id}`}>{props.producer.name}</Link>
                 {' - '}
                 <i>{props.name}</i>
               </Card.Title>
@@ -55,7 +52,7 @@ const BottleCard = (props) => {
                 <div>
                   {props.appellation ? `${props.appellation} - ` : null}
                   {props.region ? `${props.region} - ` : null}
-                  <Link to={`/country/${props.country.id}`}>{props.country.name}</Link>
+                  <Link to={`/countries/${props.country.id}`}>{props.country.name}</Link>
                 </div>
                 <div>{varietalLinks()}</div>
               </Card.Subtitle>
@@ -85,6 +82,7 @@ const BottleCard = (props) => {
               <div>Color: {props.color}</div>
               <div>Vintage: {props.vintage}</div>
               <div>Format: {props.format}</div>
+              {props.currentUser.role === 'admin' ? <div>Edit Link - Delete Link</div> : null}
             </Col>
           </Row>
         </Card.Body>

@@ -5,6 +5,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { getAttributes } from '../actions/attributes';
 import Logout from './auth/Logout';
 import Search from './Search';
+import './TopNav.css';
 
 const TopNav = (props) => {
   useEffect(() => {
