@@ -9,6 +9,9 @@ import {
   PATCHING_BOTTLE,
   PATCH_BOTTLE_SUCCESS,
   PATCH_BOTTLE_FAILURE,
+  DELETING_BOTTLE,
+  DELETE_BOTTLE_SUCCESS,
+  DELETE_BOTTLE_FAILURE,
 } from '../actions/';
 
 export const loadingBottles = () => {
@@ -99,7 +102,38 @@ export const patchBottle = (bottle, id) => {
       if (res.ok) {
         return res.json().then((json) => dispatch(patchBottleSuccess(json)));
       } else {
-        return res.json().then((error) => dispatch(patchBottleFailure(json)));
+        return res.json().then((error) => dispatch(patchBottleFailure(error)));
+      }
+    });
+  };
+};
+
+export const deletingBottle = () => {
+  return { type: DELETING_BOTTLE };
+};
+
+export const deleteBottleSuccess = (data) => {
+  return { type: DELETE_BOTTLE_SUCCESS, payload: data };
+};
+
+export const deleteBottleFailure = (error) => {
+  return { type: DELETE_BOTTLE_FAILURE, payload: error };
+};
+
+export const deleteBottle = (id) => {
+  return (dispatch) => {
+    dispatch(patchingBottle());
+    return fetch(`${apiRoot}/bottles/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    }).then((res) => {
+      if (res.ok) {
+        return dispatch(deleteBottleSuccess({ status: 'Delete successful' }));
+      } else {
+        return res.json().then((error) => dispatch(patchBottleFailure(error)));
       }
     });
   };

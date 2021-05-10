@@ -8,6 +8,9 @@ import {
   PATCHING_BOTTLE,
   PATCH_BOTTLE_SUCCESS,
   PATCH_BOTTLE_FAILURE,
+  DELETING_BOTTLE,
+  DELETE_BOTTLE_SUCCESS,
+  DELETE_BOTTLE_FAILURE,
 } from '../actions/';
 
 const bottlesReducer = (
@@ -16,6 +19,7 @@ const bottlesReducer = (
     bottleLoading: 'idle',
     bottlePosting: 'idle',
     bottlePatching: 'idle',
+    bottleDeleting: 'idle',
     resource: '',
     error: '',
   },
@@ -70,6 +74,21 @@ const bottlesReducer = (
       return {
         ...state,
         bottlePatching: 'failed',
+      };
+    case DELETING_BOTTLE:
+      return {
+        ...state,
+        bottleDeleting: 'deleting',
+      };
+    case DELETE_BOTTLE_SUCCESS:
+      return {
+        ...state,
+        bottleDeleting: 'finished',
+      };
+    case DELETE_BOTTLE_FAILURE:
+      return {
+        ...state,
+        bottleDeleting: 'failed',
       };
     default:
       return state;
