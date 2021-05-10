@@ -40,8 +40,8 @@ const BottleCard = (props) => {
     const order = { quantity: orderQty, bottle_id: props.id, user_id: props.currentUser.id };
     props.dispatchNewOrder(order);
     if (props.orderPosting === 'finished') {
-      setTotalSold(totalSold + orderQty);
-      setInventory(inventory - orderQty);
+      setTotalSold(parseInt(totalSold) + parseInt(orderQty));
+      setInventory(parseInt(inventory) - parseInt(orderQty));
     }
   };
 
@@ -49,7 +49,6 @@ const BottleCard = (props) => {
     // replace element with "bottle deleted" message
     props.dispatchDeleteBottle();
     setDeleted(true);
-    console.log(`Deleting bottle number ${props.id}`);
   };
 
   if (!deleted) {
@@ -121,7 +120,9 @@ const BottleCard = (props) => {
         <br />
       </Container>
     );
-  } else {
+  } else if (props.bottleDeleting === 'deleting') {
+    return <h1>Deleting...</h1>;
+  } else if (props.bottleDeleting === 'finished') {
     return <h1>Bottle Deleted Successfully</h1>;
   }
 };

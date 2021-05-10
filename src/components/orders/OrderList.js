@@ -5,12 +5,13 @@ import { Row, Col, Spinner } from 'react-bootstrap';
 import OrderCard from './OrderCard';
 
 class OrderList extends React.Component {
+  // this seems broken
   componentDidMount() {
-    /*if (this.props.currentUser.role === 'server') {*/
-    /*this.props.getUserOrders(this.props.currentUser.id);*/
-    /*} else {*/
-    this.props.getAllOrders;
-    /*}*/
+    if (this.props.currentUser.role === 'server') {
+      this.props.getUserOrders(this.props.currentUser.id);
+    } else {
+      this.props.getAllOrders();
+    }
   }
 
   generateCards = () => {
@@ -61,7 +62,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    getAllOrders: dispatch(getAllOrders()),
+    getAllOrders: () => dispatch(getAllOrders()),
     getUserOrders: (id) => dispatch(getUserOrders(id)),
   };
 };

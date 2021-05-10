@@ -103,10 +103,15 @@ class UserForm extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  // get user for edit
+  return {};
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     dispatchSignupUser: (credentials) => dispatch(signupUser(credentials)),
   };
 };
 
-export default connect(null, mapDispatchToProps)(UserForm);
+export default connect(mapStateToProps, mapDispatchToProps)(UserForm);

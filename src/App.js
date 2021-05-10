@@ -5,7 +5,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import StickyBox from 'react-sticky-box';
 import LoginMenu from './components/auth/LoginMenu';
 import OrderList from './components/orders/OrderList';
-import UserForm from './components/auth/NewUser';
+import UserForm from './components/auth/UserForm';
 import BottleList from './components/bottles/BottleList';
 import BottleForm from './components/bottles/BottleForm';
 import TopNav from './components/TopNav';

@@ -52,16 +52,14 @@ const TopNav = (props) => {
     return (
       <NavDropdown title="Users">
         <NavDropdown.Item>
-          <LinkContainer to="/bottles">
-            <Nav.Link>All Users</Nav.Link>
+          <LinkContainer to="/users/new">
+            <Nav.Link>New User</Nav.Link>
           </LinkContainer>
         </NavDropdown.Item>
         <NavDropdown.Divider />
-        <NavDropdown.Item>Other Users</NavDropdown.Item>
-        <NavDropdown.Divider />
         <NavDropdown.Item>
-          <LinkContainer to="/users/new">
-            <Nav.Link>New User</Nav.Link>
+          <LinkContainer to="/users">
+            <Nav.Link>All Users</Nav.Link>
           </LinkContainer>
         </NavDropdown.Item>
       </NavDropdown>
@@ -121,6 +119,7 @@ const mapStateToProps = (state) => {
       countries: state.attributes.countries,
       producers: state.attributes.producers,
     },
+    users: state.usersList.data,
   };
 };
 
