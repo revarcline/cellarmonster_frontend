@@ -15,7 +15,6 @@ class UserForm extends React.Component {
       : {
           email: this.props.editUser.email,
           password: '',
-          currentPassword: '',
           name: this.props.editUser.name,
           role: this.props.editUser.role,
         };
@@ -35,6 +34,10 @@ class UserForm extends React.Component {
         .then(() => this.props.history.push('/'))
         .catch((errors) => this.setState({ errors }));
     } else if (this.props.mode === 'edit') {
+      const { email, password, name, role } = this.state;
+      this.props
+        .dispatchUpdateUser({ email, password, name, role })
+        .catch((errors) => this.setState({ errors }));
     }
   };
 
@@ -44,7 +47,7 @@ class UserForm extends React.Component {
         <Row className="justify-content-md-center">
           <Col xs md="8" sm="10" lg="6">
             <Form onSubmit={this.handleSubmit}>
-              {this.props.mode === 'new' ? <h1>Create a New User</h1> : <h1>Edit User</h1>}
+              {this.props.mode === 'new' ? <h1>Create a New User</h1> : null}
               <Form.Group>
                 <Form.Label htmlFor="email">Email:</Form.Label>
                 <Form.Control
@@ -92,6 +95,8 @@ class UserForm extends React.Component {
                   value={this.state.password}
                 />
               </Form.Group>
+              <br />
+
               <Button type="submit" variant="primary" onSubmit={this.handleSubmit}>
                 Submit
               </Button>

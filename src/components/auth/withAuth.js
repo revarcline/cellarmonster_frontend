@@ -4,7 +4,7 @@ import { checkAuth } from '../../actions/auth';
 import { Spinner, Alert } from 'react-bootstrap';
 import LoginMenu from './LoginMenu';
 
-const withAuth = (WrappedComponent, extraProps) => {
+const withAuth = (WrappedComponent, role, extraProps) => {
   class Wrapper extends React.Component {
     componentDidMount() {
       this.props.dispatchCheckAuth();
