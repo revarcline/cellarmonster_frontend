@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { getAttributes } from '../actions/attributes';
@@ -8,11 +8,20 @@ import Search from './Search';
 import './TopNav.css';
 
 const TopNav = (props) => {
+  const dispatch = useDispatch();
+  const { attributes, auth } = useSelector((state) => state);
+  const handleGetAttributes = async () => await dispatch(getAttributes());
+
   useEffect(() => {
-    props.getAttributes;
-  });
+    handleGetAttributes();
+  }, []);
 
   const renderBottlesDropdown = () => {
+    const categories = {
+      countries: [...attributes.countries],
+      varietals: [...attributes.varietals],
+      producers: [...attributes.producers],
+    };
     return (
       <>
         <Nav.Item>
@@ -20,11 +29,11 @@ const TopNav = (props) => {
             <Nav.Link>All Bottles</Nav.Link>
           </LinkContainer>
         </Nav.Item>
-        {Object.keys(props.attributes).map((category) => {
+        {Object.keys(categories).map((category) => {
           return (
             <Nav.Item key={category}>
               <NavDropdown drop="right" title={category.replace(/^\w/, (c) => c.toUpperCase())}>
-                {props.attributes[category].map((item) => {
+                {categories[category].map((item) => {
                   return (
                     <Nav.Item key={item.attributes.id}>
                       <NavDropdown.Item>
@@ -73,7 +82,7 @@ const TopNav = (props) => {
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse>
           <Nav>
-            {props.loggedIn ? (
+            {auth.loggedIn ? (
               <>
                 {renderBottlesDropdown()}
                 <Nav.Item>
@@ -84,14 +93,12 @@ const TopNav = (props) => {
           </Nav>
         </Navbar.Collapse>
         <Nav>
-          {props.loggedIn && props.currentUser.role === 'admin' ? (
-            <>{renderUsersDropdown()}</>
-          ) : null}
-          {props.loggedIn ? (
+          {auth.loggedIn && auth.currentUser.role === 'admin' ? <>{renderUsersDropdown()}</> : null}
+          {auth.loggedIn ? (
             <>
               <Nav.Item>
                 <LinkContainer to="/orders">
-                  <Nav.Link>{props.currentUser.name}</Nav.Link>
+                  <Nav.Link>{auth.currentUser.name}</Nav.Link>
                 </LinkContainer>
               </Nav.Item>
               <Logout />
@@ -109,24 +116,24 @@ const TopNav = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    authChecked: state.auth.authChecked,
-    loggedIn: state.auth.loggedIn,
-    currentUser: state.auth.currentUser,
-    attributes: {
-      varietals: state.attributes.varietals,
-      countries: state.attributes.countries,
-      producers: state.attributes.producers,
-    },
-    users: state.usersList.data,
-  };
-};
+//const mapStateToProps = (state) => {
+//return {
+//authChecked: state.auth.authChecked,
+//loggedIn: state.auth.loggedIn,
+//currentUser: state.auth.currentUser,
+//attributes: {
+//varietals: state.attributes.varietals,
+//countries: state.attributes.countries,
+//producers: state.attributes.producers,
+//},
+//users: state.usersList.data,
+//};
+//};
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getAttributes: dispatch(getAttributes()),
-  };
-};
+//const mapDispatchToProps = (dispatch) => {
+//return {
+//getAttributes: dispatch(getAttributes()),
+//};
+//};
 
-export default connect(mapStateToProps, mapDispatchToProps)(TopNav);
+export default TopNav;
