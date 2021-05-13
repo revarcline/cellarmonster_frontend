@@ -37,10 +37,10 @@ class LoginMenu extends React.Component {
   }
 }
 
-const mapStateToProps = ({ usersList: { data, loading } }) => {
+const mapStateToProps = ({ usersList: { users, userListLoading } }) => {
   return {
-    users: data,
-    loading: loading,
+    users: users,
+    loading: userListLoading,
   };
 };
 

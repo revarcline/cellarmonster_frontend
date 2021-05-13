@@ -26,6 +26,7 @@ module.exports = {
     'react/prop-types': 'off',
     'no-console': 'warn',
     'no-debugger': 'warn',
+    'react-hooks/exhaustive-deps': 'off',
     quotes: [2, 'single'],
   },
   settings: {

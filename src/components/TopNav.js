@@ -62,18 +62,12 @@ const TopNav = (props) => {
   };
 
   const renderUsersDropdown = () => {
-    const users = usersList.data;
+    const users = usersList.users;
     return (
       <NavDropdown title="Users">
         <NavDropdown.Item>
           <LinkContainer to="/users/new">
             <Nav.Link>New User</Nav.Link>
-          </LinkContainer>
-        </NavDropdown.Item>
-        <NavDropdown.Divider />
-        <NavDropdown.Item>
-          <LinkContainer to="/users">
-            <Nav.Link>All Users</Nav.Link>
           </LinkContainer>
         </NavDropdown.Item>
         <NavDropdown.Divider />

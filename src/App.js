@@ -6,7 +6,7 @@ import StickyBox from 'react-sticky-box';
 import LoginMenu from './components/auth/LoginMenu';
 import OrderList from './components/orders/OrderList';
 import UserForm from './components/auth/UserForm';
-import UserList from './components/auth/UserList';
+import UserShow from './components/auth/UserShow';
 import BottleList from './components/bottles/BottleList';
 import BottleForm from './components/bottles/BottleForm';
 import TopNav from './components/TopNav';
@@ -24,7 +24,7 @@ function App({ loggedIn }) {
               <Switch>
                 <Route exact path="/" component={LoginMenu} />
                 <Route path="/users/new" component={withAuth(UserForm, { mode: 'new' })} />
-                <Route path="/users/:id" component={withAuth(UserList)} />
+                <Route path="/users/:id" component={withAuth(UserShow)} />
                 {/* <Route path="/orders" component={withAuth(OrderList)} /> */}
                 <Route path="/bottles" component={withAuth(BottleList)} />
                 <Route path="/bottle/new" exact component={withAuth(BottleForm, { mode: 'new' })} />
