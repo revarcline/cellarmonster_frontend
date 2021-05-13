@@ -3,17 +3,21 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { getAttributes } from '../actions/attributes';
+import { getUsers } from '../actions/users';
 import Logout from './auth/Logout';
 import Search from './Search';
 import './TopNav.css';
 
 const TopNav = (props) => {
   const dispatch = useDispatch();
-  const { attributes, auth } = useSelector((state) => state);
+  const { attributes, auth, usersList } = useSelector((state) => state);
+
   const handleGetAttributes = async () => await dispatch(getAttributes());
+  const handleGetUsers = async () => await dispatch(getUsers());
 
   useEffect(() => {
     handleGetAttributes();
+    handleGetUsers();
   }, []);
 
   const renderBottlesDropdown = () => {
@@ -58,6 +62,7 @@ const TopNav = (props) => {
   };
 
   const renderUsersDropdown = () => {
+    const users = usersList.data;
     return (
       <NavDropdown title="Users">
         <NavDropdown.Item>
@@ -71,6 +76,16 @@ const TopNav = (props) => {
             <Nav.Link>All Users</Nav.Link>
           </LinkContainer>
         </NavDropdown.Item>
+        <NavDropdown.Divider />
+        {users.map((user) => {
+          return (
+            <NavDropdown.Item key={`user-${user.id}`}>
+              <LinkContainer to={`/users/${user.id}`}>
+                <Nav.Link>{user.attributes.name}</Nav.Link>
+              </LinkContainer>
+            </NavDropdown.Item>
+          );
+        })}
       </NavDropdown>
     );
   };
@@ -115,25 +130,5 @@ const TopNav = (props) => {
     </Navbar>
   );
 };
-
-//const mapStateToProps = (state) => {
-//return {
-//authChecked: state.auth.authChecked,
-//loggedIn: state.auth.loggedIn,
-//currentUser: state.auth.currentUser,
-//attributes: {
-//varietals: state.attributes.varietals,
-//countries: state.attributes.countries,
-//producers: state.attributes.producers,
-//},
-//users: state.usersList.data,
-//};
-//};
-
-//const mapDispatchToProps = (dispatch) => {
-//return {
-//getAttributes: dispatch(getAttributes()),
-//};
-//};
 
 export default TopNav;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { getUsers } from '../../actions/users.js';
 import UserForm from './UserForm';
 import { Card, Button } from 'react-bootstrap';
@@ -66,16 +66,16 @@ const UserList = (props) => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    users: state.usersList.data,
-    userLoading: state.usersList.loading,
-  };
-};
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getUsers: dispatch(getUsers()),
-  };
-};
+//const mapStateToProps = (state) => {
+//return {
+//users: state.usersList.data,
+//userLoading: state.usersList.loading,
+//};
+//};
+//const mapDispatchToProps = (dispatch) => {
+//return {
+//getUsers: dispatch(getUsers()),
+//};
+//};
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserList);
+export default UserList;
