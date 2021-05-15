@@ -23,7 +23,10 @@ function App({ loggedIn }) {
             <Col>
               <Switch>
                 <Route exact path="/" component={LoginMenu} />
-                <Route path="/users/new" component={withAuth(UserForm, { mode: 'new' })} />
+                <Route
+                  path="/users/new"
+                  component={withAuth(UserForm, { mode: 'new', editUser: {} })}
+                />
                 <Route path="/users/:id" component={withAuth(UserShow)} />
                 {/* <Route path="/orders" component={withAuth(OrderList)} /> */}
                 <Route path="/bottles" component={withAuth(BottleList)} />
