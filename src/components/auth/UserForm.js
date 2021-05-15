@@ -1,32 +1,35 @@
 import React, { useEffect } from 'react';
-import { signupUser } from '../../actions/auth';
+import { signupUser, updateUser } from '../../actions/auth';
+import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 
 const UserForm = (props) => {
   useEffect(() => console.log(props));
 
+  const dispatch = useDispatch();
+
   const initialValues =
     props.mode === 'edit'
       ? {
           email: props.editUser.email,
-          password: '',
           name: props.editUser.name,
           role: props.editUser.role,
         }
       : {
           email: '',
-          password: '',
           name: '',
           role: 'server',
         };
 
-  const { register, handleSubmit, errors } = useForm({ initialValues });
+  const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = (data) => {
     if (props.mode === 'new') {
+      dispatch(signupUser(data));
       console.log('new action}');
     } else if (props.mode === 'edit') {
+      dispatch(updateUser(data));
       console.log('update action');
     }
     console.log(JSON.stringify(data));
@@ -42,6 +45,7 @@ const UserForm = (props) => {
               <Form.Label htmlFor="email">Email:</Form.Label>
               <Form.Control
                 type="email"
+                defaultValue={initialValues.email}
                 placeholder="email@domain.com"
                 id="email"
                 {...register('email', { required: true })}
@@ -51,6 +55,7 @@ const UserForm = (props) => {
               <Form.Label htmlFor="name">Name:</Form.Label>
               <Form.Control
                 type="text"
+                defaultValue={initialValues.name}
                 placeholder="Enter Name"
                 id="name"
                 {...register('name', { required: true })}
@@ -60,6 +65,7 @@ const UserForm = (props) => {
               <Form.Label htmlFor="role">User Role:</Form.Label>
               <Form.Control
                 as="select"
+                defaultValue={initialValues.role}
                 id="role"
                 name="role"
                 {...register('role', { required: true })}
