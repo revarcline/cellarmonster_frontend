@@ -22,7 +22,7 @@ const UserShow = (props) => {
   const showEditForm = () => {
     // wrap edit form
     if (showEdit) {
-      return <UserForm mode="edit" editUser={user} />;
+      return <UserForm editUser={user} />;
     }
   };
 

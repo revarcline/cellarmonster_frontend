@@ -40,7 +40,7 @@ export const signupUser = (credentials) => {
 
 export const updateUser = (credentials) => {
   return (dispatch) => {
-    return fetch(`${apiRoot}/users/registrations`, {
+    return fetch(`${apiRoot}/signup`, {
       method: 'PATCH',
       headers: {
         Accept: 'application/json',

@@ -1,16 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { signupUser, updateUser } from '../../actions/auth';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 
 const UserForm = (props) => {
-  useEffect(() => console.log(props));
-
   const dispatch = useDispatch();
+  const handleSignupUser = async (data) => await dispatch(signupUser(data));
+  const handleUpdateUser = async (data) => await dispatch(updateUser(data));
+  const mode = props.match.path === '/users/new' ? 'new' : 'edit';
 
   const initialValues =
-    props.mode === 'edit'
+    mode === 'edit'
       ? {
           email: props.editUser.email,
           name: props.editUser.name,
@@ -24,22 +25,20 @@ const UserForm = (props) => {
 
   const { register, handleSubmit, errors } = useForm();
 
-  const onSubmit = (data) => {
-    if (props.mode === 'new') {
-      dispatch(signupUser(data));
-      console.log('new action}');
-    } else if (props.mode === 'edit') {
-      dispatch(updateUser(data));
-      console.log('update action');
+  const onSubmit = (data, event) => {
+    event.preventDefault();
+    if (mode === 'new') {
+      handleSignupUser(data);
+    } else if (mode === 'edit') {
+      handleUpdateUser(data);
     }
-    console.log(JSON.stringify(data));
   };
 
   return (
     <Container className="pt-3" fluid>
       <Row className="justify-content-md-center">
         <Col xs md="8" sm="10" lg="6">
-          {props.mode === 'new' ? <h1>Create a New User</h1> : null}
+          {mode === 'new' ? <h1>Create a New User</h1> : null}
           <Form onSubmit={handleSubmit(onSubmit)}>
             <Form.Group>
               <Form.Label htmlFor="email">Email:</Form.Label>
