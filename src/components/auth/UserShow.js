@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../../actions/users';
 import UserForm from './UserForm';
-import { Card, Button, Spinner } from 'react-bootstrap';
+import { Card, Button, Spinner, Collapse } from 'react-bootstrap';
 
 const UserShow = (props) => {
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const UserShow = (props) => {
   const showEditForm = () => {
     // wrap edit form
     if (showEdit) {
-      return <UserForm editUser={user} />;
+      return <UserForm editUser={user} mode="edit" />;
     }
   };
 
@@ -41,6 +41,7 @@ const UserShow = (props) => {
                 onClick={() => {
                   setShowEdit(!showEdit);
                 }}
+                aria-controls="collapse-form"
               >
                 Edit User
               </Button>

@@ -1,78 +1,60 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
 import { loginUser } from '../../actions/auth';
 import { withRouter } from 'react-router-dom';
 import { Card, Form, Button, Collapse, Container, InputGroup } from 'react-bootstrap';
 
-class LoginCard extends React.Component {
-  state = {
-    email: this.props.email,
-    password: '',
-    open: false,
-    error: false,
-  };
+const LoginCard = (props) => {
+  const dispatch = useDispatch();
 
-  handleChange = (event) => {
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
-  };
+  const [openCard, setOpenCard] = useState(false);
 
-  handleSubmit = (event) => {
+  const handleLoginUser = async (credentials) => await dispatch(loginUser(credentials));
+  const loggedIn = useSelector((state) => state.auth.loggedIn);
+
+  const { register, handleSubmit, errors } = useForm();
+
+  const onSubmit = (data, event) => {
     event.preventDefault();
-    const { email, password } = this.state;
-    this.props
-      .dispatchLoginUser({ email, password })
-      .then(() => this.props.history.push('/bottles'))
-      .catch(() => this.setState({ error: true }));
+    const sendData = { ...data, email: props.email };
+    console.log(sendData);
+    handleLoginUser(sendData).then(() => this.props.history.push('/bottles'));
   };
 
-  setOpen = () => {
-    this.setState({ open: !this.state.open });
-  };
-
-  render() {
-    return (
-      <Container fluid className="pt-3">
-        <Card body>
-          <div onClick={this.setOpen} aria-controls="collapse-form">
-            <Card.Title>{this.props.name}</Card.Title>
-            <Card.Subtitle>{this.props.role}</Card.Subtitle>
-          </div>
-          <Collapse in={this.state.open}>
-            <Form onSubmit={this.handleSubmit} id="collapse-form" inline>
-              <InputGroup>
-                <Form.Control
-                  className="mb-2 mr-sm-2"
-                  id="password"
-                  type="password"
-                  placeholder="Passcode"
-                  name="password"
-                  onChange={this.handleChange}
-                />
-                <InputGroup.Append>
-                  <Button type="submit" className="mb-2">
-                    Log In
-                  </Button>
-                </InputGroup.Append>
-              </InputGroup>
-            </Form>
-          </Collapse>
-        </Card>
-      </Container>
-    );
-  }
-}
+  return (
+    <Container fluid className="pt-3">
+      <Card body>
+        <div onClick={() => setOpenCard(!openCard)} aria-controls="collapse-form">
+          <Card.Title>{props.name}</Card.Title>
+          <Card.Subtitle>{props.role}</Card.Subtitle>
+        </div>
+        <Collapse in={openCard}>
+          <Form onSubmit={handleSubmit(onSubmit)} id="collapse-form" inline>
+            <InputGroup>
+              <Form.Control
+                className="mb-2 mr-sm-2"
+                id="password"
+                type="password"
+                placeholder="Passcode"
+                name="password"
+                {...register('password', { required: true })}
+              />
+              <InputGroup.Append>
+                <Button type="submit" className="mb-2">
+                  Log In
+                </Button>
+              </InputGroup.Append>
+            </InputGroup>
+          </Form>
+        </Collapse>
+      </Card>
+    </Container>
+  );
+};
 
 const mapStateToProps = (state) => {
-  return {
-    loggedIn: state.auth.loggedIn,
-  };
+  return {};
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    dispatchLoginUser: (credentials) => dispatch(loginUser(credentials)),
-  };
-};
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LoginCard));
+export default withRouter(LoginCard);

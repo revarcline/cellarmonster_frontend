@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { signupUser, updateUser } from '../../actions/auth';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
@@ -8,7 +8,7 @@ const UserForm = (props) => {
   const dispatch = useDispatch();
   const handleSignupUser = async (data) => await dispatch(signupUser(data));
   const handleUpdateUser = async (data) => await dispatch(updateUser(data));
-  const mode = props.match.path === '/users/new' ? 'new' : 'edit';
+  const mode = props.mode === 'edit' ? 'edit' : 'new';
 
   const initialValues =
     mode === 'edit'
