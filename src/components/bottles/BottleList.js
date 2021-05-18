@@ -1,19 +1,28 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { getBottles } from '../../actions/bottles';
 import BottleCard from './BottleCard';
 import { Container, Row, Col, Spinner } from 'react-bootstrap';
 
-class BottleList extends React.Component {
-  componentDidMount() {
-    this.props.getBottles;
-  }
+const BottleList = (props) => {
+  const dispatch = useDispatch();
+  const handleGetBottles = async () =>
+    await dispatch(getBottles(props.by, props.match.params.query));
 
-  generateCards = () => {
-    if (this.props.bottles.bottles.length === 0) {
+  useEffect(() => {
+    handleGetBottles();
+  }, []);
+
+  const {
+    bottles: { bottles, bottleLoading },
+    resource,
+  } = useSelector((state) => state);
+
+  const generateCards = () => {
+    if (bottles.length === 0) {
       return <h1>No Results</h1>;
     } else {
-      return this.props.bottles.bottles.map(
+      return bottles.map(
         ({
           id,
           attributes: {
@@ -63,55 +72,39 @@ class BottleList extends React.Component {
     }
   };
 
-  handleLoading = () => {
-    if (this.props.loading === 'loading') {
+  const handleLoading = () => {
+    if (bottleLoading === 'loading') {
       return <Spinner animation="border" role="status" />;
-    } else if (this.props.loading === 'finished') {
-      return this.generateCards();
+    } else if (bottleLoading === 'finished') {
+      return generateCards();
     }
   };
 
-  resourceName = () => {
-    if (this.props.by === 'search') {
-      return `Search results for "${this.props.match.params.query}"`;
-    } else if (this.props.by) {
-      return `Bottles matching "${this.props.bottles.resource}"`;
-    } else if (this.props.match.path === '/bottle/:query') {
+  const resourceName = () => {
+    if (props.by === 'search') {
+      return `Search results for "${props.match.params.query}"`;
+    } else if (props.by) {
+      return `Bottles matching "${resource}"`;
+    } else if (props.match.path === '/bottle/:query') {
       return null;
     } else {
       return 'All Bottles';
     }
   };
 
-  render() {
-    return (
-      <Container fluid className="pt-3">
-        <Row>
-          <Container fluid className="pt-3">
-            <h2>{this.resourceName()}</h2>
-          </Container>
-        </Row>
+  return (
+    <Container fluid className="pt-3">
+      <Row>
+        <Container fluid className="pt-3">
+          <h2>{resourceName()}</h2>
+        </Container>
+      </Row>
 
-        <Row className="justify-content-md-center">
-          <Col xs="auto">{this.handleLoading()}</Col>
-        </Row>
-      </Container>
-    );
-  }
-}
-
-const mapStateToProps = (state) => {
-  return {
-    bottles: state.bottles,
-    resource: state.resource,
-    loading: state.bottles.bottleLoading,
-  };
+      <Row className="justify-content-md-center">
+        <Col xs="auto">{handleLoading()}</Col>
+      </Row>
+    </Container>
+  );
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    getBottles: dispatch(getBottles(ownProps.by, ownProps.match.params.query)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(BottleList);
+export default BottleList;
