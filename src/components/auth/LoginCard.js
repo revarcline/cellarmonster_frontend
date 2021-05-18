@@ -11,15 +11,13 @@ const LoginCard = (props) => {
   const [openCard, setOpenCard] = useState(false);
 
   const handleLoginUser = async (credentials) => await dispatch(loginUser(credentials));
-  const loggedIn = useSelector((state) => state.auth.loggedIn);
 
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = (data, event) => {
     event.preventDefault();
     const sendData = { ...data, email: props.email };
-    console.log(sendData);
-    handleLoginUser(sendData).then(() => this.props.history.push('/bottles'));
+    handleLoginUser(sendData).then(() => props.history.push('/bottles'));
   };
 
   return (
@@ -51,10 +49,6 @@ const LoginCard = (props) => {
       </Card>
     </Container>
   );
-};
-
-const mapStateToProps = (state) => {
-  return {};
 };
 
 export default withRouter(LoginCard);
