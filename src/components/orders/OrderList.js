@@ -1,21 +1,29 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { getAllOrders, getUserOrders } from '../../actions/orders';
 import { Row, Col, Spinner } from 'react-bootstrap';
 import OrderCard from './OrderCard';
 
-class OrderList extends React.Component {
-  // this seems broken
-  componentDidMount() {
-    if (this.props.currentUser.role === 'server') {
-      this.props.getUserOrders(this.props.currentUser.id);
-    } else {
-      this.props.getAllOrders();
-    }
-  }
+const OrderList = (props) => {
+  const dispatch = useDispatch();
+  const {
+    orders: { orders, orderLoading },
+    auth: { currentUser },
+  } = useSelector((state) => state);
 
-  generateCards = () => {
-    return this.props.orders.map(({ id, attributes }) => {
+  const handleGetAllOrders = () => dispatch(getAllOrders());
+  const handleGetUserOrders = (id) => dispatch(getUserOrders(id));
+
+  useEffect(() => {
+    if (currentUser.role === 'server') {
+      handleGetUserOrders(currentUser.id);
+    } else {
+      handleGetAllOrders();
+    }
+  });
+
+  const generateCards = () => {
+    return orders.map(({ id, attributes }) => {
       return (
         <OrderCard
           key={id}
@@ -30,41 +38,24 @@ class OrderList extends React.Component {
     });
   };
 
-  handleLoading = () => {
-    if (this.props.loading === 'loading') {
+  const handleLoading = () => {
+    if (orderLoading === 'loading') {
       return <Spinner animation="border" role="status" />;
-    } else if (this.props.loading === 'finished') {
-      return this.generateCards();
+    } else if (orderLoading === 'finished') {
+      return generateCards();
     }
   };
 
-  render() {
-    return (
-      <div>
-        <Row>
-          <h2>Orders:</h2>
-        </Row>
-        <Row className="justify-content-md-center">
-          <Col xs="auto">{this.handleLoading()}</Col>
-        </Row>
-      </div>
-    );
-  }
-}
-
-const mapStateToProps = (state) => {
-  return {
-    orders: state.orders.orders,
-    currentUser: state.auth.currentUser,
-    loading: state.orders.orderLoading,
-  };
+  return (
+    <div>
+      <Row>
+        <h2>Orders:</h2>
+      </Row>
+      <Row className="justify-content-md-center">
+        <Col xs="auto">{handleLoading()}</Col>
+      </Row>
+    </div>
+  );
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    getAllOrders: () => dispatch(getAllOrders()),
-    getUserOrders: (id) => dispatch(getUserOrders(id)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(OrderList);
+export default OrderList;
