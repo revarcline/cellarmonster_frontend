@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { postBottle, getBottles } from '../../actions/bottles';
+import { patchBottle, getBottles } from '../../actions/bottles';
 import { Spinner } from 'react-bootstrap';
 import BottleForm from './BottleForm';
 
@@ -9,7 +9,7 @@ const EditBottle = (props) => {
   const handleGetBottles = async () =>
     await dispatch(getBottles('bottles', props.match.params.query));
 
-  const dispatchUpdateBottle = async (data) => await dispatch(patchBottle(data));
+  const dispatchUpdateBottle = async (data, id) => await dispatch(patchBottle(data, id));
 
   const {
     bottles: { bottles, bottleLoading },
@@ -21,7 +21,10 @@ const EditBottle = (props) => {
 
   const onSubmit = (data, event) => {
     event.preventDefault();
-    dispatchUpdateBottle(data, bottle.id);
+    const id = data.id;
+    delete data.id;
+    dispatchUpdateBottle(data, id);
+    // push show bottle page in history when bottle is done posting
   };
 
   const handleLoading = () => {
@@ -29,7 +32,9 @@ const EditBottle = (props) => {
       return <Spinner animation="border" role="status" />;
     } else if (bottleLoading === 'finished') {
       const bottle = bottles[0].attributes;
+      const bottle_id = bottles[0].id;
       const initialValues = {
+        id: bottle_id,
         name: bottle.name,
         country_id: bottle.country.id,
         new_country: '',
@@ -37,7 +42,7 @@ const EditBottle = (props) => {
         new_producer: '',
         appellation: bottle.appellation,
         region: bottle.region,
-        varietals: bottle.varietals.map((varietal) => varietal.id),
+        varietals: bottle.varietals.map((varietal) => varietal.id.toString()),
         new_varietal: '',
         color: bottle.color,
         sparkling: bottle.sparkling,
@@ -45,7 +50,7 @@ const EditBottle = (props) => {
         vintage: bottle.vintage,
         notes: bottle.notes,
         sku: bottle.sku,
-        bins: bottle.bins.map((bin) => bin.id),
+        bins: bottle.bins.map((bin) => bin.id.toString()),
         inventory: bottle.inventory,
         format: bottle.format,
       };

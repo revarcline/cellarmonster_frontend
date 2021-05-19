@@ -28,6 +28,9 @@ import { range } from 'lodash-es';
     inventory - integer validated input
     format - select
 
+    need to control my multple selects
+    or? maybe see what the data looks like
+
 */
 
 const BottleForm = (props) => {
@@ -101,7 +104,7 @@ const BottleForm = (props) => {
   return (
     <div>
       <h1 style={{ paddingTop: '1em' }}>{props.mode === 'edit' ? 'Edit ' : 'New '}Bottle</h1>
-      <Form style={{ textAlign: 'left' }}>
+      <Form style={{ textAlign: 'left' }} onSubmit={handleSubmit(props.onSubmit)}>
         {/*
          *
          ********** Name
