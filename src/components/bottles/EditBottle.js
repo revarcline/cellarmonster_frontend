@@ -49,7 +49,7 @@ const EditBottle = (props) => {
         inventory: bottle.inventory,
         format: bottle.format,
       };
-      return <BottleForm defaults={initialValues} onSubmit={onSubmit} />;
+      return <BottleForm defaults={initialValues} onSubmit={onSubmit} mode="edit" />;
     }
   };
 

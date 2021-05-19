@@ -8,7 +8,8 @@ import OrderList from './components/orders/OrderList';
 import UserForm from './components/auth/UserForm';
 import UserShow from './components/auth/UserShow';
 import BottleList from './components/bottles/BottleList';
-import BottleForm from './components/bottles/BottleForm';
+import NewBottle from './components/bottles/NewBottle';
+import EditBottle from './components/bottles/EditBottle';
 import TopNav from './components/TopNav';
 import withAuth from './components/auth/withAuth';
 import './App.css';
@@ -27,11 +28,8 @@ function App({ loggedIn }) {
                 <Route path="/users/:id" component={withAuth(UserShow)} />
                 {/* <Route path="/orders" component={withAuth(OrderList)} /> */}
                 <Route path="/bottles" component={withAuth(BottleList)} />
-                <Route path="/bottle/new" exact component={withAuth(BottleForm, { mode: 'new' })} />
-                <Route
-                  path="/bottle/edit/:query"
-                  component={withAuth(BottleForm, { mode: 'edit' })}
-                />
+                <Route path="/bottle/new" exact component={withAuth(NewBottle)} />
+                <Route path="/bottle/edit/:query" component={withAuth(EditBottle)} />
                 <Route path="/bottle/:query" component={withAuth(BottleList, { by: 'bottles' })} />
                 <Route
                   path="/producers/:query"

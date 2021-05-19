@@ -31,6 +31,15 @@ import { range } from 'lodash-es';
 */
 
 const BottleForm = (props) => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm({
+    defaultValues: { ...props.defaults },
+  });
+
   const { bins, countries, varietals, producers } = useSelector((state) => state.attributes);
 
   const countryOptions = () => {
@@ -100,7 +109,7 @@ const BottleForm = (props) => {
          */}
         <FormGroup style={{ paddingBottom: '1em' }}>
           <FormLabel>Name: </FormLabel>
-          <FormControl name="name" type="text" placeholder="Label Name" />
+          <FormControl name="name" type="text" placeholder="Label Name" {...register('name')} />
         </FormGroup>
 
         {/*
@@ -112,7 +121,7 @@ const BottleForm = (props) => {
           <Col>
             <FormGroup style={{ paddingBottom: '1em' }}>
               <FormLabel>Country: </FormLabel>
-              <FormControl name="country_id" as="select" type="select">
+              <FormControl name="country_id" as="select" type="select" {...register('country_id')}>
                 {countryOptions()}
               </FormControl>
             </FormGroup>
@@ -120,7 +129,12 @@ const BottleForm = (props) => {
           <Col>
             <FormGroup style={{ paddingBottom: '1em' }}>
               <FormLabel>Other Country (not listed): </FormLabel>
-              <FormControl name="new_country" type="text" placeholder="Country of origin" />
+              <FormControl
+                name="new_country"
+                type="text"
+                placeholder="Country of origin"
+                {...register('new_country')}
+              />
             </FormGroup>
           </Col>
         </Row>
@@ -134,7 +148,12 @@ const BottleForm = (props) => {
           <Col>
             <FormGroup style={{ paddingBottom: '1em' }}>
               <FormLabel>Producer: </FormLabel>
-              <FormControl name="producer_id" as="select" type="select">
+              <FormControl
+                name="producer_id"
+                as="select"
+                type="select"
+                {...register('producer_id')}
+              >
                 {producerOptions()}
               </FormControl>
             </FormGroup>
@@ -142,7 +161,12 @@ const BottleForm = (props) => {
           <Col>
             <FormGroup style={{ paddingBottom: '1em' }}>
               <FormLabel>Other Producer (not listed): </FormLabel>
-              <FormControl name="new_producer" type="text" placeholder="Wine Producer" />
+              <FormControl
+                name="new_producer"
+                type="text"
+                placeholder="Wine Producer"
+                {...register('new_producer')}
+              />
             </FormGroup>
           </Col>
         </Row>
@@ -154,7 +178,12 @@ const BottleForm = (props) => {
          */}
         <FormGroup style={{ paddingBottom: '1em' }}>
           <FormLabel>Appellation: </FormLabel>
-          <FormControl name="appellation" type="text" placeholder="AVA, AOC, DOCG, etc." />
+          <FormControl
+            name="appellation"
+            type="text"
+            placeholder="AVA, AOC, DOCG, etc."
+            {...register('appellation')}
+          />
         </FormGroup>
 
         {/*
@@ -164,7 +193,12 @@ const BottleForm = (props) => {
          */}
         <FormGroup style={{ paddingBottom: '1em' }}>
           <FormLabel>Region: </FormLabel>
-          <FormControl name="region" type="text" placeholder="eg. Bordeaux, California, etc." />
+          <FormControl
+            name="region"
+            type="text"
+            placeholder="eg. Bordeaux, California, etc."
+            {...register('region')}
+          />
         </FormGroup>
 
         {/*
@@ -176,7 +210,13 @@ const BottleForm = (props) => {
           <Col>
             <FormGroup style={{ paddingBottom: '1em' }}>
               <FormLabel>Varietals: </FormLabel>
-              <FormControl name="varietals" as="select" type="select" multiple>
+              <FormControl
+                name="varietals"
+                as="select"
+                type="select"
+                multiple
+                {...register('varietals')}
+              >
                 {varietalOptions()}
               </FormControl>
               <Form.Text>Control-Click to select multiple entries</Form.Text>
@@ -189,6 +229,7 @@ const BottleForm = (props) => {
                 name="new_varietal"
                 type="text"
                 placeholder="Seperate with commas, eg. 'Pinot Noir, Gamay'"
+                {...register('new_varietal')}
               />
               <Form.Text>Seperate multiple entries with commas</Form.Text>
             </FormGroup>
@@ -204,7 +245,7 @@ const BottleForm = (props) => {
           <Col>
             <FormGroup style={{ paddingBottom: '1em' }}>
               <FormLabel>Color: </FormLabel>
-              <FormControl as="select" type="select" name="color">
+              <FormControl as="select" type="select" name="color" {...register('color')}>
                 <option value="Red">Red</option>
                 <option value="Rosé">Rosé</option>
                 <option value="White">White</option>
@@ -220,7 +261,12 @@ const BottleForm = (props) => {
           <Col>
             <FormGroup style={{ paddingBottom: '1em' }}>
               <br />
-              <input type="checkbox" name="sparkling" label="Sparkling" />
+              <input
+                type="checkbox"
+                name="sparkling"
+                label="Sparkling"
+                {...register('sparkling')}
+              />
               {'  '}
               <FormLabel>Sparkling</FormLabel>
             </FormGroup>
@@ -236,7 +282,7 @@ const BottleForm = (props) => {
           <Col>
             <FormGroup style={{ paddingBottom: '1em' }}>
               <FormLabel>Vintage: </FormLabel>
-              <FormControl name="vintage" as="select" type="select">
+              <FormControl name="vintage" as="select" type="select" {...register('vintage')}>
                 {yearOptions()}
               </FormControl>
             </FormGroup>
@@ -250,7 +296,7 @@ const BottleForm = (props) => {
           <Col>
             <FormGroup style={{ paddingBottom: '1em' }}>
               <FormLabel>Format: </FormLabel>
-              <FormControl name="format" as="select" type="select">
+              <FormControl name="format" as="select" type="select" {...register('format')}>
                 <option value="187.5 mL">187.5 mL (Split)</option>
                 <option value="375 mL">375 mL (Half)</option>
                 <option value="750 mL">750 mL (Standard)</option>
@@ -278,7 +324,7 @@ const BottleForm = (props) => {
           <Col>
             <FormGroup style={{ paddingBottom: '1em' }}>
               <FormLabel>Inventory: </FormLabel>
-              <FormControl name="inventory" type="number" />
+              <FormControl name="inventory" type="number" {...register('inventory')} />
               bottles
             </FormGroup>
           </Col>
@@ -291,7 +337,12 @@ const BottleForm = (props) => {
           <Col>
             <FormGroup style={{ paddingBottom: '1em' }}>
               <FormLabel>SKU: </FormLabel>
-              <FormControl name="sku" type="text" placeholder="Unique Stock Keeping Unit" />
+              <FormControl
+                name="sku"
+                type="text"
+                placeholder="Unique Stock Keeping Unit"
+                {...register('sku')}
+              />
             </FormGroup>
           </Col>
         </Row>
@@ -309,7 +360,7 @@ const BottleForm = (props) => {
                 <InputGroup.Prepend>
                   <InputGroup.Text>$</InputGroup.Text>
                 </InputGroup.Prepend>
-                <FormControl name="price" type="text" placeholder="0.00" />
+                <FormControl name="price" type="text" placeholder="0.00" {...register('price')} />
               </InputGroup>
             </FormGroup>
           </Col>
@@ -322,7 +373,7 @@ const BottleForm = (props) => {
           <Col>
             <FormGroup style={{ paddingBottom: '1em' }}>
               <FormLabel>Bins: </FormLabel>
-              <FormControl name="bins" as="select" type="select" multiple>
+              <FormControl name="bins" as="select" type="select" multiple {...register('bins')}>
                 {binOptions()}
               </FormControl>
               <Form.Text>Control-Click to select multiple entries</Form.Text>
@@ -337,7 +388,13 @@ const BottleForm = (props) => {
          */}
         <FormGroup style={{ paddingBottom: '1em' }}>
           <FormLabel>Notes: </FormLabel>
-          <FormControl as="textarea" name="notes" type="textarea" placeholder="Tasting Notes" />
+          <FormControl
+            as="textarea"
+            name="notes"
+            type="textarea"
+            placeholder="Tasting Notes"
+            {...register('notes')}
+          />
         </FormGroup>
         <Button type="submit">
           {props.mode === 'new' ? 'Create Bottle' : 'Update Bottle Info'}

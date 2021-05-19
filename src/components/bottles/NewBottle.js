@@ -33,7 +33,7 @@ const NewBottle = (props) => {
     dispatchNewBottle(data);
   };
 
-  return <BottleForm defaults={initialValues} onSubmit={onSubmit} />;
+  return <BottleForm defaults={initialValues} onSubmit={onSubmit} mode="new" />;
 };
 
 export default NewBottle;
