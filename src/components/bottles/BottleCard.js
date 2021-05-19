@@ -1,15 +1,26 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { postOrder } from '../../actions/orders.js';
 import { deleteBottle } from '../../actions/bottles.js';
-import { Card, Container, Row, Col, Button, Form } from 'react-bootstrap';
+import { Card, Container, Row, Col, Button, Form, Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const BottleCard = (props) => {
+  const dispatch = useDispatch();
+
   const [orderQty, setOrderQty] = useState(0);
   const [inventory, setInventory] = useState(props.inventory);
   const [totalSold, setTotalSold] = useState(props.total_sold);
   const [deleted, setDeleted] = useState(false);
+
+  const {
+    auth: { currentUser },
+    orders: { orderPosting },
+    bottles: { bottleDeleting },
+  } = useSelector((state) => state);
+
+  const dispatchNewOrder = async (order) => await dispatch(postOrder(order));
+  const dispatchDeleteBottle = async (bottle) => await dispatch(deleteBottle(bottle));
 
   const varietalLinks = () => {
     return props.varietals.map((varietal) => {
@@ -37,17 +48,16 @@ const BottleCard = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const order = { quantity: orderQty, bottle_id: props.id, user_id: props.currentUser.id };
-    props.dispatchNewOrder(order);
-    if (props.orderPosting === 'finished') {
+    const order = { quantity: orderQty, bottle_id: props.id, user_id: currentUser.id };
+    dispatchNewOrder(order).then(() => {
       setTotalSold(parseInt(totalSold) + parseInt(orderQty));
       setInventory(parseInt(inventory) - parseInt(orderQty));
-    }
+    });
   };
 
   const handleDelete = () => {
     // replace element with "bottle deleted" message
-    props.dispatchDeleteBottle();
+    dispatchDeleteBottle(props.id);
     setDeleted(true);
   };
 
@@ -72,7 +82,7 @@ const BottleCard = (props) => {
                   <div>{varietalLinks()}</div>
                 </Card.Subtitle>
               </Col>
-              {props.currentUser.role !== 'runner' ? (
+              {currentUser.role !== 'runner' ? (
                 <Col>
                   <Form onSubmit={handleSubmit}>
                     <Form.Control type="number" value={orderQty} onChange={numChange} />
@@ -99,7 +109,7 @@ const BottleCard = (props) => {
                 <div>Color: {props.color}</div>
                 <div>Vintage: {props.vintage}</div>
                 <div>Format: {props.format}</div>
-                {props.currentUser.role === 'admin' ? (
+                {currentUser.role === 'admin' ? (
                   <div>
                     <Link to={`/bottle/edit/${props.id}`}>Edit</Link>
                     {' · '}
@@ -120,26 +130,16 @@ const BottleCard = (props) => {
         <br />
       </Container>
     );
-  } else if (props.bottleDeleting === 'deleting') {
-    return <h1>Deleting...</h1>;
-  } else if (props.bottleDeleting === 'finished') {
+  } else if (bottleDeleting === 'deleting') {
+    return (
+      <div>
+        <h1>Deleting...</h1>
+        return <Spinner animation="border" role="status" />;
+      </div>
+    );
+  } else if (bottleDeleting === 'finished') {
     return <h1>Bottle Deleted Successfully</h1>;
   }
 };
 
-const mapStateToProps = (state) => {
-  return {
-    currentUser: state.auth.currentUser,
-    orderPosting: state.orders.orderPosting,
-    bottleDeleting: state.bottles.bottleDeleting,
-  };
-};
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    dispatchNewOrder: (order) => dispatch(postOrder(order)),
-    dispatchDeleteBottle: () => dispatch(deleteBottle(ownProps.id)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(BottleCard);
+export default BottleCard;
