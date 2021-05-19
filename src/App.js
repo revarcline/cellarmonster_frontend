@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Container, Row, Col } from 'react-bootstrap';
 import StickyBox from 'react-sticky-box';
 import LoginMenu from './components/auth/LoginMenu';
@@ -14,7 +14,8 @@ import TopNav from './components/TopNav';
 import withAuth from './components/auth/withAuth';
 import './App.css';
 
-function App({ loggedIn }) {
+const App = (props) => {
+  const loggedIn = useSelector((state) => state.auth.loggedIn);
   return (
     <div className="App">
       <Router>
@@ -61,9 +62,6 @@ function App({ loggedIn }) {
       </Router>
     </div>
   );
-}
-
-const mapStateToProps = ({ auth: { loggedIn } }) => {
-  return { loggedIn };
 };
-export default connect(mapStateToProps)(App);
+
+export default App;
