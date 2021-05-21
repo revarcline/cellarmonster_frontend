@@ -20,6 +20,27 @@ const userAPI = {
       .catch((error) => error);
   },
 
+  postBottle: (data) => {
+    return axios
+      .post(`${apiRoot}/bottles`, data)
+      .then((response) => response.data)
+      .catch((error) => error);
+  },
+
+  patchBottle: (data, id) => {
+    return axios
+      .patch(`${apiRoot}/bottles/${id}`, data)
+      .then((response) => response.data)
+      .catch((error) => error);
+  },
+
+  deleteBottle: (id) => {
+    return axios
+      .delete(`${apiRoot}/bottles/${id}`)
+      .then((response) => response.data)
+      .catch((error) => error);
+  },
+
   // attributes
   getCountries: () => {
     return axios
@@ -45,6 +66,21 @@ const userAPI = {
   getVarietals: () => {
     return axios
       .get(`${apiRoot}/varietals`)
+      .then((response) => response.data)
+      .catch((error) => error);
+  },
+
+  // orders
+  getAllOrders: () => {
+    return axios
+      .get(`${apiRoot}/orders`)
+      .then((response) => response.data)
+      .catch((error) => error);
+  },
+
+  getUserOrders: (id) => {
+    return axios
+      .get(`${apiRoot}/user_orders/${id}`)
       .then((response) => response.data)
       .catch((error) => error);
   },
