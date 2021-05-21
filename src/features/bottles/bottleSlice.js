@@ -1,20 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import apiRoot from '../../apiConfig';
-const axios = require('axios');
 
 const initialState = { bottles: [], loading: 'idle', error: null };
 
 export const getBottles = createAsyncThunk('bottles/getBottles', async (resource, query) => {
-  let params;
-  if (query === '') {
-    params = 'bottles';
+  if (!resource || !query) {
+    await userAPI.getAllBottles();
   } else {
-    params = `${resource}/${query}`;
+    await userAPI.getBottlesBy(resource, query);
   }
-  axios
-    .get(`${apiRoot}/${params}`)
-    .then((response) => response.data)
-    .catch((error) => error);
 });
 
 const bottleSlice = createSlice({
