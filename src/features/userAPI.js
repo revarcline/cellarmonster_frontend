@@ -84,6 +84,13 @@ const userAPI = {
       .then((response) => response.data)
       .catch((error) => error);
   },
+
+  postOrder: (data) => {
+    return axios
+      .post(`${apiRoot}/orders`, data)
+      .then((response) => response.data)
+      .catch((error) => error);
+  },
 };
 
 export default userAPI;
