@@ -20,7 +20,7 @@ const OrderList = (props) => {
     } else {
       handleGetAllOrders();
     }
-  });
+  }, []);
 
   const generateCards = () => {
     return orders.map(({ id, attributes }) => {
@@ -41,13 +41,13 @@ const OrderList = (props) => {
   const handleLoading = () => {
     if (orderLoading === 'loading') {
       return <Spinner animation="border" role="status" />;
-    } else if (orderLoading === 'finished') {
+    } else {
       return generateCards();
     }
   };
 
   return (
-    <div>https://twitter.com/mannyfidel/status/1394705622726332418
+    <div>
       <Row>
         <h2>Orders:</h2>
       </Row>

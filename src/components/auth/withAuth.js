@@ -9,7 +9,7 @@ const withAuth = (WrappedComponent, role, extraProps) => {
     const dispatch = useDispatch();
     useEffect(() => {
       handleCheckAuth();
-    });
+    }, []);
 
     const {
       auth: { authChecked, loggedIn, currentUser },
