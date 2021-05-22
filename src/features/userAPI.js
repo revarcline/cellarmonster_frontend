@@ -6,19 +6,17 @@ const apiRoot = 'http://localhost:3001';
 
 const userAPI = {
   //bottles
-  getAllBottles: () => {
-    return axios
+  getAllBottles: () =>
+    axios
       .get(`${apiRoot}/bottles`)
       .then((response) => response.data)
-      .catch((error) => error);
-  },
+      .catch((error) => error),
 
-  getBottlesBy: (resource, query) => {
-    return axios
-      .get(`${apiRoot}/${resource}/${query}`)
+  getBottlesBy: (by, term) =>
+    axios
+      .get(`${apiRoot}/${by}/${term}`)
       .then((response) => response.data)
-      .catch((error) => error);
-  },
+      .catch((error) => error),
 
   postBottle: (data) => {
     return axios

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Form, Button, InputGroup } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
+import { useHistory, withRouter } from 'react-router-dom';
 
 const Search = () => {
   const history = useHistory();
@@ -28,4 +28,4 @@ const Search = () => {
   );
 };
 
-export default Search;
+export default withRouter(Search);

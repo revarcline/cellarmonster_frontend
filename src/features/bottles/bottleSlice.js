@@ -3,11 +3,13 @@ import userAPI from '../userAPI';
 
 const initialState = { bottleList: { bottles: [], status: 'idle', error: null, resource: null } };
 
-export const getBottles = createAsyncThunk('bottles/getBottles', async (resource, query) => {
-  if (!resource || !query) {
+export const getBottles = createAsyncThunk('bottles/getBottles', async ({ by, term }) => {
+  console.log(by);
+  console.log(term);
+  if (!term) {
     return await userAPI.getAllBottles();
   } else {
-    return await userAPI.getBottlesBy(resource, query);
+    return await userAPI.getBottlesBy(by, term);
   }
 });
 

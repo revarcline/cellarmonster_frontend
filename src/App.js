@@ -31,7 +31,7 @@ const App = (props) => {
                 <Route path="/bottles" component={withAuth(BottleList)} />
                 <Route path="/bottle/new" exact component={withAuth(NewBottle)} />
                 <Route path="/bottle/edit/:query" component={withAuth(EditBottle)} />
-                <Route path="/:by/:query" component={withAuth(BottleList)} />
+                <Route path="/:by/:term" component={withAuth(BottleList)} />
                 {/*
                 <Route path="/bins/:query" component={withAuth(BottleList, { by: 'bins' })} />
                 <Route

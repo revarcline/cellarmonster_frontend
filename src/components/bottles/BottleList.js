@@ -3,14 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getBottles } from '../../features/bottles/bottleSlice';
 import BottleCard from './BottleCard';
 import { Container, Row, Col, Spinner } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
 
 const BottleList = (props) => {
   const dispatch = useDispatch();
-  const handleGetBottles = async () =>
-    await dispatch(getBottles(props.match.params.by, props.match.params.query));
+  const { by, term } = useParams();
+  const handleGetBottles = async () => await dispatch(getBottles({ by, term }));
 
   useEffect(() => {
-    console.log(props);
     handleGetBottles();
   }, []);
 
