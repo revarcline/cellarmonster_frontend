@@ -31,11 +31,8 @@ const App = (props) => {
                 <Route path="/bottles" component={withAuth(BottleList)} />
                 <Route path="/bottle/new" exact component={withAuth(NewBottle)} />
                 <Route path="/bottle/edit/:query" component={withAuth(EditBottle)} />
-                <Route path="/bottle/:query" component={withAuth(BottleList, { by: 'bottles' })} />
-                <Route
-                  path="/producers/:query"
-                  component={withAuth(BottleList, { by: 'producers' })}
-                />
+                <Route path="/:by/:query" component={withAuth(BottleList)} />
+                {/*
                 <Route path="/bins/:query" component={withAuth(BottleList, { by: 'bins' })} />
                 <Route
                   path="/countries/:query"
@@ -46,6 +43,7 @@ const App = (props) => {
                   component={withAuth(BottleList, { by: 'varietals' })}
                 />
                 <Route path="/search/:query" component={withAuth(BottleList, { by: 'search' })} />
+              */}
               </Switch>
             </Col>
             {loggedIn ? (
