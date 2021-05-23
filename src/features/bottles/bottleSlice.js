@@ -1,7 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import userAPI from '../userAPI';
 
-const initialState = { bottleList: { bottles: [], status: 'idle', error: null, resource: null } };
+const initialState = {
+  bottleList: { bottles: [], status: 'idle', error: null, resource: null },
+  bottlePost: { bottle: {}, status: 'idle', error: null },
+  bottlePatch: { bottle: {}, status: 'idle', error: null },
+  bottleDelete: { status: 'idle', error: null },
+};
 
 export const getBottles = createAsyncThunk('bottles/getBottles', async ({ by, term }) => {
   if (!term) {
@@ -30,26 +35,45 @@ const bottleSlice = createSlice({
   extraReducers: {
     [getBottles.pending]: (state, action) => {
       state.bottleList = {
+        ...state.bottleList,
         status: 'loading',
-        data: {},
-        error: {},
         resouce: null,
       };
     },
     [getBottles.fulfilled]: (state, action) => {
       state.bottleList = {
+        ...state.bottleList,
         status: 'finished',
         data: action.payload.data,
-        error: {},
         resource: action.payload.resouce_name,
       };
     },
     [getBottles.rejected]: (state, action) => {
       state.bottleList = {
+        ...state.bottleList,
         status: 'failed',
-        data: {},
         error: action.payload,
         resouce: null,
+      };
+    },
+    [postBottle.pending]: (state, action) => {
+      state.bottlePost = {
+        ...state.bottlePost,
+        status: 'posting',
+      };
+    },
+    [postBottle.fulfilled]: (state, action) => {
+      state.bottlePost = {
+        ...state.bottlePost,
+        bottle: action.payload.data,
+        status: 'finished',
+      };
+    },
+    [postBottle.rejected]: (state, action) => {
+      state.bottlePost = {
+        ...state.bottlePost,
+        error: action.payload,
+        status: 'failed',
       };
     },
   },

@@ -1,6 +1,6 @@
-import React, { useRef, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { postBottle } from '../../actions/bottles';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { postBottle } from '../../features/bottles/bottleSlice';
 import BottleForm from './BottleForm';
 
 const NewBottle = (props) => {
