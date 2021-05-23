@@ -4,14 +4,22 @@ import userAPI from '../userAPI';
 const initialState = { bottleList: { bottles: [], status: 'idle', error: null, resource: null } };
 
 export const getBottles = createAsyncThunk('bottles/getBottles', async ({ by, term }) => {
-  console.log(by);
-  console.log(term);
   if (!term) {
     return await userAPI.getAllBottles();
   } else {
     return await userAPI.getBottlesBy(by, term);
   }
 });
+
+export const postBottle = createAsyncThunk(
+  'bottles/postBottle',
+  async (data) => await userAPI.postBottle(data),
+);
+
+export const patchBottle = createAsyncThunk(
+  'bottles/patchBottle',
+  async ({ data, id }) => await userAPI.postBottle(data, id),
+);
 
 const bottleSlice = createSlice({
   name: 'bottleList',

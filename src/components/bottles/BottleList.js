@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getBottles } from '../../features/bottles/bottleSlice';
 import BottleCard from './BottleCard';
 import { Container, Row, Col, Spinner } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { useParams, withRouter } from 'react-router-dom';
 
 const BottleList = (props) => {
   const dispatch = useDispatch();
@@ -109,4 +109,4 @@ const BottleList = (props) => {
   );
 };
 
-export default BottleList;
+export default withRouter(BottleList);
