@@ -83,12 +83,12 @@ const BottleList = (props) => {
   };
 
   const resourceName = () => {
-    if (props.by === 'search') {
-      return `Search results for "${props.match.params.query}"`;
-    } else if (props.by) {
-      return `Bottles matching "${resource}"`;
-    } else if (props.match.path === '/bottle/:query') {
+    if (by === 'search') {
+      return `Search results for "${term}"`;
+    } else if (by === 'bottle') {
       return null;
+    } else if (by) {
+      return `Bottles matching "${resource}"`;
     } else {
       return 'All Bottles';
     }

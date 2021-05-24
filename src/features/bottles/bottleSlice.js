@@ -2,15 +2,17 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import userAPI from '../userAPI';
 
 const initialState = {
-  bottleList: { bottles: [], status: 'idle', error: null, resource: null },
-  bottlePost: { bottle: {}, status: 'idle', error: null },
-  bottlePatch: { bottle: {}, status: 'idle', error: null },
+  bottleList: { status: 'idle', error: null },
+  bottlePost: { status: 'idle', error: null },
+  bottlePatch: { status: 'idle', error: null },
   bottleDelete: { status: 'idle', error: null },
 };
 
 export const getBottles = createAsyncThunk('bottles/getBottles', async ({ by, term }) => {
   if (!term) {
     return await userAPI.getAllBottles();
+  } else if (by === 'bottle') {
+    return await userAPI.getBottlesBy('bottles', term);
   } else {
     return await userAPI.getBottlesBy(by, term);
   }
@@ -27,17 +29,17 @@ export const patchBottle = createAsyncThunk(
 );
 
 const bottleSlice = createSlice({
-  name: 'bottleList',
+  name: 'bottles',
   initialState,
   reducers: {
-    // non async logic go here
+    // non async logic goes here
+    // tho tbf i don't think there's any
   },
   extraReducers: {
     [getBottles.pending]: (state, action) => {
       state.bottleList = {
         ...state.bottleList,
         status: 'loading',
-        resouce: null,
       };
     },
     [getBottles.fulfilled]: (state, action) => {
@@ -45,7 +47,7 @@ const bottleSlice = createSlice({
         ...state.bottleList,
         status: 'finished',
         data: action.payload.data,
-        resource: action.payload.resouce_name,
+        resource: action.payload.resource_name,
       };
     },
     [getBottles.rejected]: (state, action) => {
@@ -53,7 +55,6 @@ const bottleSlice = createSlice({
         ...state.bottleList,
         status: 'failed',
         error: action.payload,
-        resouce: null,
       };
     },
     [postBottle.pending]: (state, action) => {
