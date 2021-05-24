@@ -1,29 +1,30 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllOrders, getUserOrders } from '../../actions/orders';
+import { getOrders } from '../../features/orders/orderSlice';
 import { Row, Col, Spinner } from 'react-bootstrap';
 import OrderCard from './OrderCard';
 
 const OrderList = (props) => {
   const dispatch = useDispatch();
   const {
-    orders: { orders, orderLoading },
+    orders: {
+      orderList: { data, status },
+    },
     auth: { currentUser },
   } = useSelector((state) => state);
 
-  const handleGetAllOrders = () => dispatch(getAllOrders());
-  const handleGetUserOrders = (id) => dispatch(getUserOrders(id));
+  const handleGetOrders = (id) => dispatch(getOrders(id));
 
   useEffect(() => {
     if (currentUser.role === 'server') {
-      handleGetUserOrders(currentUser.id);
+      handleGetOrders(currentUser.id);
     } else {
-      handleGetAllOrders();
+      handleGetOrders();
     }
   }, []);
 
   const generateCards = () => {
-    return orders.map(({ id, attributes }) => {
+    return data.map(({ id, attributes }) => {
       return (
         <OrderCard
           key={id}
@@ -39,7 +40,7 @@ const OrderList = (props) => {
   };
 
   const handleLoading = () => {
-    if (orderLoading === 'loading') {
+    if (status === 'loading') {
       return <Spinner animation="border" role="status" />;
     } else {
       return generateCards();
