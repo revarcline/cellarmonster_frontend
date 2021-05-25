@@ -18,77 +18,67 @@ const userAPI = {
       .then((response) => response.data)
       .catch((error) => error),
 
-  postBottle: (data) => {
-    return axios
+  postBottle: (data) =>
+    axios
       .post(`${apiRoot}/bottles`, data)
       .then((response) => response.data)
-      .catch((error) => error);
-  },
+      .catch((error) => error),
 
-  patchBottle: (data, id) => {
-    return axios
+  patchBottle: (data, id) =>
+    axios
       .patch(`${apiRoot}/bottles/${id}`, data)
       .then((response) => response.data)
-      .catch((error) => error);
-  },
+      .catch((error) => error),
 
-  deleteBottle: (id) => {
-    return axios
+  deleteBottle: (id) =>
+    axios
       .delete(`${apiRoot}/bottles/${id}`)
       .then((response) => response.data)
-      .catch((error) => error);
-  },
+      .catch((error) => error),
 
   // attributes
-  getCountries: () => {
-    return axios
+  getCountries: () =>
+    axios
       .get(`${apiRoot}/countries`)
       .then((response) => response.data)
-      .catch((error) => error);
-  },
+      .catch((error) => error),
 
-  getBins: () => {
-    return axios
+  getBins: () =>
+    axios
       .get(`${apiRoot}/bins`)
       .then((response) => response.data)
-      .catch((error) => error);
-  },
+      .catch((error) => error),
 
-  getVarietals: () => {
-    return axios
+  getVarietals: () =>
+    axios
       .get(`${apiRoot}/producers`)
       .then((response) => response.data)
-      .catch((error) => error);
-  },
+      .catch((error) => error),
 
-  getVarietals: () => {
-    return axios
+  getVarietals: () =>
+    axios
       .get(`${apiRoot}/varietals`)
       .then((response) => response.data)
-      .catch((error) => error);
-  },
+      .catch((error) => error),
 
   // orders
-  getAllOrders: () => {
-    return axios
+  getAllOrders: () =>
+    axios
       .get(`${apiRoot}/orders`)
       .then((response) => response.data)
-      .catch((error) => error);
-  },
+      .catch((error) => error),
 
-  getUserOrders: (id) => {
-    return axios
+  getUserOrders: (id) =>
+    axios
       .get(`${apiRoot}/user_orders/${id}`)
       .then((response) => response.data)
-      .catch((error) => error);
-  },
+      .catch((error) => error),
 
-  postOrder: (data) => {
-    return axios
+  postOrder: (data) =>
+    axios
       .post(`${apiRoot}/orders`, data)
       .then((response) => response.data)
-      .catch((error) => error);
-  },
+      .catch((error) => error),
 };
 
 export default userAPI;

@@ -12,7 +12,7 @@ const BottleList = (props) => {
 
   useEffect(() => {
     handleGetBottles();
-  }, []);
+  }, [by, term]);
 
   const {
     bottles: {

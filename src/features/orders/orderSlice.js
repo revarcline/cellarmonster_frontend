@@ -26,6 +26,7 @@ const orderSlice = createSlice({
     // should i move some logic here? no
   },
   extraReducers: {
+    //READ
     [getOrders.pending]: (state, action) => {
       state.orderList = {
         ...state.orderList,
@@ -44,6 +45,26 @@ const orderSlice = createSlice({
         ...state.orderList,
         status: 'failed',
         error: action.payload,
+      };
+    },
+
+    //CREATE
+    [postOrder.pending]: (state, action) => {
+      state.orderPost = {
+        ...state.orderPost,
+        status: 'loading',
+      };
+    },
+    [postOrder.pending]: (state, action) => {
+      state.orderPost = {
+        ...state.orderPost,
+        status: 'finished',
+      };
+    },
+    [postOrder.pending]: (state, action) => {
+      state.orderPost = {
+        ...state.orderPost,
+        status: 'failed',
       };
     },
   },

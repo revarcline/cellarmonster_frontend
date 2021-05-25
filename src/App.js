@@ -32,18 +32,6 @@ const App = (props) => {
                 <Route path="/bottle/new" exact component={withAuth(NewBottle)} />
                 <Route path="/bottle/edit/:query" component={withAuth(EditBottle)} />
                 <Route path="/:by/:term" component={withAuth(BottleList)} />
-                {/*
-                <Route path="/bins/:query" component={withAuth(BottleList, { by: 'bins' })} />
-                <Route
-                  path="/countries/:query"
-                  component={withAuth(BottleList, { by: 'countries' })}
-                />
-                <Route
-                  path="/varietals/:query"
-                  component={withAuth(BottleList, { by: 'varietals' })}
-                />
-                <Route path="/search/:query" component={withAuth(BottleList, { by: 'search' })} />
-              */}
               </Switch>
             </Col>
             {loggedIn ? (

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { postOrder } from '../../actions/orders.js';
-import { deleteBottle } from '../../actions/bottles.js';
+import { postOrder } from '../../features/orders/orderSlice';
+import { deleteBottle } from '../../features/bottles/bottleSlice';
 import { Card, Container, Row, Col, Button, Form, Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
@@ -15,7 +15,7 @@ const BottleCard = (props) => {
 
   const {
     auth: { currentUser },
-    orders: { orderPosting },
+    orders: { orderPost },
     bottles: { bottleDeleting },
   } = useSelector((state) => state);
 

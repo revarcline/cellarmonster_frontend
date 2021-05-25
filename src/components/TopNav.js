@@ -4,6 +4,7 @@ import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { getAttributes } from '../actions/attributes';
 import { getUsers } from '../actions/users';
+import { withRouter } from 'react-router-dom';
 import Logout from './auth/Logout';
 import Search from './Search';
 import './TopNav.css';
@@ -125,4 +126,4 @@ const TopNav = (props) => {
   );
 };
 
-export default TopNav;
+export default withRouter(TopNav);

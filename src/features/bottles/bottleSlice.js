@@ -2,10 +2,10 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import userAPI from '../userAPI';
 
 const initialState = {
-  bottleList: { status: 'idle', error: null },
-  bottlePost: { status: 'idle', error: null },
-  bottlePatch: { status: 'idle', error: null },
-  bottleDelete: { status: 'idle', error: null },
+  bottleList: { status: 'idle' },
+  bottlePost: { status: 'idle' },
+  bottlePatch: { status: 'idle' },
+  bottleDelete: { status: 'idle' },
 };
 
 export const getBottles = createAsyncThunk('bottles/getBottles', async ({ by, term }) => {
@@ -28,6 +28,11 @@ export const patchBottle = createAsyncThunk(
   async ({ data, id }) => await userAPI.postBottle(data, id),
 );
 
+export const deleteBottle = createAsyncThunk(
+  'bottles/deleteBottle',
+  async (id) => await userAPI.deleteBottle(id),
+);
+
 const bottleSlice = createSlice({
   name: 'bottles',
   initialState,
@@ -36,6 +41,7 @@ const bottleSlice = createSlice({
     // tho tbf i don't think there's any
   },
   extraReducers: {
+    //READ
     [getBottles.pending]: (state, action) => {
       state.bottleList = {
         ...state.bottleList,
@@ -57,6 +63,8 @@ const bottleSlice = createSlice({
         error: action.payload,
       };
     },
+
+    //CREATE
     [postBottle.pending]: (state, action) => {
       state.bottlePost = {
         ...state.bottlePost,
@@ -73,6 +81,50 @@ const bottleSlice = createSlice({
     [postBottle.rejected]: (state, action) => {
       state.bottlePost = {
         ...state.bottlePost,
+        error: action.payload,
+        status: 'failed',
+      };
+    },
+
+    //UPDATE
+    [patchBottle.pending]: (state, action) => {
+      state.bottlePatch = {
+        ...state.bottlePatch,
+        status: 'updating',
+      };
+    },
+    [patchBottle.fulfilled]: (state, action) => {
+      state.bottlePost = {
+        ...state.bottlePatch,
+        bottle: action.payload.data,
+        status: 'finished',
+      };
+    },
+    [patchBottle.rejected]: (state, action) => {
+      state.bottlePatch = {
+        ...state.bottlePatch,
+        error: action.payload,
+        status: 'failed',
+      };
+    },
+
+    //DELETE
+    [deleteBottle.pending]: (state, action) => {
+      state.bottleDelete = {
+        ...state.bottleDelete,
+        status: 'deleting',
+      };
+    },
+    [deleteBottle.fulfilled]: (state, action) => {
+      state.bottleDelete = {
+        ...state.bottleDelete,
+        bottle: action.payload.data,
+        status: 'finished',
+      };
+    },
+    [deleteBottle.rejected]: (state, action) => {
+      state.bottleDelete = {
+        ...state.bottleDelete,
         error: action.payload,
         status: 'failed',
       };
