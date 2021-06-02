@@ -3,7 +3,7 @@ import userAPI from '../userAPI';
 
 const initialState = {
   orderList: { data: [], status: 'idle', error: null },
-  orderPost: { order: {}, status: 'idle', error: null },
+  orderPost: { data: {}, status: 'idle', error: null },
 };
 
 export const getOrders = createAsyncThunk('orders/getOrders', async (user) => {
@@ -16,7 +16,7 @@ export const getOrders = createAsyncThunk('orders/getOrders', async (user) => {
 
 export const postOrder = createAsyncThunk(
   'orders/postOrder',
-  async (data) => await userAPI.postOrder(id),
+  async (data) => await userAPI.postOrder(data),
 );
 
 const orderSlice = createSlice({
@@ -55,13 +55,19 @@ const orderSlice = createSlice({
         status: 'loading',
       };
     },
-    [postOrder.pending]: (state, action) => {
+    [postOrder.fulfilled]: (state, action) => {
       state.orderPost = {
         ...state.orderPost,
+        data: action.payload.data,
         status: 'finished',
       };
+      let newList = [state.orderPost.data, ...state.orderList.data];
+      state.orderList = {
+        ...state.orderList,
+        data: newList,
+      };
     },
-    [postOrder.pending]: (state, action) => {
+    [postOrder.rejected]: (state, action) => {
       state.orderPost = {
         ...state.orderPost,
         status: 'failed',

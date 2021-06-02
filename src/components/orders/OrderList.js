@@ -9,6 +9,7 @@ const OrderList = (props) => {
   const {
     orders: {
       orderList: { data, status },
+      orderPost,
     },
     auth: { currentUser },
   } = useSelector((state) => state);

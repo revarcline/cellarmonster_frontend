@@ -16,7 +16,7 @@ const BottleCard = (props) => {
   const {
     auth: { currentUser },
     orders: { orderPost },
-    bottles: { bottleDeleting },
+    bottles: { bottleDelete },
   } = useSelector((state) => state);
 
   const dispatchNewOrder = async (order) => await dispatch(postOrder(order));
@@ -48,7 +48,7 @@ const BottleCard = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const order = { quantity: orderQty, bottle_id: props.id, user_id: currentUser.id };
+    const order = { quantity: orderQty, bottle_id: props.id, user_id: `${currentUser.id}` };
     dispatchNewOrder(order).then(() => {
       setTotalSold(parseInt(totalSold) + parseInt(orderQty));
       setInventory(parseInt(inventory) - parseInt(orderQty));
@@ -57,8 +57,9 @@ const BottleCard = (props) => {
 
   const handleDelete = () => {
     // replace element with "bottle deleted" message
-    dispatchDeleteBottle(props.id);
-    setDeleted(true);
+    dispatchDeleteBottle(props.id).then(() => {
+      setDeleted(true);
+    });
   };
 
   if (!deleted) {
@@ -130,14 +131,14 @@ const BottleCard = (props) => {
         <br />
       </Container>
     );
-  } else if (bottleDeleting === 'deleting') {
+  } else if (bottleDelete.status === 'pending') {
     return (
       <div>
         <h1>Deleting...</h1>
         return <Spinner animation="border" role="status" />;
       </div>
     );
-  } else if (bottleDeleting === 'finished') {
+  } else if (bottleDelete.status === 'finished') {
     return <h1>Bottle Deleted Successfully</h1>;
   }
 };
