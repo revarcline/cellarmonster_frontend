@@ -79,6 +79,20 @@ const userAPI = {
       .post(`${apiRoot}/orders`, data)
       .then((response) => response.data)
       .catch((error) => error),
+
+  //users
+  getUsers: () => {
+    axios
+      .get(`${apiRoot}/users`)
+      .then((response) => response.data)
+      .catch((error) => error);
+  },
+  getUser: (id) => {
+    axios
+      .get(`${apiRoot}/users/${id}`)
+      .then((response) => response.data)
+      .catch((error) => error);
+  },
 };
 
 export default userAPI;
