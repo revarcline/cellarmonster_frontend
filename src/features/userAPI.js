@@ -49,7 +49,7 @@ const userAPI = {
       .then((response) => response.data)
       .catch((error) => error),
 
-  getVarietals: () =>
+  getProducers: () =>
     axios
       .get(`${apiRoot}/producers`)
       .then((response) => response.data)
