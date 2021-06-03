@@ -2,7 +2,12 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import { getAttributes } from '../actions/attributes';
+import {
+  getCountries,
+  getVarietals,
+  getProducers,
+  getBins,
+} from '../features/attributes/attributeSlice';
 import { getUsers } from '../actions/users';
 import { withRouter } from 'react-router-dom';
 import Logout from './auth/Logout';
@@ -13,19 +18,25 @@ const TopNav = (props) => {
   const dispatch = useDispatch();
   const { attributes, auth, usersList } = useSelector((state) => state);
 
-  const handleGetAttributes = async () => await dispatch(getAttributes());
+  const handleGetCountries = async () => await dispatch(getCountries());
+  const handleGetVarietals = async () => await dispatch(getVarietals());
+  const handleGetProducers = async () => await dispatch(getProducers());
+  const handleGetBins = async () => await dispatch(getBins());
   const handleGetUsers = async () => await dispatch(getUsers());
 
   useEffect(() => {
-    handleGetAttributes();
+    handleGetCountries();
+    handleGetVarietals();
+    handleGetProducers();
+    handleGetBins();
     handleGetUsers();
   }, []);
 
   const renderBottlesDropdown = () => {
     const categories = {
-      countries: [...attributes.countries],
-      varietals: [...attributes.varietals],
-      producers: [...attributes.producers],
+      countries: [...attributes.countries.data],
+      varietals: [...attributes.varietals.data],
+      producers: [...attributes.producers.data],
     };
     return (
       <>

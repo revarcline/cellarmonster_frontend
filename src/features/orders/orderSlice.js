@@ -71,6 +71,7 @@ const orderSlice = createSlice({
       state.orderPost = {
         ...state.orderPost,
         status: 'failed',
+        error: action.payload,
       };
     },
   },
