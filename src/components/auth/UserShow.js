@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../../features/users/userSlice.js';
 import UserForm from './UserForm';
-import { Card, Button, Spinner, Collapse } from 'react-bootstrap';
+import { Card, Button, Spinner } from 'react-bootstrap';
 
 const UserShow = (props) => {
   const dispatch = useDispatch();

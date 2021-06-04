@@ -3,6 +3,7 @@ import { signupUser, updateUser } from '../../actions/auth';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
+import { withRouter } from 'react-router-dom';
 
 const UserForm = (props) => {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const UserForm = (props) => {
     event.preventDefault();
     if (mode === 'new') {
       handleSignupUser(data);
+      history.push('/bottles');
     } else if (mode === 'edit') {
       handleUpdateUser(data);
     }
@@ -95,4 +97,4 @@ const UserForm = (props) => {
   );
 };
 
-export default UserForm;
+export default withRouter(UserForm);
