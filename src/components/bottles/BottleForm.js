@@ -43,11 +43,13 @@ const BottleForm = (props) => {
     defaultValues: { ...props.defaults },
   });
 
-  const { bins, countries, varietals, producers } = useSelector((state) => state.attributes);
+  const {
+    attributes: { bins, countries, varietals, producers },
+  } = useSelector((state) => state);
 
   const countryOptions = () => {
     const otherCountry = { attributes: { id: '', name: 'Other (fill in text field)' } };
-    const countriesList = [...countries, otherCountry];
+    const countriesList = [...countries.data, otherCountry];
     return countriesList.map((country) => {
       return (
         <option key={country.attributes.id} value={country.attributes.id}>
@@ -59,7 +61,7 @@ const BottleForm = (props) => {
 
   const producerOptions = () => {
     const otherProducer = { attributes: { id: '', name: 'Other (fill in text field)' } };
-    const producersList = [...producers, otherProducer];
+    const producersList = [...producers.data, otherProducer];
     return producersList.map((producer) => {
       return (
         <option key={producer.attributes.id} value={producer.attributes.id}>
@@ -70,7 +72,7 @@ const BottleForm = (props) => {
   };
 
   const varietalOptions = () => {
-    return varietals.map((varietal) => {
+    return varietals.data.map((varietal) => {
       return (
         <option key={varietal.attributes.id} value={varietal.attributes.id}>
           {varietal.attributes.name}
@@ -80,7 +82,7 @@ const BottleForm = (props) => {
   };
 
   const binOptions = () => {
-    return bins.map((bin) => {
+    return bins.data.map((bin) => {
       return (
         <option key={bin.attributes.id} value={bin.attributes.id}>
           {bin.attributes.name}

@@ -1,16 +1,13 @@
 import { combineReducers } from 'redux';
 import authReducer from './auth';
-//import bottlesReducer from './bottles';
 import bottleReducer from '../features/bottles/bottleSlice';
-import usersReducer from './users';
-//import ordersReducer from './orders';
+import usersReducer from '../features/users/userSlice';
 import orderReducer from '../features/orders/orderSlice';
-//import attributesReducer from './attributes';
 import attributesReducer from '../features/attributes/attributeSlice';
 
 export default combineReducers({
   auth: authReducer,
-  usersList: usersReducer,
+  users: usersReducer,
   bottles: bottleReducer,
   orders: orderReducer,
   attributes: attributesReducer,

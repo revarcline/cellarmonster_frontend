@@ -8,7 +8,6 @@ import {
   getProducers,
   getBins,
 } from '../features/attributes/attributeSlice';
-import { getUsers } from '../actions/users';
 import { withRouter } from 'react-router-dom';
 import Logout from './auth/Logout';
 import Search from './Search';
@@ -16,20 +15,22 @@ import './TopNav.css';
 
 const TopNav = (props) => {
   const dispatch = useDispatch();
-  const { attributes, auth, usersList } = useSelector((state) => state);
+  const {
+    attributes,
+    auth,
+    users: { userList },
+  } = useSelector((state) => state);
 
   const handleGetCountries = async () => await dispatch(getCountries());
   const handleGetVarietals = async () => await dispatch(getVarietals());
   const handleGetProducers = async () => await dispatch(getProducers());
   const handleGetBins = async () => await dispatch(getBins());
-  const handleGetUsers = async () => await dispatch(getUsers());
 
   useEffect(() => {
     handleGetCountries();
     handleGetVarietals();
     handleGetProducers();
     handleGetBins();
-    handleGetUsers();
   }, []);
 
   const renderBottlesDropdown = () => {
@@ -74,7 +75,7 @@ const TopNav = (props) => {
   };
 
   const renderUsersDropdown = () => {
-    const users = usersList.users;
+    const users = userList.data;
     return (
       <NavDropdown title="Users">
         <NavDropdown.Item>

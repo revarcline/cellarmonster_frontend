@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getUsers } from '../../actions/users';
+import { getUsers } from '../../features/users/userSlice';
 import LoginCard from './LoginCard';
 import { Spinner, Container, Row, Col } from 'react-bootstrap';
 
@@ -12,19 +12,23 @@ const LoginMenu = (props) => {
     handleGetUsers();
   }, []);
 
-  const { users, userListLoading } = useSelector((state) => state.usersList);
+  const {
+    users: {
+      userList: { status, data },
+    },
+  } = useSelector((state) => state);
 
   const generateCards = () => {
-    return users.map(({ attributes: { email, name, role, id } }) => {
+    return data.map(({ attributes: { email, name, role, id } }) => {
       const capsRole = role.charAt(0).toUpperCase() + role.slice(1);
       return <LoginCard email={email} name={name} role={capsRole} key={id} />;
     });
   };
 
   const handleLoading = () => {
-    if (userListLoading === 'loading') {
+    if (status === 'loading') {
       return <Spinner animation="border" role="status" />;
-    } else if (userListLoading === 'finished') {
+    } else if (status === 'finished') {
       return generateCards();
     }
   };

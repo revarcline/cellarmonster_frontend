@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser } from '../../actions/users';
+import { getUser } from '../../features/users/userSlice.js';
 import UserForm from './UserForm';
 import { Card, Button, Spinner, Collapse } from 'react-bootstrap';
 
 const UserShow = (props) => {
   const dispatch = useDispatch();
 
-  const { usersList } = useSelector((state) => state);
-  const user = usersList.user.attributes;
-  const loading = usersList.userLoading;
+  const {
+    users: {
+      user: { data, status },
+    },
+  } = useSelector((state) => state);
+  const user = data.attributes;
 
   const [showEdit, setShowEdit] = useState(false);
 
@@ -55,9 +58,9 @@ const UserShow = (props) => {
   };
 
   const handleLoading = () => {
-    if (loading === 'loading') {
+    if (status === 'loading') {
       return <Spinner animation="border" role="status" />;
-    } else if (loading === 'finished') {
+    } else if (status === 'finished') {
       return <>{userCard()}</>;
     }
   };

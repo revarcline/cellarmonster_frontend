@@ -61,6 +61,7 @@ const orderSlice = createSlice({
         data: action.payload.data,
         status: 'finished',
       };
+
       let newList = [state.orderPost.data, ...state.orderList.data];
       state.orderList = {
         ...state.orderList,
