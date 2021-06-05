@@ -1,15 +1,16 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { signupUser, updateUser } from '../../actions/auth';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
-import { withRouter } from 'react-router-dom';
+import { withRouter, useHistory } from 'react-router-dom';
 
 const UserForm = (props) => {
   const dispatch = useDispatch();
   const handleSignupUser = async (data) => await dispatch(signupUser(data));
   const handleUpdateUser = async (data) => await dispatch(updateUser(data));
   const mode = props.mode === 'edit' ? 'edit' : 'new';
+  const history = useHistory();
 
   const initialValues =
     mode === 'edit'
@@ -24,7 +25,7 @@ const UserForm = (props) => {
           role: 'server',
         };
 
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit } = useForm();
 
   const onSubmit = (data, event) => {
     event.preventDefault();

@@ -92,6 +92,51 @@ const userAPI = {
       .get(`${apiRoot}/users/${id}`)
       .then((response) => response.data)
       .catch((error) => error),
+
+  deleteUser: (id) =>
+    axios
+      .delete(`${apiRoot}/users/registrations/${id}`)
+      .then((response) => response.data)
+      .catch((error) => error),
+
+  // auth
+  signupUser: (credentials) =>
+    axios
+      .post(`${apiRoot}/signup`, credentials)
+      .then((response) => response)
+      .catch((error) => error),
+
+  updateUser: (credentials) =>
+    axios
+      .patch(`${apiRoot}/signup`, credentials)
+      .then((response) => response)
+      .catch((error) => error),
+
+  loginUser: (credentials) =>
+    axios
+      .post(`${apiRoot}/login`, credentials)
+      .then((response) => response)
+      .catch((error) => error),
+
+  logoutUser: (token) =>
+    axios
+      .delete(`${apiRoot}/logout`, {
+        headers: {
+          authorization: token,
+        },
+      })
+      .then((response) => response)
+      .catch((error) => error),
+
+  checkAuth: (token) =>
+    axios
+      .get(`${apiRoot}/current_user`, {
+        headers: {
+          authorization: token,
+        },
+      })
+      .then((response) => response)
+      .catch((error) => error),
 };
 
 export default userAPI;
