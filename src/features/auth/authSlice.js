@@ -2,8 +2,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import userAPI from '../userAPI';
 
 const initialState = {
-  signup: { status: idle },
-  update: { status: idle },
+  signup: { status: 'idle' },
+  update: { status: 'idle' },
   authentication: {
     authChecked: false,
     loggedInloggedIn: false,
@@ -38,10 +38,16 @@ export const loginUser = createAsyncThunk(
   async (credentials) => await userAPI.loginUser(credentials),
 );
 
+export const logoutUser = createAsyncThunk(
+  'auth/logoutUser',
+  async () => await userAPI.logoutUser(),
+);
+
 export const checkAuth = createAsyncThunk(
   'auth/checkAuth',
   async (token) => await userAPI.checkAuth(getToken()),
 );
+
 const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -70,6 +76,26 @@ const authSlice = createSlice({
       };
     },
 
+    // update
+    [updateUser.pending]: (state, action) => {
+      state.update = {
+        ...state.update,
+        status: 'loading',
+      };
+    },
+    [updateUser.fulfilled]: (state, action) => {
+      state.update = {
+        ...state.update,
+        status: 'finished',
+      };
+    },
+    [updateUser.rejected]: (state, action) => {
+      state.update = {
+        ...state.update,
+        status: 'failed',
+      };
+    },
+
     // login
     [loginUser.pending]: (state, action) => {
       state.authentication = {
@@ -82,7 +108,7 @@ const authSlice = createSlice({
       state.authentication = {
         ...state.authentication,
         authChecked: true,
-        loggedInloggedIn: true,
+        loggedIn: true,
         currentUser: action.payload,
         status: 'finished',
       };
@@ -96,6 +122,32 @@ const authSlice = createSlice({
         status: 'failed',
       };
     },
+
+    //logout
+    [logoutUser.pending]: (state, action) => {
+      state.authentication = {
+        ...state.authentication,
+        status: 'loading',
+      };
+    },
+    [logoutUser.fulfilled]: (state, action) => {
+      setToken(action.payload.headers.get('Authorization'));
+      state.authentication = {
+        ...state.authentication,
+        authChecked: false,
+        loggedIn: false,
+        currentUser: {},
+        status: 'finished',
+      };
+    },
+
+    [logoutUser.rejected]: (state, action) => {
+      state.authentication = {
+        ...state.authentication,
+        status: 'failed',
+      };
+    },
+
     // checkAuth
     [checkAuth.pending]: (state, action) => {
       state.authentication = {
