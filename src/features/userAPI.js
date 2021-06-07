@@ -115,7 +115,10 @@ const userAPI = {
   loginUser: (credentials) =>
     axios
       .post(`${apiRoot}/login`, credentials)
-      .then((response) => response)
+      .then((response) => {
+        console.log(response);
+        return response;
+      })
       .catch((error) => error),
 
   logoutUser: (token) =>

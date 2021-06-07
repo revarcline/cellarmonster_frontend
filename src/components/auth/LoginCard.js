@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { loginUser } from '../../actions/auth';
+import { loginUser } from '../../features/auth/authSlice';
 import { withRouter } from 'react-router-dom';
 import { Card, Form, Button, Collapse, Container, InputGroup } from 'react-bootstrap';
 

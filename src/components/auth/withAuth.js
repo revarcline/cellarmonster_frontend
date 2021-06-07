@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { checkAuth } from '../../actions/auth';
+import { checkAuth } from '../../features/auth/authSlice';
 import { Spinner, Alert } from 'react-bootstrap';
 import LoginMenu from './LoginMenu';
 
@@ -12,7 +12,9 @@ const withAuth = (WrappedComponent, role, extraProps) => {
     }, []);
 
     const {
-      auth: { authChecked, loggedIn, currentUser },
+      auth: {
+        authentication: { authChecked, loggedIn },
+      },
     } = useSelector((state) => state);
 
     const handleCheckAuth = () => dispatch(checkAuth());

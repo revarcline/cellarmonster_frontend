@@ -33,6 +33,11 @@ export const signupUser = createAsyncThunk(
   async (credentials) => await userAPI.signupUser(credentials),
 );
 
+export const updateUser = createAsyncThunk(
+  'auth/updateUser',
+  async (credentials) => await userAPI.updateUser(credentials),
+);
+
 export const loginUser = createAsyncThunk(
   'auth/loginUser',
   async (credentials) => await userAPI.loginUser(credentials),
