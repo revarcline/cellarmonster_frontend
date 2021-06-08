@@ -33,45 +33,50 @@ const TopNav = (props) => {
     handleGetBins();
   }, []);
 
+  const attributesLoaded = (mode) =>
+    countries.status === mode && producers.status === mode && varietals.status === mode;
+
   const renderBottlesDropdown = () => {
-    const categories = {
-      countries: [...countries.data],
-      varietals: [...varietals.data],
-      producers: [...producers.data],
-    };
-    return (
-      <>
-        <Nav.Item>
-          <LinkContainer to="/bottles">
-            <Nav.Link>All Bottles</Nav.Link>
-          </LinkContainer>
-        </Nav.Item>
-        {Object.keys(categories).map((category) => {
-          return (
-            <Nav.Item key={category}>
-              <NavDropdown drop="right" title={category.replace(/^\w/, (c) => c.toUpperCase())}>
-                {categories[category].map((item) => {
-                  return (
-                    <Nav.Item key={item.attributes.id}>
-                      <NavDropdown.Item>
-                        <LinkContainer to={`/${category}/${item.attributes.id}`}>
-                          <Nav.Link>{item.attributes.name}</Nav.Link>
-                        </LinkContainer>
-                      </NavDropdown.Item>
-                    </Nav.Item>
-                  );
-                })}
-              </NavDropdown>
-            </Nav.Item>
-          );
-        })}
-        <Nav.Item>
-          <LinkContainer to="/bottle/new">
-            <Nav.Link>New Bottle</Nav.Link>
-          </LinkContainer>
-        </Nav.Item>
-      </>
-    );
+    if (attributesLoaded('finished')) {
+      const categories = {
+        countries: [...countries.data],
+        varietals: [...varietals.data],
+        producers: [...producers.data],
+      };
+      return (
+        <>
+          <Nav.Item>
+            <LinkContainer to="/bottles">
+              <Nav.Link>All Bottles</Nav.Link>
+            </LinkContainer>
+          </Nav.Item>
+          {Object.keys(categories).map((category) => {
+            return (
+              <Nav.Item key={category}>
+                <NavDropdown drop="right" title={category.replace(/^\w/, (c) => c.toUpperCase())}>
+                  {categories[category].map((item) => {
+                    return (
+                      <Nav.Item key={item.attributes.id}>
+                        <NavDropdown.Item>
+                          <LinkContainer to={`/${category}/${item.attributes.id}`}>
+                            <Nav.Link>{item.attributes.name}</Nav.Link>
+                          </LinkContainer>
+                        </NavDropdown.Item>
+                      </Nav.Item>
+                    );
+                  })}
+                </NavDropdown>
+              </Nav.Item>
+            );
+          })}
+          <Nav.Item>
+            <LinkContainer to="/bottle/new">
+              <Nav.Link>New Bottle</Nav.Link>
+            </LinkContainer>
+          </Nav.Item>
+        </>
+      );
+    }
   };
 
   const renderUsersDropdown = () => {
