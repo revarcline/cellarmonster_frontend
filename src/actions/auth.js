@@ -26,7 +26,6 @@ export const signupUser = (credentials) => {
       body: JSON.stringify({ user: credentials }),
     }).then((res) => {
       if (res.ok) {
-        setToken(res.headers.get('Authorization'));
         return res.json().then((userJson) => dispatch({ type: AUTHENTICATED, payload: userJson }));
       } else {
         return res.json().then((errors) => {

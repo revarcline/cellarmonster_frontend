@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-//import authReducer from './auth';
-import authReducer from '../features/auth/authSlice';
+import authReducer from './auth';
+//import authReducer from '../features/auth/authSlice';
 import bottleReducer from '../features/bottles/bottleSlice';
 import usersReducer from '../features/users/userSlice';
 import orderReducer from '../features/orders/orderSlice';

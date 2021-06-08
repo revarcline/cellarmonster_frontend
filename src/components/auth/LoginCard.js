@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { loginUser } from '../../features/auth/authSlice';
+//import { loginUser } from '../../features/auth/authSlice';
+import { loginUser } from '../../actions/auth';
 import { withRouter } from 'react-router-dom';
 import { Card, Form, Button, Collapse, Container, InputGroup } from 'react-bootstrap';
 
@@ -12,7 +13,7 @@ const LoginCard = (props) => {
 
   const handleLoginUser = async (credentials) => await dispatch(loginUser(credentials));
 
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit } = useForm();
 
   const onSubmit = (data, event) => {
     event.preventDefault();

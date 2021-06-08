@@ -4,6 +4,22 @@ const axios = require('axios');
 const apiRoot = 'http://localhost:3001';
 //const apiRoot = 'https://cellarmonster.herokuapp.com';
 
+const setHeaders = {
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
+};
+
+const setHeadersWithToken = (token) => {
+  return {
+    headers: {
+      ...setHeaders.headers,
+      Authorization: token,
+    },
+  };
+};
+
 const userAPI = {
   //bottles
   getAllBottles: () =>
@@ -102,43 +118,37 @@ const userAPI = {
   // auth
   signupUser: (credentials) =>
     axios
-      .post(`${apiRoot}/signup`, credentials)
+      .post(`${apiRoot}/signup`, credentials, setHeaders)
       .then((response) => response)
       .catch((error) => error),
 
   updateUser: (credentials) =>
     axios
-      .patch(`${apiRoot}/signup`, credentials)
+      .patch(`${apiRoot}/signup`, credentials, setHeaders)
       .then((response) => response)
       .catch((error) => error),
 
   loginUser: (credentials) =>
     axios
-      .post(`${apiRoot}/login`, credentials)
+      .post(`${apiRoot}/login`, credentials, setHeaders)
       .then((response) => {
         console.log(response);
-        return response;
+        return { response: { data, headers } };
       })
       .catch((error) => error),
 
   logoutUser: (token) =>
     axios
-      .delete(`${apiRoot}/logout`, {
-        headers: {
-          authorization: token,
-        },
-      })
+      .delete(`${apiRoot}/logout`, setHeadersWithToken(token))
       .then((response) => response)
       .catch((error) => error),
 
   checkAuth: (token) =>
     axios
-      .get(`${apiRoot}/current_user`, {
-        headers: {
-          authorization: token,
-        },
+      .get(`${apiRoot}/current_user`, setHeadersWithToken(token))
+      .then((response) => {
+        return { response: { data, headers } };
       })
-      .then((response) => response)
       .catch((error) => error),
 };
 

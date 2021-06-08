@@ -109,12 +109,12 @@ const authSlice = createSlice({
       };
     },
     [loginUser.fulfilled]: (state, action) => {
-      setToken(action.payload.headers.get('Authorization'));
+      setToken(action.payload.headers['Authorization']);
       state.authentication = {
         ...state.authentication,
         authChecked: true,
         loggedIn: true,
-        currentUser: action.payload,
+        currentUser: action.payload.pending,
         status: 'finished',
       };
     },

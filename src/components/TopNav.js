@@ -16,7 +16,7 @@ import './TopNav.css';
 const TopNav = (props) => {
   const dispatch = useDispatch();
   const {
-    attributes,
+    attributes: { countries, varietals, producers },
     auth,
     users: { userList },
   } = useSelector((state) => state);
@@ -35,9 +35,9 @@ const TopNav = (props) => {
 
   const renderBottlesDropdown = () => {
     const categories = {
-      countries: [...attributes.countries.data],
-      varietals: [...attributes.varietals.data],
-      producers: [...attributes.producers.data],
+      countries: [...countries.data],
+      varietals: [...varietals.data],
+      producers: [...producers.data],
     };
     return (
       <>
