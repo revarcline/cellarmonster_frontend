@@ -16,6 +16,7 @@ const withAuth = (WrappedComponent, role, extraProps) => {
       auth: { authChecked, loggedIn },
     } = useSelector((state) => state);
 
+    //store structure for slice version (not implemented yet)
     //const {
     //auth: {
     //authentication: { authChecked, loggedIn },

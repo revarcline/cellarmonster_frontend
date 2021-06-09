@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../../features/users/userSlice.js';
 import { deleteUser } from '../../actions/auth';
 import UserForm from './UserForm';
-import { Card, Button, Spinner } from 'react-bootstrap';
+import { Card, Button, Spinner, Form } from 'react-bootstrap';
 
 const UserShow = (props) => {
   const dispatch = useDispatch();
@@ -19,14 +19,18 @@ const UserShow = (props) => {
   const [showDelete, setShowDelete] = useState(false);
 
   const handleGetUser = async () => await dispatch(getUser(props.match.params.id));
-  const handleDeleteUser = async (data) => await dispatch(deleteUser(data));
+  const handleDeleteUser = async () => await dispatch(deleteUser(user));
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    handleDeleteUser();
+  };
   useEffect(() => {
     handleGetUser();
   }, []);
 
   const showEditForm = () => {
-    // wrap edit form 
+    // wrap edit form
     if (showEdit) {
       return <UserForm editUser={user} mode="edit" />;
     }
@@ -34,7 +38,12 @@ const UserShow = (props) => {
 
   const showDeleteForm = () => {
     if (showDelete) {
-      return <p>pending delete form</p>;
+      return (
+        <Form onSubmit={handleSubmit}>
+          <Form.Check inline name="confirmation" label="Are you sure?" />
+          <Button type="submit">Delete</Button>
+        </Form>
+      );
     }
   };
 
