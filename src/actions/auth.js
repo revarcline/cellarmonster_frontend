@@ -60,6 +60,28 @@ export const updateUser = (credentials) => {
   };
 };
 
+export const deleteUser = (credentials) => {
+  return (dispatch) => {
+    return fetch(`${apiRoot}/signup`, {
+      method: 'PATCH',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ user: credentials }),
+    }).then((res) => {
+      if (res.ok) {
+        setToken(res.headers.get('Authorization'));
+        return res.json().then((userJson) => dispatch({ type: AUTHENTICATED, payload: userJson }));
+      } else {
+        return res.json().then((errors) => {
+          dispatch({ type: NOT_AUTHENTICATED });
+          return Promise.reject(errors);
+        });
+      }
+    });
+  };
+};
 export const loginUser = (credentials) => {
   return (dispatch) => {
     return fetch(`${apiRoot}/login`, {

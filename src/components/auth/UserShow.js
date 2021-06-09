@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUser } from '../../features/users/userSlice.js';
+import { deleteUser } from '../../actions/auth';
 import UserForm from './UserForm';
 import { Card, Button, Spinner } from 'react-bootstrap';
 
@@ -15,17 +16,25 @@ const UserShow = (props) => {
   const user = data.attributes;
 
   const [showEdit, setShowEdit] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
 
   const handleGetUser = async () => await dispatch(getUser(props.match.params.id));
+  const handleDeleteUser = async (data) => await dispatch(deleteUser(data));
 
   useEffect(() => {
     handleGetUser();
   }, []);
 
   const showEditForm = () => {
-    // wrap edit form
+    // wrap edit form 
     if (showEdit) {
       return <UserForm editUser={user} mode="edit" />;
+    }
+  };
+
+  const showDeleteForm = () => {
+    if (showDelete) {
+      return <p>pending delete form</p>;
     }
   };
 
@@ -48,9 +57,19 @@ const UserShow = (props) => {
               >
                 Edit User
               </Button>
+              {' ⦙ '}
+              <Button
+                onClick={() => {
+                  setShowDelete(!showDelete);
+                }}
+                aria-controls="collapse-form"
+              >
+                Delete User
+              </Button>
             </div>
           </Card.Body>
           {showEditForm(user)}
+          {showDeleteForm(user)}
           <br />
         </Card>
       </div>

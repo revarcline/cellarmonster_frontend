@@ -132,7 +132,6 @@ const userAPI = {
     axios
       .post(`${apiRoot}/login`, credentials, setHeaders)
       .then((response) => {
-        console.log(response);
         return { response: { data, headers } };
       })
       .catch((error) => error),

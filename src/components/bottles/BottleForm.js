@@ -34,12 +34,7 @@ import { range } from 'lodash-es';
 */
 
 const BottleForm = (props) => {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm({
+  const { register, handleSubmit } = useForm({
     defaultValues: { ...props.defaults },
   });
 

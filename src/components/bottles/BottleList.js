@@ -16,7 +16,7 @@ const BottleList = (props) => {
 
   const {
     bottles: {
-      bottleList: { status, data, error, resource },
+      bottleList: { status, data, resource },
     },
   } = useSelector((state) => state);
 

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { patchBottle, getBottles } from '../../features/bottles/bottleSlice';
 import { withRouter, useHistory } from 'react-router-dom';
@@ -30,7 +30,6 @@ const EditBottle = (props) => {
   };
 
   const handleLoading = () => {
-    console.log(props);
     if (bottleList.status !== 'finished') {
       return <Spinner animation="border" role="status" />;
     } else if (bottleList.status === 'finished') {

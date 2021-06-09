@@ -15,7 +15,6 @@ const BottleCard = (props) => {
 
   const {
     auth: { currentUser },
-    orders: { orderPost },
     bottles: { bottleDelete },
   } = useSelector((state) => state);
 
