@@ -1,18 +1,20 @@
 import React, { useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { patchBottle, getBottles } from '../../actions/bottles';
+import { patchBottle, getBottles } from '../../features/bottles/bottleSlice';
+import { withRouter, useHistory } from 'react-router-dom';
 import { Spinner } from 'react-bootstrap';
 import BottleForm from './BottleForm';
 
 const EditBottle = (props) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const handleGetBottles = async () =>
     await dispatch(getBottles('bottles', props.match.params.query));
 
   const dispatchUpdateBottle = async (data, id) => await dispatch(patchBottle(data, id));
 
   const {
-    bottles: { bottles, bottleLoading },
+    bottles: { bottleList },
   } = useSelector((state) => state);
 
   useEffect(() => {
@@ -23,16 +25,17 @@ const EditBottle = (props) => {
     event.preventDefault();
     const id = data.id;
     delete data.id;
-    dispatchUpdateBottle(data, id);
-    // push show bottle page in history when bottle is done posting
+    dispatchUpdateBottle({ data, id });
+    history.push(`/bottle/${id}`);
   };
 
   const handleLoading = () => {
-    if (bottleLoading === 'loading') {
+    console.log(props);
+    if (bottleList.status !== 'finished') {
       return <Spinner animation="border" role="status" />;
-    } else if (bottleLoading === 'finished') {
-      const bottle = bottles[0].attributes;
-      const bottle_id = bottles[0].id;
+    } else if (bottleList.status === 'finished') {
+      const bottle = bottleList.data[0].attributes;
+      const bottle_id = bottleList.data[0].id;
       const initialValues = {
         id: bottle_id,
         name: bottle.name,
@@ -61,4 +64,4 @@ const EditBottle = (props) => {
   return handleLoading();
 };
 
-export default EditBottle;
+export default withRouter(EditBottle);
