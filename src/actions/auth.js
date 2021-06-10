@@ -52,7 +52,7 @@ export const updateUser = (credentials) => {
   };
 };
 
-export const deleteUser = (credentials) => {
+export const deleteUser = (id) => {
   return (dispatch) => {
     return fetch(`${apiRoot}/signup`, {
       method: 'DELETE',
@@ -61,7 +61,7 @@ export const deleteUser = (credentials) => {
         'Content-Type': 'application/json',
         Authorization: getToken(),
       },
-      body: JSON.stringify({ user: credentials }),
+      body: JSON.stringify({ user: id }),
     });
   };
 };

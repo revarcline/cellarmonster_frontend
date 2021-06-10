@@ -8,7 +8,9 @@ import { withRouter, useHistory } from 'react-router-dom';
 const UserForm = (props) => {
   const dispatch = useDispatch();
   const handleSignupUser = async (data) => await dispatch(signupUser(data));
-  const handleUpdateUser = async (data) => await dispatch(updateUser(data));
+  const handleUpdateUser = async (data) => {
+    await dispatch(updateUser(data));
+  };
   const mode = props.mode === 'edit' ? 'edit' : 'new';
   const history = useHistory();
 
@@ -33,6 +35,7 @@ const UserForm = (props) => {
       handleSignupUser(data);
       history.push('/bottles');
     } else if (mode === 'edit') {
+      data.user_id = props.editUser.id;
       handleUpdateUser(data);
     }
   };

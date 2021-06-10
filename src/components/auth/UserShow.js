@@ -19,7 +19,7 @@ const UserShow = (props) => {
   const [showDelete, setShowDelete] = useState(false);
 
   const handleGetUser = async () => await dispatch(getUser(props.match.params.id));
-  const handleDeleteUser = async () => await dispatch(deleteUser(user));
+  const handleDeleteUser = async () => await dispatch(deleteUser(user.id));
 
   const handleSubmit = (event) => {
     event.preventDefault();
