@@ -27,7 +27,6 @@ const App = (props) => {
                 <Route exact path="/" component={LoginMenu} />
                 <Route path="/users/new" component={withAuth(UserForm)} />
                 <Route path="/users/:id" component={withAuth(UserShow)} />
-                {/* <Route path="/orders" component={withAuth(OrderList)} /> */}
                 <Route path="/bottles" component={withAuth(BottleList)} />
                 <Route path="/bottle/new" exact component={withAuth(NewBottle)} />
                 <Route path="/bottle/edit/:query" component={withAuth(EditBottle)} />

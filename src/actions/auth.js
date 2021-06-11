@@ -1,4 +1,4 @@
-import { AUTHENTICATED, NOT_AUTHENTICATED } from '.';
+import { AUTHENTICATED, NOT_AUTHENTICATED, NEW_USER } from '.';
 import apiRoot from '../apiConfig';
 
 const setToken = (token) => {
@@ -27,7 +27,7 @@ export const signupUser = (credentials) => {
       body: JSON.stringify({ user: credentials }),
     }).then((res) => {
       if (res.ok) {
-        return res.json().then((userJson) => dispatch({ type: AUTHENTICATED, payload: userJson }));
+        return res.json().then((userJson) => dispatch({ type: NEW_USER, payload: userJson }));
       } else {
         return res.json().then((errors) => {
           dispatch({ type: NOT_AUTHENTICATED });

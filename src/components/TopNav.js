@@ -124,7 +124,7 @@ const TopNav = (props) => {
           {auth.loggedIn ? (
             <>
               <Nav.Item>
-                <LinkContainer to="/orders">
+                <LinkContainer to={`/users/${auth.currentUser.id}`}>
                   <Nav.Link>{auth.currentUser.name}</Nav.Link>
                 </LinkContainer>
               </Nav.Item>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { signupUser, updateUser } from '../../actions/auth';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import { withRouter, useHistory } from 'react-router-dom';
@@ -12,6 +12,9 @@ const UserForm = (props) => {
     await dispatch(updateUser(data));
   };
   const mode = props.mode === 'edit' ? 'edit' : 'new';
+  const {
+    auth: { newUser },
+  } = useSelector((state) => state);
   const history = useHistory();
 
   const initialValues =
@@ -32,11 +35,10 @@ const UserForm = (props) => {
   const onSubmit = (data, event) => {
     event.preventDefault();
     if (mode === 'new') {
-      handleSignupUser(data);
-      history.push('/bottles');
+      handleSignupUser(data).then(() => history.push('/bottles'));
     } else if (mode === 'edit') {
       data.user_id = props.editUser.id;
-      handleUpdateUser(data);
+      handleUpdateUser(data).then(history.push('/bottles'));
     }
   };
 

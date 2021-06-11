@@ -12,6 +12,7 @@ const UserShow = (props) => {
     users: {
       user: { data, status },
     },
+    auth: { currentUser },
   } = useSelector((state) => state);
   const user = data.attributes;
 
@@ -57,28 +58,31 @@ const UserShow = (props) => {
           <Card.Body>
             <p>email: {user.email}</p>
             <p>role: {user.role}</p>
-            <div>
-              <Button
-                onClick={() => {
-                  setShowEdit(!showEdit);
-                }}
-                aria-controls="collapse-form"
-              >
-                Edit User
-              </Button>
-              {' ⦙ '}
-              <Button
-                onClick={() => {
-                  setShowDelete(!showDelete);
-                }}
-                aria-controls="collapse-form"
-              >
-                Delete User
-              </Button>
-            </div>
+            {currentUser.role === 'admin' ? (
+              <div>
+                <Button
+                  onClick={() => {
+                    setShowEdit(!showEdit);
+                  }}
+                  aria-controls="collapse-form"
+                >
+                  Edit User
+                </Button>
+                {' ⦙ '}
+                <Button
+                  onClick={() => {
+                    setShowDelete(!showDelete);
+                  }}
+                  aria-controls="collapse-form"
+                >
+                  Delete User
+                </Button>
+              </div>
+            ) : null}
           </Card.Body>
-          {showEditForm(user)}
-          {showDeleteForm(user)}
+
+          {currentUser.role === 'admin' ? showEditForm(user) : null}
+          {currentUser.role === 'admin' ? showDeleteForm(user) : null}
           <br />
         </Card>
       </div>

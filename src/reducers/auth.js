@@ -1,4 +1,4 @@
-import { AUTHENTICATED, NOT_AUTHENTICATED } from '../actions';
+import { AUTHENTICATED, NOT_AUTHENTICATED, NEW_USER } from '../actions';
 
 const initialState = {
   authChecked: false,
@@ -20,6 +20,12 @@ export default function authReducer(state = initialState, action) {
         loggedIn: false,
         currentUser: {},
       };
+    case NEW_USER: {
+      return {
+        ...state,
+        newUser: action.payload.data.id,
+      };
+    }
     default:
       return state;
   }
