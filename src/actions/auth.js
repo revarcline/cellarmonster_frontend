@@ -1,5 +1,5 @@
 import { AUTHENTICATED, NOT_AUTHENTICATED, NEW_USER } from '.';
-import apiRoot from '../apiConfig';
+import { apiRoot } from '../userAPI';
 
 const setToken = (token) => {
   localStorage.setItem('token', token);
