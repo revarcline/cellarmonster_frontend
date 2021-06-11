@@ -1,6 +1,6 @@
 import React from 'react';
 import { signupUser, updateUser } from '../../actions/auth';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import { withRouter, useHistory } from 'react-router-dom';
