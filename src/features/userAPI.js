@@ -1,8 +1,8 @@
 const axios = require('axios');
 
 // set api root here
-const apiRoot = 'http://localhost:3001';
-//const apiRoot = 'https://cellarmonster.herokuapp.com';
+//const apiRoot = 'http://localhost:3001';
+const apiRoot = 'https://cellarmonster.herokuapp.com';
 
 const setHeaders = {
   headers: {
