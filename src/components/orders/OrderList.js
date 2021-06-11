@@ -10,16 +10,20 @@ const OrderList = (props) => {
     orders: {
       orderList: { data, status },
     },
-    auth: { currentUser },
+    auth: { currentUser, loggedIn },
   } = useSelector((state) => state);
 
-  const handleGetOrders = (id) => dispatch(getOrders(id));
+  const handleGetOrders = (id) => {
+    dispatch(getOrders(id));
+  };
 
   useEffect(() => {
-    if (currentUser.role === 'server') {
-      handleGetOrders(currentUser.id);
-    } else {
-      handleGetOrders();
+    if (loggedIn) {
+      if (currentUser.role === 'server') {
+        handleGetOrders(currentUser.id);
+      } else {
+        handleGetOrders();
+      }
     }
   }, []);
 

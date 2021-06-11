@@ -6,11 +6,12 @@ const initialState = {
   orderPost: { data: {}, status: 'idle', error: null },
 };
 
-export const getOrders = createAsyncThunk('orders/getOrders', async (user) => {
-  if (!user) {
+export const getOrders = createAsyncThunk('orders/getOrders', async (userId) => {
+  if (!userId) {
     return await userAPI.getAllOrders();
   } else {
-    return await userAPI.getUserOrders(user);
+    console.log('looking for user');
+    return await userAPI.getUserOrders(userId);
   }
 });
 

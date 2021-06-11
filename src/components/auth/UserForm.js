@@ -80,15 +80,17 @@ const UserForm = (props) => {
                 <option value="admin">Admin</option>
               </Form.Control>
             </Form.Group>
-            <Form.Group>
-              <Form.Label htmlFor="password">Passcode:</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Enter Passcode"
-                id="password"
-                {...register('password', { required: true })}
-              />
-            </Form.Group>
+            {mode === 'new' ? (
+              <Form.Group>
+                <Form.Label htmlFor="password">Passcode:</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Enter Passcode"
+                  id="password"
+                  {...register('password', { required: true })}
+                />
+              </Form.Group>
+            ) : null}
             <br />
             <Button type="submit" variant="primary">
               Submit
