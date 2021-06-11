@@ -10,7 +10,6 @@ export const getOrders = createAsyncThunk('orders/getOrders', async (userId) => 
   if (!userId) {
     return await userAPI.getAllOrders();
   } else {
-    console.log('looking for user');
     return await userAPI.getUserOrders(userId);
   }
 });

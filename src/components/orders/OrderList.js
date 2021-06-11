@@ -26,7 +26,7 @@ const OrderList = (props) => {
       console.log('admin or runner');
       handleGetOrders();
     }
-  }, []);
+  }, [currentUser]);
 
   const generateCards = () => {
     return data.map(({ id, attributes }) => {
