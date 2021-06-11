@@ -18,12 +18,13 @@ const OrderList = (props) => {
   };
 
   useEffect(() => {
-    if (loggedIn) {
-      if (currentUser.role === 'server') {
-        handleGetOrders(currentUser.id);
-      } else {
-        handleGetOrders();
-      }
+    console.log(currentUser.role);
+    if (currentUser.role === 'server') {
+      console.log('server logged in');
+      handleGetOrders(currentUser.id);
+    } else {
+      console.log('admin or runner');
+      handleGetOrders();
     }
   }, []);
 

@@ -18,7 +18,7 @@ const LoginCard = (props) => {
   const onSubmit = (data, event) => {
     event.preventDefault();
     const sendData = { ...data, email: props.email };
-    handleLoginUser(sendData).then(() => props.history.push('/bottles')).then;
+    handleLoginUser(sendData).then(() => props.history.push('/bottles'));
   };
 
   return (
