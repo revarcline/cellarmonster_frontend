@@ -10,7 +10,7 @@ const OrderList = (props) => {
     orders: {
       orderList: { data, status },
     },
-    auth: { currentUser, loggedIn },
+    auth: { currentUser },
   } = useSelector((state) => state);
 
   const handleGetOrders = (id) => {

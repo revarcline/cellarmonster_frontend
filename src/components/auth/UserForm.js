@@ -12,9 +12,6 @@ const UserForm = (props) => {
     await dispatch(updateUser(data));
   };
   const mode = props.mode === 'edit' ? 'edit' : 'new';
-  const {
-    auth: { newUser },
-  } = useSelector((state) => state);
   const history = useHistory();
 
   const initialValues =
