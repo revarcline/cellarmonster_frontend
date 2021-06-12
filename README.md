@@ -1,6 +1,5 @@
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# cellarmonster
+cellarmonster is a rails/react app for live wine inventory management in foodservice/hospitality settings. A demo is available [here](https://cellarmonster.buckar.ooo/). The password to all accounts in the demo is 'password'. Admin roles have full access to all resources, Servers can create orders, and Runner is effectively read-only. API code can be found [here](https://github.com/revarcline/cellarmonster_api).
 
 ## Available Scripts
 
@@ -69,4 +68,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
-basis of auth from [https://github.com/DakotaLMartinez/react-redux-auth-client](this excellent tutorial by Dakota L Martinez)
+### other acknowledgments
+basis of redux jwt/devise auth system from [https://github.com/DakotaLMartinez/react-redux-auth-client](this excellent tutorial by Dakota L Martinez)
