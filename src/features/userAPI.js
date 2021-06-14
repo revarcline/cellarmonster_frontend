@@ -112,7 +112,7 @@ const userAPI = {
       .then((response) => response.data)
       .catch((error) => error),
 
-  // auth
+  // auth - not implemented, see src/actions/auth instead
   signupUser: (credentials) =>
     axios
       .post(`${apiRoot}/signup`, credentials, setHeaders)
