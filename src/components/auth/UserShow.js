@@ -19,7 +19,7 @@ const UserShow = (props) => {
   const [showEdit, setShowEdit] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
 
-  const handleGetUser = async () => await dispatch(getUser(props.match.params.id));
+  const handleGetUser = async (id) => await dispatch(getUser(id));
   const handleDeleteUser = async () => await dispatch(deleteUser(user.id));
 
   const handleSubmit = (event) => {
@@ -27,7 +27,7 @@ const UserShow = (props) => {
     handleDeleteUser();
   };
   useEffect(() => {
-    handleGetUser();
+    handleGetUser(props.match.params.id);
   }, [props.match.params.id]);
 
   const showEditForm = () => {
