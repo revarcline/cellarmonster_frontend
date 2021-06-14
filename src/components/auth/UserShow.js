@@ -28,7 +28,7 @@ const UserShow = (props) => {
   };
   useEffect(() => {
     handleGetUser();
-  }, []);
+  }, [props.match.params.id]);
 
   const showEditForm = () => {
     // wrap edit form
