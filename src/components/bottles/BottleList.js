@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBottles } from '../../features/bottles/bottleSlice';
 import BottleCard from './BottleCard';
-import { Container, Row, Col, Spinner } from 'react-bootstrap';
+import { Container, Row, Col, Spinner, Button } from 'react-bootstrap';
 import { useParams, withRouter } from 'react-router-dom';
 
 const BottleList = (props) => {
@@ -10,9 +10,13 @@ const BottleList = (props) => {
   const { by, term } = useParams();
   const handleGetBottles = async () => await dispatch(getBottles({ by, term }));
 
+  const [sortedBottles, setSortedBottles] = useState(false);
+
   useEffect(() => {
     handleGetBottles();
   }, [by, term]);
+
+  const toggleSort = () => setSortedBottles(!sortedBottles);
 
   const {
     bottles: {
@@ -21,10 +25,18 @@ const BottleList = (props) => {
   } = useSelector((state) => state);
 
   const generateCards = () => {
-    if (data.length === 0) {
+    let sortedData;
+    if (sortedBottles) {
+      // sort here
+      // example employees.sort((a, b) => b.age - a.age);
+      sortedData = data.slice().sort((a, b) => a.attributes.price - b.attributes.price);
+    } else {
+      sortedData = data;
+    }
+    if (sortedData.length === 0) {
       return <h1>No Results</h1>;
     } else {
-      return data.map(
+      return sortedData.map(
         ({
           id,
           attributes: {
@@ -101,7 +113,9 @@ const BottleList = (props) => {
           <h2>{resourceName()}</h2>
         </Container>
       </Row>
-
+      <Row>
+        <Button onClick={toggleSort}>{sortedBottles ? 'Unsort' : 'Sort by Price'}</Button>
+      </Row>
       <Row className="justify-content-md-center">
         <Col xs="auto">{handleLoading()}</Col>
       </Row>
